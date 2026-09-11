@@ -1,0 +1,90 @@
+#metadataBlock	name	dataverseAlias	displayName
+	hewResource		HEW Resource Metadata
+	hewReview		HEW Review Coding
+	hewDataResource		HEW Data Resource Metadata
+	hewProvenance		HEW Provenance Metadata
+#datasetField	name	title	description	watermark	fieldType	displayOrder	displayFormat	advancedSearchField	allowControlledVocabulary	allowmultiples	facetable	displayoncreate	required	parent	metadatablock_id	termURI
+	hewResourceId	HEW Resource Identifier	Canonical identifier for the HEW catalog resource		text	0		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewResource	
+	hewResourceType	HEW Resource Type	Type of resource represented by this record		text	1		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewResource	
+	hewResourceStatus	HEW Resource Status	Lifecycle or curation status of the HEW resource		text	2		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewResource	
+	hewCanonicalUrl	HEW Canonical URL	Canonical web URL for the HEW resource	https://...	url	3	<a href="#VALUE" target="_blank">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		hewResource	
+	hewAlternateIdentifier	HEW Alternate Identifier	Additional identifier for the HEW resource		text	4		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
+	hewExposureConcept	Exposure Concept	HEW or external ontology identifier for an exposure concept	CURIE or URI	text	5	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
+	hewHealthImpactConcept	Health Impact Concept	HEW or external ontology identifier for a health-impact concept	CURIE or URI	text	6	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
+	hewGeographyConcept	Geography Concept	HEW or external ontology identifier for a geography concept	CURIE or URI	text	7	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
+	hewTopicConcept	HEW Topic Concept	HEW or external ontology identifier for a topic	CURIE or URI	text	8	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
+	hewRelatedResource	Related HEW Resource	Identifier of a related HEW catalog resource		text	9	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
+	hewCatalogVersion	HEW Catalog Version	Version of the HEW catalog or source record used for dissemination		text	10		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewResource	
+	hewSchemaVersion	HEW Schema Version	Version of the HEW schema used for the projection		text	11		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewResource	
+	hewCodingScheme	Coding Scheme	Name of the review coding scheme		text	0		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		hewReview	
+	hewCodingSchemeVersion	Coding Scheme Version	Version of the review coding scheme		text	1		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		hewReview	
+	hewAnnotationDate	Annotation Date	Date on which the annotation was created		date	2		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		hewReview	
+	hewCodingMethod	Coding Method	Method used to produce the review coding		text	3		TRUE	TRUE	FALSE	TRUE	FALSE	FALSE		hewReview	
+	hewInformationSource	Information Source	Source used for the review coding		text	4		TRUE	TRUE	FALSE	TRUE	FALSE	FALSE		hewReview	
+	hewCoderIdentifier	Coder Identifier	Identifier for a human or software coder		text	5	#VALUE	TRUE	FALSE	TRUE	TRUE	FALSE	FALSE		hewReview	
+	hewReviewerIdentifier	Reviewer Identifier	Identifier for a human or group that reviewed the annotation		text	6	#VALUE	TRUE	FALSE	TRUE	TRUE	FALSE	FALSE		hewReview	
+	hewExposureAnnotation	Exposure Annotation	Structured or URI-based exposure coding value		text	7	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewReview	
+	hewHealthImpactAnnotation	Health Impact Annotation	Structured or URI-based health-impact coding value		text	8	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewReview	
+	hewGeographyAnnotation	Geography Annotation	Structured or URI-based geography coding value		text	9	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewReview	
+	hewDataToolMethodAnnotation	Data Tool or Method Annotation	Structured or URI-based data-tool or model coding value		text	10	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewReview	
+	hewSpecialTopicAnnotation	Special Topic Annotation	Structured or URI-based special-topic coding value		text	11	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewReview	
+	hewEvidenceText	Evidence Text	Text supporting the annotation		textbox	12		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewReview	
+	hewAnnotationNotes	Annotation Notes	Curator notes about the annotation		textbox	13		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewReview	
+	hewConfidence	Annotation Confidence	Confidence assigned to the annotation		float	14		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewReview	
+	hewNeedsHumanReview	Needs Human Review	Whether the annotation requires human review		text	15		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewReview	
+	hewDataDictionaryUrl	Data Dictionary URL	URL for the data dictionary associated with the resource	https://...	url	0	<a href="#VALUE" target="_blank">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		hewDataResource	
+	hewMeasuredVariable	Measured Variable	Measured variable name or HEW/external concept identifier		text	1	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDataResource	
+	hewEnvironmentalVariable	Environmental Variable	Environmental variable identifier or name		text	2	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDataResource	
+	hewMeasuredProperty	Measured Property	Ontology identifier for the measured environmental property	CURIE or URI	text	3	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDataResource	
+	hewMeasurementMethod	Measurement Method	Identifier or description of how the variable was measured or derived		text	4	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDataResource	
+	hewAggregationMethod	Aggregation Method	Method used to summarize values		text	5		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewDataResource	
+	hewSpatialSupport	Variable Spatial Support	Spatial unit represented by one variable value		text	6		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDataResource	
+	hewTemporalSupport	Variable Temporal Support	Temporal resolution or aggregation window for one variable value		text	7		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDataResource	
+	hewConceptMapping	Concept Mapping	External ontology mapping for a variable	CURIE or URI	text	8	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDataResource	
+	hewOmopConceptId	OMOP Concept ID	OMOP concept identifier when available		int	9		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewDataResource	
+	hewOmopConceptStatus	OMOP Concept Status	Status of the OMOP concept binding		text	10		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewDataResource	
+	hewDistributionUrl	Distribution URL	URL for a downloadable, API, service, or object distribution	https://...	url	11	<a href="#VALUE" target="_blank">#VALUE</a>	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDataResource	
+	hewAgentIdentifier	Agent Identifier	Identifier for a person, organization, or software agent	CURIE or URI	text	0	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewProvenance	
+	hewAssociatedEntity	Associated Entity	Identifier for the entity associated with the agent	CURIE or URI	text	1	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewProvenance	
+	hewAgentRole	Agent Role	Role played by the agent in relation to the associated entity		text	2		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewProvenance	
+	hewAssociationStartDate	Association Start Date	Start date of the role or association		date	3		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewProvenance	
+	hewAssociationEndDate	Association End Date	End date of the role or association		date	4		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewProvenance	
+	hewAffiliationContext	Affiliation Context	Affiliation or organizational context for the association		text	5		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		hewProvenance	
+	hewContributionDescription	Contribution Description	Description of the agent contribution		textbox	6		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		hewProvenance	
+	hewProvenanceSource	Provenance Source	Source supporting the provenance association	CURIE or URI	text	7	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewProvenance	
+#controlledVocabulary	DatasetField	Value	identifier	displayOrder
+	hewResourceType	Literature resource	hew_resource_literature	1
+	hewResourceType	Dataset resource	hew_resource_dataset	2
+	hewResourceType	Cohort resource	hew_resource_cohort	3
+	hewResourceType	Survey instrument	hew_resource_survey	4
+	hewResourceType	Software resource	hew_resource_software	5
+	hewResourceType	Model resource	hew_resource_model	6
+	hewResourceType	Geospatial resource	hew_resource_geospatial	7
+	hewResourceStatus	Active	hew_status_active	1
+	hewResourceStatus	Draft	hew_status_draft	2
+	hewResourceStatus	Archived	hew_status_archived	3
+	hewCodingMethod	Manual	hew_coding_manual	1
+	hewCodingMethod	AI-assisted human-curated	hew_coding_ai_assisted_human_curated	2
+	hewCodingMethod	Automated	hew_coding_automated	3
+	hewInformationSource	Complete resource	hew_info_complete_resource	1
+	hewInformationSource	Abstract only	hew_info_abstract_only	2
+	hewInformationSource	Metadata only	hew_info_metadata_only	3
+	hewAggregationMethod	Instantaneous	hew_aggregation_instantaneous	1
+	hewAggregationMethod	Mean	hew_aggregation_mean	2
+	hewAggregationMethod	Maximum	hew_aggregation_maximum	3
+	hewAggregationMethod	Minimum	hew_aggregation_minimum	4
+	hewAggregationMethod	Cumulative	hew_aggregation_cumulative	5
+	hewNeedsHumanReview	Yes	hew_review_yes	1
+	hewNeedsHumanReview	No	hew_review_no	2
+	hewOmopConceptStatus	Standard	hew_omop_standard	1
+	hewOmopConceptStatus	Non-standard	hew_omop_nonstandard	2
+	hewOmopConceptStatus	Candidate	hew_omop_candidate	3
+	hewOmopConceptStatus	Vocabulary gap	hew_omop_vocabulary_gap	4
+	hewOmopConceptStatus	Not evaluated	hew_omop_not_evaluated	5
+	hewAgentRole	Author	hew_role_author	1
+	hewAgentRole	Contributor	hew_role_contributor	2
+	hewAgentRole	Curator	hew_role_curator	3
+	hewAgentRole	Reviewer	hew_role_reviewer	4
+	hewAgentRole	Principal investigator	hew_role_principal_investigator	5
+	hewAgentRole	Maintainer	hew_role_maintainer	6
+	hewAgentRole	Funder	hew_role_funder	7
