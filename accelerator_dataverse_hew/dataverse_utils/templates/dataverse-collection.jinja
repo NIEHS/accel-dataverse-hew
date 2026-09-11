@@ -1,0 +1,16 @@
+{
+  "name": "{{ collection.collection_name }}",
+  "alias": "{{ collection.collection_alias }}",
+  "dataverseContacts": [
+   {% for entry in collection.dataverse_contacts%}
+    {
+        "contactEmail":"{{ entry }}"
+    }
+    {{ "," if not loop.last }}
+    {% endfor %}
+    ],
+
+  "affiliation": "{{ collection.affiliation }}",
+  "description": "{{ collection.description }}",
+  "dataverseType": "{{ collection.dataverse_type }}"
+}
