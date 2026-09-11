@@ -1,0 +1,84 @@
+#metadataBlock	name	dataverseAlias	displayName
+	AdditionalMetadataAboutDataset		Additional Metadata About Dataset
+	computationalworkflow		Computational Workflow Metadata
+	customCAFEDataSources		Metadata About Data Sources
+	customCAFEDataLocation		Metadata About Geospatial Files
+#datasetField	name	title	description	watermark	fieldType	displayOrder	displayFormat	advancedSearchField	allowControlledVocabulary	allowmultiples	facetable	displayoncreate	required	parent	metadatablock_id	termURI
+	cafeDatasetTerms	CCH Terms	Terms developed by NIEHS that are applicable to this dataset		text	0		TRUE	TRUE	TRUE	TRUE	TRUE	FALSE		AdditionalMetadataAboutDataset	
+	workflowType	Computational Workflow Type	The kind of computational workflow designed to compose and execute a series of computational or data manipulation steps		text	0		TRUE	TRUE	TRUE	TRUE	TRUE	FALSE		computationalworkflow	
+	workflowCodeRepository	External Code Repository URL	A link to the repository containing the human-readable code and related code	https://...	url	1	<a href="#VALUE" target="_blank">#VALUE</a>	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		computationalworkflow	
+	workflowDocumentation	Documentation	A link or text describing the computational workflow and its use		textbox	2		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		computationalworkflow	
+	cafeDerivedFromExistingDataset	Derived from Another Dataset	Indicates if this dataset is derived from another dataset, such as a climate model		text	0		TRUE	TRUE	FALSE	TRUE	TRUE	TRUE		customCAFEDataSources	
+	cafeSourceData	Source Dataset	Information about the source dataset		text	1	;	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		customCAFEDataSources	
+	cafeSourceDataTitle	Source Dataset Title	The name or title of the dataset from which this dataset is derived		text	2	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataAuthor	Source Dataset Author	The author of the source dataset		text	3	#NAME: #VALUE	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataInstitution	Source Dataset Institution	The institution or organization at which the source dataset was created		text	4	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataVersionNumber	Source Dataset Version Number	The version number of the source data		text	5	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataDOIOrURL	Source Dataset DOI or URL	The unique identifier or web URL to the source dataset		url	6	#NAME: <a href="#VALUE" target="_blank">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataLastModifiedDate	Source Dataset Last Modified Date	The date on which the source dataset was last modified		date	7	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataDateObtained	Source Dataset Date Obtained	The date when the depositor obtained the source dataset		date	8	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataType	Source Dataset Type	A broad categorization of the source data by method of data creation		text	9	#NAME: #VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataTypeOther	Source Dataset Other Type	A broad categorization of the source data by method of data creation		text	10	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataSpatialResolution	Source Dataset Spatial Resolution	The horizontal grid spacing of the source data		float	11	;	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataSpatialResolutionUnit	Source Dataset Spatial Resolution Unit	The unit of the source spatial resolution		text	12	#NAME: #VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	cafeSourceDataSpatialResolution	customCAFEDataSources	
+	cafeSourceDataSpatialResolutionUnitOther	Source Dataset Spatial Resolution Other Unit	The unit of the source spatial resolution		text	13	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceDataSpatialResolution	customCAFEDataSources	
+	cafeSourceDataTimestep	Source Dataset Timestep	The temporal frequency of data in the source dataset		text	14	#NAME: #VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataTimestepOther	Other Source Dataset Timestep	The temporal frequency of data in the source dataset		text	15	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataAttribution	Source Dataset Attribution	Bibliographic references to the source data		textbox	16	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataDisclaimer	Source Dataset Disclaimer	Disclaimer text provided by the source dataset creators		textbox	17	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeIncludesGeospatialFile	Includes a Geospatial File	Indicates if this dataset includes a geospatial file such as raster or vector data		text	0		TRUE	TRUE	FALSE	TRUE	TRUE	TRUE		customCAFEDataLocation	
+	cafeSpatialReferenceSystem	Spatial Reference System	Information about the coordinate reference system of the data		text	1	;	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		customCAFEDataLocation	
+	cafeSpatialReferenceSystemName	Name	The name of the coordinate reference system used in the deposited data		text	2	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialReferenceSystem	customCAFEDataLocation	
+	cafeSpatialReferenceSystemURL	URL	A link to the full coordinate reference system information	https://...	url	3	#NAME: <a href="#VALUE" target="_blank">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialReferenceSystem	customCAFEDataLocation	
+	cafeSpatialFileType	Spatial File Type	The file type of the geospatial data		text	4	#VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE		customCAFEDataLocation	
+	cafeSpatialFileTypeOther	Other Spatial File Type	The file type of the geospatial data when Other is selected		text	5	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		customCAFEDataLocation	
+	cafeSpatialResolution	Spatial Resolution	The spatial resolution of raster data		text	6	;	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		customCAFEDataLocation	
+	cafeSpatialResolutionValue	Value	The numeric horizontal grid spacing of the raster data		float	7	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialResolution	customCAFEDataLocation	
+	cafeSpatialResolutionUnit	Unit	The unit for the resolution of gridded data		text	8	#NAME: #VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	cafeSpatialResolution	customCAFEDataLocation	
+	cafeSpatialResolutionUnitOther	Other Unit	The unit for the resolution of gridded data when Other is selected		text	9	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialResolution	customCAFEDataLocation	
+#controlledVocabulary	DatasetField	Value	identifier	displayOrder
+	cafeDatasetTerms	Climate	cafe_term_climate	1
+	cafeDatasetTerms	Environmental Health	cafe_term_environmental_health	2
+	cafeDatasetTerms	Exposure	cafe_term_exposure	3
+	cafeDatasetTerms	Extreme Temperatures	cafe_term_extreme_temperatures	4
+	cafeDatasetTerms	Health	cafe_term_health	5
+	cafeDatasetTerms	Health Equity	cafe_term_health_equity	6
+	cafeDatasetTerms	Heat Wave	cafe_term_heat_wave	7
+	cafeDatasetTerms	Public Health	cafe_term_public_health	8
+	cafeDatasetTerms	Risk	cafe_term_risk	9
+	cafeDatasetTerms	Vulnerability	cafe_term_vulnerability	10
+	cafeDatasetTerms	Weather	cafe_term_weather	11
+	workflowType	Common Workflow Language (CWL)	workflowtype_cwl	1
+	workflowType	Workflow Description Language (WDL)	workflowtype_wdl	2
+	workflowType	Nextflow	workflowtype_nextflow	3
+	workflowType	Snakemake	workflowtype_snakemake	4
+	workflowType	Jupyter Notebook	workflowtype_jupyter	5
+	workflowType	R Notebook	workflowtype_rstudio	6
+	workflowType	Other	workflowtype_other	100
+	cafeDerivedFromExistingDataset	Yes	cafe_derived_yes	1
+	cafeDerivedFromExistingDataset	No	cafe_derived_no	2
+	cafeSourceDataType	Dataset	cafe_source_dataset	1
+	cafeSourceDataType	Geospatial dataset	cafe_source_geospatial_dataset	2
+	cafeSourceDataType	Climate model	cafe_source_climate_model	3
+	cafeSourceDataType	Other (specify)	cafe_source_other	100
+	cafeSourceDataSpatialResolutionUnit	Decimal-degrees (˚)	cafe_resolution_decimal_degrees	1
+	cafeSourceDataSpatialResolutionUnit	Kilometers (km)	cafe_resolution_km	2
+	cafeSourceDataSpatialResolutionUnit	Meters (m)	cafe_resolution_m	3
+	cafeSourceDataSpatialResolutionUnit	Other (specify)	cafe_resolution_other	100
+	cafeSourceDataTimestep	Hourly	cafe_timestep_hourly	1
+	cafeSourceDataTimestep	Daily	cafe_timestep_daily	2
+	cafeSourceDataTimestep	Monthly	cafe_timestep_monthly	3
+	cafeSourceDataTimestep	Annual	cafe_timestep_annual	4
+	cafeSourceDataTimestep	Other (specify)	cafe_timestep_other	100
+	cafeIncludesGeospatialFile	Yes	cafe_geo_file_yes	1
+	cafeIncludesGeospatialFile	No	cafe_geo_file_no	2
+	cafeSpatialFileType	Vector: Points	cafe_spatial_points	1
+	cafeSpatialFileType	Vector: Polygons	cafe_spatial_polygons	2
+	cafeSpatialFileType	Vector: Lines	cafe_spatial_lines	3
+	cafeSpatialFileType	Raster: Single-band	cafe_spatial_raster_single	4
+	cafeSpatialFileType	Raster: Multi-band	cafe_spatial_raster_multi	5
+	cafeSpatialFileType	Other (specify)	cafe_spatial_other	100
+	cafeSpatialResolutionUnit	Decimal-degrees (˚)	cafe_file_resolution_decimal_degrees	1
+	cafeSpatialResolutionUnit	Kilometers (km)	cafe_file_resolution_km	2
+	cafeSpatialResolutionUnit	Meters (m)	cafe_file_resolution_m	3
+	cafeSpatialResolutionUnit	Other (specify)	cafe_file_resolution_other	100
