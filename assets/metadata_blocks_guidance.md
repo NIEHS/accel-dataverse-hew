@@ -222,3 +222,148 @@ The existing CAFE blocks are therefore best treated as interoperable Dataverse
 projections of the HEW model. They provide a strong foundation for citation,
 discovery, geospatial indexing, source attribution, and workflow metadata, but
 they should not be treated as the complete HEW schema.
+
+## Crosswalk strategy and publication loading plan
+
+### Architectural strategy
+
+Keep the HEW LinkML schema as the canonical source model. Dataverse metadata is
+a versioned, intentionally lossy projection of that model. Metadata-block
+installation and record transformation are separate concerns:
+
+- `load_metadata_blocks.py` installs and enables the CAFE and HEW blocks for a
+  Dataverse collection;
+- a publication crosswalk validates and transforms one HEW resource into a
+  Dataverse dataset payload;
+- the original HEW JSON or JSON-LD record is deposited as an attachment so that
+  fields not represented by Dataverse remain recoverable.
+
+Pydantic is appropriate for strict crosswalk configuration and Dataverse
+projection models, but it should not duplicate the complete HEW model. Validate
+the source record with LinkML first, then validate the smaller Dataverse
+projection with Pydantic or an equivalent typed boundary model.
+
+Each crosswalk must have an explicit identifier and version, for example
+`hew-publication-to-dataverse@1.0.0`. Record these values together with the HEW
+schema version, source catalog version, source resource identifier, and
+generation timestamp. Version these independently:
+
+1. HEW schema version;
+2. crosswalk implementation/version;
+3. metadata-block TSV or deployed-block version;
+4. source catalog or record version.
+
+The crosswalk should use a declarative mapping manifest for direct field and
+controlled-vocabulary mappings, with executable transformation code only for
+normalization, conditional logic, nested annotations, and validation. Every
+run should produce a mapping report containing mapped, omitted, and unmapped
+fields. Empty values should be omitted, while unmapped values should remain in
+the JSON/JSON-LD attachment and be visible in the report.
+
+### Publication projection contract
+
+The first projection, `publication-v1`, should accept a LinkML-valid
+`LiteratureResource` and emit:
+
+- `citation` for title, abstract/description, URL, identifiers, authors,
+  publication details, keywords, and related references;
+- `hewResource` for the HEW identifier, literature resource type, status,
+  canonical URL, alternate identifiers, related resources, catalog version,
+  and schema version;
+- `hewReview` when systematic-review annotations are present, using repeated
+  fields for searchable concepts and retaining complete nested annotations in
+  JSON/JSON-LD;
+- `AdditionalMetadataAboutDataset.cafeDatasetTerms` only for exact matches to
+  the existing CAFE vocabulary;
+- `geospatial` only when the publication has meaningful resource-level
+  geographic coverage;
+- the original HEW JSON/JSON-LD record as a deposited preservation attachment.
+
+The projection must not populate dataset-source, geospatial-file, or workflow
+metadata merely because a publication mentions a dataset, file, or method. Use
+those blocks only when the HEW resource itself satisfies their semantics.
+
+### Sprint plan
+
+#### Sprint 1: Contracts, fixtures, and environment
+
+Deliverables:
+
+- confirm the publication input contract and supported HEW schema version;
+- define `publication-v1` version metadata and the mapping manifest format;
+- document the required Dataverse blocks and target collection configuration;
+- create representative fixtures for a plain publication, a publication with
+  DOI/PMID/PMCID, and a publication with review annotations and geography;
+- verify that the metadata-block loader is repeatable and preserves existing
+  collection configuration.
+
+Acceptance criteria:
+
+- fixtures validate against the HEW schema;
+- the target collection has the required metadata blocks enabled;
+- the same loader invocation does not create duplicate block configuration.
+
+#### Sprint 2: Publication crosswalk core
+
+Deliverables:
+
+- implement source validation and a typed Dataverse publication projection;
+- map citation metadata and HEW resource identifiers;
+- normalize DOI, PMID, PMCID, URLs, dates, authors, and keywords;
+- omit empty values and preserve identifier types;
+- emit a mapped/omitted/unmapped report;
+- add unit tests for direct mappings, cardinality, invalid input, and empty
+  values.
+
+Acceptance criteria:
+
+- a valid literature fixture produces a deterministic Dataverse payload;
+- invalid HEW records fail before any Dataverse write;
+- identifier values are not collapsed into free text;
+- no empty citation or HEW custom fields are emitted.
+
+#### Sprint 3: Review coding, vocabulary, and preservation
+
+Deliverables:
+
+- map review coding summaries into `hewReview`;
+- map only semantically exact HEW-to-CAFE terms;
+- preserve annotation IDs, evidence, nesting, and unmapped concepts in the
+  JSON/JSON-LD attachment;
+- add geography handling with coordinate and bounding-box validation;
+- add golden-output tests for annotated publications.
+
+Acceptance criteria:
+
+- repeated annotations are represented without silent overwrites;
+- CAFE vocabulary mappings are tested and auditable;
+- nested source data can be reconstructed from the preservation attachment;
+- invalid geographic ranges fail with an actionable error.
+
+#### Sprint 4: Dataverse integration and pilot publication load
+
+Deliverables:
+
+- connect the crosswalk output to the Dataverse dataset creation/update path;
+- define idempotency behavior using the HEW resource identifier and source
+  version;
+- attach the original JSON/JSON-LD and crosswalk report;
+- run a pilot load against a non-production collection;
+- document rollback, retry, duplicate detection, and failed-record handling;
+- publish a compatibility matrix for crosswalk, HEW schema, and metadata-block
+  versions.
+
+Acceptance criteria:
+
+- a pilot batch can be loaded, retried, and reconciled without duplicates;
+- each deposited record identifies its source and projection versions;
+- failed records are reported without stopping unrelated valid records;
+- a human can discover the publication in Dataverse while the complete HEW
+  record remains available for machine processing.
+
+#### Post-pilot hardening
+
+After the publication pilot, review unmapped-field reports and user search
+needs before expanding to datasets, models, or geospatial resources. Add new
+crosswalk versions or metadata blocks when semantics or cardinality require
+them; do not broaden `publication-v1` through silent reinterpretation.
