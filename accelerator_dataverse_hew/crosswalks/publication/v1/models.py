@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date
+import json
 from typing import Any, Literal
 
 from pydantic import AnyUrl, BaseModel, ConfigDict, Field, field_validator
@@ -110,6 +111,10 @@ class DataversePublicationProjection(BaseModel):
                 }
             }
         }
+
+    def to_dataverse_json(self) -> str:
+        """Serialize only the Dataverse metadata payload as valid JSON."""
+        return json.dumps(self.to_dataverse_payload(), indent=2, sort_keys=True)
 
     def to_preservation_document(self) -> dict[str, Any] | None:
         """Return the original JSON-LD document for attachment storage."""

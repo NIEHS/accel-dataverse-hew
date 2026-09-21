@@ -65,11 +65,10 @@ def _normalized_jsonld_source(document: Mapping[str, Any], context: CrosswalkCon
         raise PublicationValidationError("JSON-LD publication must be an object")
     if "@context" not in document or not _context_contains_hew(document["@context"]):
         raise PublicationValidationError("JSON-LD document is missing a supported HEW @context")
-    if "@type" not in document:
-        raise PublicationValidationError("JSON-LD document is missing @type")
-    type_name = _jsonld_type_name(document["@type"])
-    if type_name not in {"HEWResource", "LiteratureResource"}:
-        raise PublicationValidationError(f"unsupported HEW JSON-LD @type: {type_name}")
+    if "@type" in document:
+        type_name = _jsonld_type_name(document["@type"])
+        if type_name not in {"HEWResource", "LiteratureResource"}:
+            raise PublicationValidationError(f"unsupported HEW JSON-LD @type: {type_name}")
 
     source = {
         key: _jsonld_value(value)
@@ -78,6 +77,10 @@ def _normalized_jsonld_source(document: Mapping[str, Any], context: CrosswalkCon
     }
     if "id" not in source and "@id" in document:
         source["id"] = _jsonld_value(document["@id"])
+    if "@type" not in document and source.get("resource_type") != "literature":
+        raise PublicationValidationError(
+            "JSON-LD document without @type must declare resource_type: literature"
+        )
     if source.get("hew_schema_version") and source["hew_schema_version"] != context.hew_schema_version:
         raise PublicationValidationError("JSON-LD HEW schema version does not match crosswalk context")
     return source

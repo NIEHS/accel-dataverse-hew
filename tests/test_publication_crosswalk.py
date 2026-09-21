@@ -120,6 +120,27 @@ class PublicationCrosswalkTest(unittest.TestCase):
             document["title"],
         )
 
+    def test_projects_mongo_data_stanza_as_dataverse_json(self):
+        mongo_document = json.loads(
+            (Path(__file__).parent / "fixtures" / "sample1.json").read_text(encoding="utf-8")
+        )
+
+        projection = crosswalk_jsonld_publication(mongo_document["data"], self.context)
+        output_directory = Path(__file__).parent / "temp"
+        output_directory.mkdir(exist_ok=True)
+        output_path = output_directory / "sample1_dataverse.json"
+        output_path.write_text(projection.to_dataverse_json(), encoding="utf-8")
+
+        payload = json.loads(output_path.read_text(encoding="utf-8"))
+        fields = payload["datasetVersion"]["metadataBlocks"]["citation"]["fields"]
+
+        self.assertEqual(fields[0]["typeName"], "title")
+        self.assertEqual(fields[0]["value"], mongo_document["data"]["title"])
+        self.assertEqual(
+            [field["typeName"] for field in fields],
+            ["title", "otherId", "author"],
+        )
+
     def test_rejects_jsonld_without_hew_context_or_type(self):
         base_document = {
             "id": "HEWRES:test-jsonld",
@@ -130,7 +151,10 @@ class PublicationCrosswalkTest(unittest.TestCase):
             crosswalk_jsonld_publication(base_document, self.context)
         with self.assertRaises(PublicationValidationError):
             crosswalk_jsonld_publication(
-                {"@context": {"HEW": "https://w3id.org/hew/"}, **base_document},
+                {
+                    "@context": {"HEW": "https://w3id.org/hew/"},
+                    **{**base_document, "resource_type": "dataset"},
+                },
                 self.context,
             )
 
