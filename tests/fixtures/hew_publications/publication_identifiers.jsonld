@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "HEW": "https://w3id.org/hew/",
+    "HEWRES": "https://w3id.org/hew/resource/",
+    "@vocab": "https://w3id.org/hew/"
+  },
+  "@type": "HEWResource",
+  "id": "HEWRES:publication-identifiers",
+  "title": "Wildfire smoke and respiratory health outcomes",
+  "resource_type": "literature",
+  "doi": "https://doi.org/10.0000/example.2025.001",
+  "pmid": "PMID:40000001",
+  "pmcid": "pmcid:pmc1234567",
+  "identifiers": ["internal:pub-0002"],
+  "publication_type": "research_article",
+  "journal": "Journal of Example Health",
+  "publication_date": "2025-09-01",
+  "authors": [
+    "https://orcid.org/0000-0000-0000-0002",
+    "https://orcid.org/0000-0000-0000-0003"
+  ],
+  "abstract": "This abstract demonstrates JSON-LD publication identifiers."
+}

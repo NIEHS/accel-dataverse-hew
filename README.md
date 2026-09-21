@@ -16,10 +16,11 @@ python -m accelerator_dataverse_hew.dataverse_utils.load_metadata_blocks \
 The utility uses `http://localhost:8081` by default. Set `DATAVERSE_HOST` and,
 when required, `DATAVERSE_API_KEY` to override the connection settings.
 
-The [assets](./assets) directory contains Dataverse customization assets for HEW, including CAFE and HEW custom
-metadata blocks.
+The [assets](./assets) directory contains Dataverse customization assets for HEW,
+including CAFE and HEW custom metadata blocks. The publication crosswalk is
+documented in [assets/crosswalks/publication/v1](./assets/crosswalks/publication/v1/README.md).
 
 ## Documentation
-* [HEW Dataverse Support](./docs/README.md)
-* [Metadata Blocks Guidance](./docs/metadata_blocks_guidance.md)
+* [Metadata Blocks Guidance](./assets/metadata_blocks_guidance.md)
+* [Publication Crosswalk v1](./assets/crosswalks/publication/v1/README.md)
 * [Dataverse Metadata Customization guide](https://guides.dataverse.org/en/latest/admin/metadatacustomization.html)

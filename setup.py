@@ -11,7 +11,7 @@ setup(
     author_email="mike.conway@nih.gov",
     url="https://github.com/NIEHS/accelerator-dataverse-hew",
     packages=find_packages(),
-    install_requires=[open("requirements.txt").read()],
+    install_requires=install_requires,
     license="BSD 3-Clause",
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -19,6 +19,4 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.9",
-    package_data={"accelerator_dataverse_hew": ["dataverse_utils/templates/*.jinja"]},
-    include_package_data=True,
 )

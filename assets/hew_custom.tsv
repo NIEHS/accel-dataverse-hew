@@ -16,6 +16,7 @@
 	hewRelatedResource	Related HEW Resource	Identifier of a related HEW catalog resource		text	9	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
 	hewCatalogVersion	HEW Catalog Version	Version of the HEW catalog or source record used for dissemination		text	10		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewResource	
 	hewSchemaVersion	HEW Schema Version	Version of the HEW schema used for the projection		text	11		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewResource	
+	hewCrosswalkVersion	HEW Crosswalk Version	Version of the HEW-to-Dataverse crosswalk used for the projection		text	12		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewResource	https://w3id.org/hew/term/crosswalk-version
 	hewCodingScheme	Coding Scheme	Name of the review coding scheme		text	0		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		hewReview	
 	hewCodingSchemeVersion	Coding Scheme Version	Version of the review coding scheme		text	1		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		hewReview	
 	hewAnnotationDate	Annotation Date	Date on which the annotation was created		date	2		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		hewReview	

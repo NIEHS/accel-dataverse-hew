@@ -4,23 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-jsonschema = "~=4.23.0"
-validators = "~=0.35.0"
-pymongo = "~=4.11.2"
-pyyaml = "~=6.0.2"
-Jinja2 = "~=3.1.4"
-openpyxl = "~=3.1.2"
 requests = "~=2.32.3"
-PyYAML = "~=6.0.1"
-urllib3 = "~=2.4.0"
-ijson = "~=3.4.0"
+pydantic = "~=2.13.0"
 [dev-packages]
 pre-commit = "~=4.1.0"
 black = "~=25.1.0"
 pytest = "~=8.3.5"
 coverage = "~=7.6.12"
-accelerator_core = { git = 'git@github.com:NIEHS/accelerator-core.git', ref = '58-hew', editable = false }
-pydataverse = "~=0.3.4"
 
 [requires]
 python_version = "3.11"

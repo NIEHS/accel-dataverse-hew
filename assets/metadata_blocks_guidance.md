@@ -15,6 +15,30 @@ The canonical HEW model is:
 
 `HEW_Catalog_Data_Model/hew-model/schema/hew-geospatial.yaml`
 
+## Source document and validation boundary
+
+The dissemination source is the HEW resource document stored in MongoDB as
+JSON-LD. It is not a LinkML YAML document and should not be converted into a
+second persisted LinkML representation before crosswalking.
+
+The source boundary has three distinct responsibilities:
+
+1. parse the JSON-LD and verify its `@context`, `@type`, and resource identity;
+2. use the matching LinkML schema version as the semantic authority for a
+   temporary normalized HEW view, when deeper validation is required;
+3. project the validated view into typed Dataverse metadata and preserve the
+   original JSON-LD document unchanged.
+
+The JSON-LD context and HEW schema version must be treated as compatibility
+inputs. A missing, unsupported, or mismatched context/schema version should
+stop the record before any Dataverse write. The crosswalk may normalize JSON-LD
+identifier objects, repeated values, and compact slot names for mapping, but
+that normalized view is transient and is not the preservation record.
+
+LinkML therefore remains the schema authority, not the source serialization
+format. Pydantic may validate the source adapter’s narrow contract and the
+Dataverse projection, but should not reproduce the complete HEW model.
+
 ## Compatibility principles
 
 1. Preserve existing metadata block names, field names, and controlled values
@@ -207,6 +231,9 @@ empty for literature-only records.
 
 The accelerator crosswalk should:
 
+- accept the MongoDB JSON-LD document as the source input;
+- validate the JSON-LD context, `@type`, resource identity, and supported HEW
+  schema version before writing to Dataverse;
 - omit empty fields rather than emitting empty primitive or compound values;
 - preserve HEW identifiers and identifier types;
 - map HEW controlled terms to existing CAFE values only when the mapping is
@@ -216,7 +243,8 @@ The accelerator crosswalk should:
   support;
 - distinguish publication metadata from review annotations;
 - validate bounding-box ordering and coordinate ranges before rendering;
-- record the HEW schema version and catalog record/version in the output.
+- record the HEW schema version, JSON-LD context/version, and catalog
+  record/version in the output or preservation manifest.
 
 The existing CAFE blocks are therefore best treated as interoperable Dataverse
 projections of the HEW model. They provide a strong foundation for citation,
@@ -227,21 +255,34 @@ they should not be treated as the complete HEW schema.
 
 ### Architectural strategy
 
-Keep the HEW LinkML schema as the canonical source model. Dataverse metadata is
-a versioned, intentionally lossy projection of that model. Metadata-block
-installation and record transformation are separate concerns:
+Keep the HEW LinkML schema as the canonical schema authority. The source record
+for this workflow is the compact JSON-LD document persisted by MongoDB, not a
+LinkML YAML or JSON document. Dataverse metadata is a versioned, intentionally
+lossy projection of that JSON-LD representation. Metadata-block installation
+and record transformation are separate concerns:
 
 - `load_metadata_blocks.py` installs and enables the CAFE and HEW blocks for a
   Dataverse collection;
-- a publication crosswalk validates and transforms one HEW resource into a
-  Dataverse dataset payload;
+- a JSON-LD source adapter checks the context/type, extracts the HEW publication
+  semantics, and transforms one resource into a Dataverse dataset payload;
 - the original HEW JSON or JSON-LD record is deposited as an attachment so that
   fields not represented by Dataverse remain recoverable.
 
-Pydantic is appropriate for strict crosswalk configuration and Dataverse
-projection models, but it should not duplicate the complete HEW model. Validate
-the source record with LinkML first, then validate the smaller Dataverse
-projection with Pydantic or an equivalent typed boundary model.
+Do not introduce a JSON-LD-to-LinkML document conversion as a persisted
+pipeline stage. Use the LinkML schema in three narrower ways:
+
+1. verify that the JSON-LD context and `@type` identify a supported HEW schema
+   and resource class;
+2. expand/compact or otherwise adapt JSON-LD into a temporary slot map for
+   LinkML semantic validation where required;
+3. use the same schema version to drive the crosswalk contract and fixtures.
+
+Pydantic is appropriate for the smaller source-adapter DTO, crosswalk context,
+and Dataverse projection models, but it should not duplicate the complete HEW
+model. The source adapter should preserve JSON-LD identifiers, language or
+value objects, repeated properties, and unknown properties until the mapping
+report is produced. JSON-LD parsing/semantic validation and Dataverse
+projection validation are separate validation steps.
 
 Each crosswalk must have an explicit identifier and version, for example
 `hew-publication-to-dataverse@1.0.0`. Record these values together with the HEW
@@ -262,8 +303,8 @@ the JSON/JSON-LD attachment and be visible in the report.
 
 ### Publication projection contract
 
-The first projection, `publication-v1`, should accept a LinkML-valid
-`LiteratureResource` and emit:
+The first projection, `publication-v1`, should accept a MongoDB JSON-LD
+`LiteratureResource` document and emit:
 
 - `citation` for title, abstract/description, URL, identifiers, authors,
   publication details, keywords, and related references;
@@ -279,6 +320,13 @@ The first projection, `publication-v1`, should accept a LinkML-valid
   geographic coverage;
 - the original HEW JSON/JSON-LD record as a deposited preservation attachment.
 
+The source adapter should support the JSON-LD forms used by the HEW serializer,
+including the document `@context`, document `@type`, compact HEW slot names,
+and JSON-LD identifier values. It should reject a missing or unsupported
+context/type before any Dataverse write. A temporary normalized source view may
+use ordinary Python values for mapping, but it is not a replacement source
+record and must not be deposited instead of the original JSON-LD.
+
 The projection must not populate dataset-source, geospatial-file, or workflow
 metadata merely because a publication mentions a dataset, file, or method. Use
 those blocks only when the HEW resource itself satisfies their semantics.
@@ -292,14 +340,16 @@ Deliverables:
 - confirm the publication input contract and supported HEW schema version;
 - define `publication-v1` version metadata and the mapping manifest format;
 - document the required Dataverse blocks and target collection configuration;
-- create representative fixtures for a plain publication, a publication with
-  DOI/PMID/PMCID, and a publication with review annotations and geography;
+- create representative JSON-LD fixtures for a plain publication, a
+  publication with DOI/PMID/PMCID, and a publication with review annotations
+  and geography;
 - verify that the metadata-block loader is repeatable and preserves existing
   collection configuration.
 
 Acceptance criteria:
 
-- fixtures validate against the HEW schema;
+- JSON-LD fixtures parse successfully, identify the supported HEW context/type,
+  and validate against the corresponding HEW schema contract;
 - the target collection has the required metadata blocks enabled;
 - the same loader invocation does not create duplicate block configuration.
 
@@ -307,7 +357,8 @@ Acceptance criteria:
 
 Deliverables:
 
-- implement source validation and a typed Dataverse publication projection;
+- implement JSON-LD source parsing/validation and a typed Dataverse publication
+  projection;
 - map citation metadata and HEW resource identifiers;
 - normalize DOI, PMID, PMCID, URLs, dates, authors, and keywords;
 - omit empty values and preserve identifier types;
