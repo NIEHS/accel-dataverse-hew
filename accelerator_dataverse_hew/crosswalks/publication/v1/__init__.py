@@ -2,6 +2,7 @@
 
 from accelerator_dataverse_hew.crosswalks.publication.v1.crosswalk import (
     CrosswalkContext,
+    DataversePublicationProjection,
     PublicationValidationError,
     crosswalk_jsonld_publication,
     crosswalk_publication,
@@ -10,6 +11,7 @@ from accelerator_dataverse_hew.crosswalks.publication.v1.crosswalk import (
 
 __all__ = [
     "CrosswalkContext",
+    "DataversePublicationProjection",
     "PublicationValidationError",
     "crosswalk_jsonld_publication",
     "crosswalk_publication",

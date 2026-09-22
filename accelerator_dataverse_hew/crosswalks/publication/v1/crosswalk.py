@@ -109,6 +109,11 @@ KNOWN_SOURCE_FIELDS = {
     "publication_date",
     "status",
     "related_resources",
+    "derived_from_existing_dataset",
+    "includes_geospatial_file",
+    "contact_email",
+    "contact_name",
+    "subject",
 }
 
 
@@ -252,12 +257,58 @@ def _description_values(source: PublicationSource) -> list[dict[str, Any]]:
     for value in (source.abstract, source.description):
         if value and value.strip():
             descriptions.append({"dsDescriptionValue": _field("dsDescriptionValue", value.strip())})
+    if not descriptions:
+        descriptions.append(
+            {
+                "dsDescriptionValue": _field(
+                    "dsDescriptionValue", source.title
+                )
+            }
+        )
     return descriptions
 
 
 def _notes_text(source: PublicationSource) -> str | None:
     values = [value.strip() for value in (source.citation, source.journal) if value and value.strip()]
     return "; ".join(values) or None
+
+
+def _cafe_boolean_value(source: PublicationSource, field_name: str) -> str:
+    value = (source.model_extra or {}).get(field_name)
+    if value is None:
+        return "No"
+    if isinstance(value, bool):
+        return "Yes" if value else "No"
+    if isinstance(value, str) and value.strip().lower() in {"yes", "true"}:
+        return "Yes"
+    if isinstance(value, str) and value.strip().lower() in {"no", "false"}:
+        return "No"
+    raise PublicationValidationError(f"{field_name} must be a boolean or yes/no value")
+
+
+def _contact_values(source: PublicationSource) -> list[dict[str, Any]]:
+    extra = source.model_extra or {}
+    email = extra.get("contact_email")
+    name = extra.get("contact_name") or "HEW Submitter"
+    if not isinstance(email, str) or not email.strip():
+        return []
+    return [
+        {
+            "datasetContactName": _field("datasetContactName", str(name).strip()),
+            "datasetContactEmail": _field("datasetContactEmail", email.strip()),
+        }
+    ]
+
+
+def _subject_values(source: PublicationSource) -> list[str]:
+    value = (source.model_extra or {}).get("subject")
+    if isinstance(value, str) and value.strip():
+        return [value.strip()]
+    if isinstance(value, list):
+        values = [item.strip() for item in value if isinstance(item, str) and item.strip()]
+        if values:
+            return values
+    return ["Other"]
 
 
 def _status_label(status: str | None) -> str | None:
@@ -281,8 +332,11 @@ def crosswalk_publication(
     omitted: list[MappingEntry] = []
     unmapped: list[MappingEntry] = []
 
+    contact_values = _contact_values(source)
     citation_fields = [
         _field("title", source.title),
+        _field("subject", _subject_values(source), "controlledVocabulary"),
+        _compound_field("datasetContact", contact_values) if contact_values else None,
         _field("alternativeURL", _normalize_url(source.url, "url")) if source.url else None,
     ]
     if source.url:
@@ -392,6 +446,23 @@ def crosswalk_publication(
     else:
         _record(omitted, "related_resources", "hewResource.hewRelatedResource", "empty")
 
+    cafe_source_fields = [
+        _field(
+            "cafeDerivedFromExistingDataset",
+            _cafe_boolean_value(source, "derived_from_existing_dataset"),
+            "controlledVocabulary",
+        )
+    ]
+    cafe_location_fields = [
+        _field(
+            "cafeIncludesGeospatialFile",
+            _cafe_boolean_value(source, "includes_geospatial_file"),
+            "controlledVocabulary",
+        )
+    ]
+    _record(mapped, "derived_from_existing_dataset", "customCAFEDataSources.cafeDerivedFromExistingDataset")
+    _record(mapped, "includes_geospatial_file", "customCAFEDataLocation.cafeIncludesGeospatialFile")
+
     report = MappingReport(
         crosswalk_version=context.crosswalk_version,
         source_id=source.id,
@@ -408,6 +479,12 @@ def crosswalk_publication(
             ),
             "hewResource": DataverseMetadataBlock(
                 displayName="HEW Resource Metadata", fields=resource_fields
+            ),
+            "customCAFEDataSources": DataverseMetadataBlock(
+                displayName="Metadata About Data Sources", fields=cafe_source_fields
+            ),
+            "customCAFEDataLocation": DataverseMetadataBlock(
+                displayName="Metadata About Geospatial Files", fields=cafe_location_fields
             ),
         },
         report=report,

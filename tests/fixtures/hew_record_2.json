@@ -1,0 +1,946 @@
+{
+  "_id": {
+    "$oid": "6ab1479ac6a5af4da0e5e459"
+  },
+  "submission": {
+    "submitter_name": "Mike Conway",
+    "submitter_email": "mike.conway@nih.gov",
+    "submitter_comment": ""
+  },
+  "data": {
+    "id": "HEWRES:laserai_36",
+    "title": "Maternal exposure to heat and its association with miscarriage in rural KwaZulu-Natal, South Africa: A population-based cohort study",
+    "resource_type": "literature",
+    "doi": "10.1177/17455057241259171",
+    "identifiers": [
+      "36"
+    ],
+    "annotations": [
+      {
+        "id": "HEWANN:laserai_36",
+        "subject": "HEWRES:laserai_36",
+        "coding_scheme": "LaserAI Export",
+        "coding_method": "laser_ai_generated",
+        "reference_type": "research_article",
+        "information_source": "complete_resource",
+        "exposure_annotations": [
+          {
+            "coded_concept": "Temperature",
+            "coding_depth": 1,
+            "@type": "ExposureAnnotation"
+          },
+          {
+            "coded_concept": "Extreme Heat/Heat",
+            "coding_depth": 2,
+            "@type": "ExposureAnnotation"
+          }
+        ],
+        "health_impact_annotations": [
+          {
+            "coded_concept": "Developmental Impact",
+            "coding_depth": 1,
+            "@type": "HealthImpactAnnotation"
+          },
+          {
+            "coded_concept": "Birth Outcome",
+            "coding_depth": 2,
+            "@type": "HealthImpactAnnotation"
+          },
+          {
+            "coded_concept": "not reported",
+            "coding_depth": 3,
+            "@type": "HealthImpactAnnotation"
+          },
+          {
+            "coded_concept": "Reproductive Impact",
+            "coding_depth": 1,
+            "@type": "HealthImpactAnnotation"
+          }
+        ],
+        "geography_annotations": [
+          {
+            "geographic_locations": [
+              "Non-United States",
+              "Africa"
+            ],
+            "geographic_features": [
+              "Rural"
+            ],
+            "locations": [
+              {
+                "name": "Non-United States",
+                "location_type": "other"
+              },
+              {
+                "name": "Africa",
+                "location_type": "other"
+              }
+            ],
+            "@type": "GeographyAnnotation"
+          }
+        ],
+        "data_tool_method_annotations": [
+          {
+            "data_resource_types": [
+              "Cohort"
+            ],
+            "model_types": [],
+            "@type": "DataToolMethodAnnotation"
+          }
+        ],
+        "special_topic_annotations": [
+          {
+            "coded_concept": "Study Population",
+            "coding_depth": 1,
+            "@type": "SpecialTopicAnnotation"
+          },
+          {
+            "coded_concept": "Pregnant or Breastfeeding Women",
+            "coding_depth": 2,
+            "@type": "SpecialTopicAnnotation"
+          },
+          {
+            "coded_concept": "Children",
+            "coding_depth": 2,
+            "@type": "SpecialTopicAnnotation"
+          }
+        ],
+        "@type": "HEWSystematicReviewAnnotation"
+      }
+    ],
+    "pmid": "39066467",
+    "authors": [
+      "HEW:laserai_author_moodley"
+    ],
+    "@context": {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "HEW": "https://w3id.org/hew/",
+      "HEWANN": "https://w3id.org/hew/annotation/",
+      "HEWRES": "https://w3id.org/hew/resource/",
+      "biolink": "https://w3id.org/biolink/vocab/",
+      "dcat": "http://www.w3.org/ns/dcat#",
+      "dcterms": "http://purl.org/dc/terms/",
+      "ecto": {
+        "@id": "http://purl.obolibrary.org/obo/ECTO_",
+        "@prefix": true
+      },
+      "envo": {
+        "@id": "http://purl.obolibrary.org/obo/ENVO_",
+        "@prefix": true
+      },
+      "epsg": "http://www.opengis.net/def/crs/EPSG/0/",
+      "geo": "http://www.opengis.net/ont/geosparql#",
+      "geonames": "https://www.geonames.org/ontology#",
+      "hew": "https://w3id.org/hew/",
+      "hp": {
+        "@id": "http://purl.obolibrary.org/obo/HP_",
+        "@prefix": true
+      },
+      "linkml": "https://w3id.org/linkml/",
+      "mondo": {
+        "@id": "http://purl.obolibrary.org/obo/MONDO_",
+        "@prefix": true
+      },
+      "prov": "http://www.w3.org/ns/prov#",
+      "schema": "http://schema.org/",
+      "sf": "http://www.opengis.net/ont/sf#",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "@vocab": "https://w3id.org/hew/",
+      "abstract": {
+        "@id": "schema:abstract"
+      },
+      "access_rights": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "dcterms:accessRights"
+      },
+      "access_statement": {
+        "@id": "access_statement"
+      },
+      "administrative_level": {
+        "@id": "administrative_level"
+      },
+      "affiliation_context": {
+        "@type": "xsd:anyURI",
+        "@id": "affiliation_context"
+      },
+      "affiliations": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:affiliation"
+      },
+      "agent": {
+        "@type": "xsd:anyURI",
+        "@id": "prov:agent"
+      },
+      "agent_associations": {
+        "@type": "@id",
+        "@id": "prov:qualifiedAssociation"
+      },
+      "aggregation_method": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "aggregation_method"
+      },
+      "aggregation_window": {
+        "@id": "aggregation_window"
+      },
+      "annotation_date": {
+        "@type": "xsd:date",
+        "@id": "annotation_date"
+      },
+      "annotations": {
+        "@type": "@id",
+        "@id": "annotations"
+      },
+      "associated_with": {
+        "@type": "xsd:anyURI",
+        "@id": "associated_with"
+      },
+      "authors": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:author"
+      },
+      "availability": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "availability"
+      },
+      "award_number": {
+        "@id": "schema:identifier"
+      },
+      "bounding_box": {
+        "@type": "@id",
+        "@id": "bounding_box"
+      },
+      "centroid": {
+        "@type": "@id",
+        "@id": "centroid"
+      },
+      "citation": {
+        "@id": "schema:citation"
+      },
+      "coded_by": {
+        "@type": "xsd:anyURI",
+        "@id": "coded_by"
+      },
+      "coded_concept": {
+        "@type": "xsd:anyURI",
+        "@id": "coded_concept"
+      },
+      "coding_depth": {
+        "@type": "xsd:integer",
+        "@id": "coding_depth"
+      },
+      "coding_method": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "coding_method"
+      },
+      "coding_scheme": {
+        "@id": "coding_scheme"
+      },
+      "coding_scheme_version": {
+        "@id": "coding_scheme_version"
+      },
+      "concept_mappings": {
+        "@type": "xsd:anyURI",
+        "@id": "concept_mappings"
+      },
+      "concept_status": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "concept_status"
+      },
+      "confidence": {
+        "@type": "xsd:float",
+        "@id": "confidence"
+      },
+      "contacts": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:contactPoint"
+      },
+      "contribution_description": {
+        "@id": "contribution_description"
+      },
+      "contributors": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:contributor"
+      },
+      "coordinate_reference_system": {
+        "@id": "coordinate_reference_system"
+      },
+      "coordinate_reference_system_uri": {
+        "@type": "xsd:anyURI",
+        "@id": "coordinate_reference_system_uri"
+      },
+      "data_dictionary": {
+        "@type": "@id",
+        "@id": "data_dictionary"
+      },
+      "data_resource_types": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "data_resource_types"
+      },
+      "data_tool_method_annotations": {
+        "@type": "@id",
+        "@id": "data_tool_method_annotations"
+      },
+      "data_type": {
+        "@id": "data_type"
+      },
+      "description": {
+        "@id": "schema:description"
+      },
+      "distributions": {
+        "@type": "@id",
+        "@id": "dcat:distribution"
+      },
+      "doi": {
+        "@id": "doi"
+      },
+      "east": {
+        "@type": "xsd:float",
+        "@id": "east"
+      },
+      "email": {
+        "@id": "schema:email"
+      },
+      "end_date": {
+        "@type": "xsd:date",
+        "@id": "schema:endDate"
+      },
+      "environmental_context": {
+        "@type": "xsd:anyURI",
+        "@id": "environmental_context"
+      },
+      "environmental_variables": {
+        "@type": "@id",
+        "@id": "environmental_variables"
+      },
+      "evidence_text": {
+        "@id": "evidence_text"
+      },
+      "exposure_annotations": {
+        "@type": "@id",
+        "@id": "exposure_annotations"
+      },
+      "family_name": {
+        "@id": "schema:familyName"
+      },
+      "format": {
+        "@id": "dcterms:format"
+      },
+      "funder": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:funder"
+      },
+      "funding_mechanism": {
+        "@id": "funding_mechanism"
+      },
+      "funding_sources": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:funding"
+      },
+      "generated_by": {
+        "@type": "xsd:anyURI",
+        "@id": "prov:wasGeneratedBy"
+      },
+      "geographic_features": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "geographic_features"
+      },
+      "geographic_identifiers": {
+        "@type": "xsd:anyURI",
+        "@id": "geographic_identifiers"
+      },
+      "geographic_locations": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "geographic_locations"
+      },
+      "geography_annotations": {
+        "@type": "@id",
+        "@id": "geography_annotations"
+      },
+      "geojson": {
+        "@id": "geo:asGeoJSON"
+      },
+      "geometry": {
+        "@type": "@id",
+        "@id": "geo:hasGeometry"
+      },
+      "geometry_type": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "geometry_type"
+      },
+      "given_name": {
+        "@id": "schema:givenName"
+      },
+      "has_projects": {
+        "@type": "xsd:anyURI",
+        "@id": "has_projects"
+      },
+      "health_impact_annotations": {
+        "@type": "@id",
+        "@id": "health_impact_annotations"
+      },
+      "id": "@id",
+      "identifiers": {
+        "@id": "schema:identifier"
+      },
+      "information_source": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "information_source"
+      },
+      "input_variables": {
+        "@id": "input_variables"
+      },
+      "is_global_or_unspecified": {
+        "@type": "xsd:boolean",
+        "@id": "is_global_or_unspecified"
+      },
+      "is_not_reported": {
+        "@type": "xsd:boolean",
+        "@id": "is_not_reported"
+      },
+      "journal": {
+        "@id": "schema:isPartOf"
+      },
+      "keywords": {
+        "@id": "schema:keywords"
+      },
+      "latitude": {
+        "@type": "xsd:float",
+        "@id": "biolink:latitude"
+      },
+      "license": {
+        "@id": "dcterms:license"
+      },
+      "location_id": {
+        "@type": "xsd:anyURI",
+        "@id": "location_id"
+      },
+      "location_type": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "location_type"
+      },
+      "locations": {
+        "@type": "@id",
+        "@id": "locations"
+      },
+      "longitude": {
+        "@type": "xsd:float",
+        "@id": "biolink:longitude"
+      },
+      "maintainers": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:maintainer"
+      },
+      "mappings": {
+        "@type": "xsd:anyURI",
+        "@id": "mappings"
+      },
+      "measured_property": {
+        "@type": "xsd:anyURI",
+        "@id": "measured_property"
+      },
+      "measured_variables": {
+        "@id": "measured_variables"
+      },
+      "measurement_method": {
+        "@type": "xsd:anyURI",
+        "@id": "measurement_method"
+      },
+      "media_type": {
+        "@id": "dcat:mediaType"
+      },
+      "members": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:member"
+      },
+      "mentioned_resources": {
+        "@type": "@id",
+        "@id": "mentioned_resources"
+      },
+      "model_type": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "model_type"
+      },
+      "model_types": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "model_types"
+      },
+      "name": {
+        "@id": "schema:name"
+      },
+      "named_locations": {
+        "@type": "@id",
+        "@id": "named_locations"
+      },
+      "needs_human_review": {
+        "@type": "xsd:boolean",
+        "@id": "needs_human_review"
+      },
+      "north": {
+        "@type": "xsd:float",
+        "@id": "north"
+      },
+      "notes": {
+        "@id": "notes"
+      },
+      "omop_concept_binding": {
+        "@type": "@id",
+        "@id": "omop_concept_binding"
+      },
+      "omop_concept_id": {
+        "@type": "xsd:integer",
+        "@id": "omop_concept_id"
+      },
+      "omop_concept_name": {
+        "@id": "omop_concept_name"
+      },
+      "omop_domain_id": {
+        "@id": "omop_domain_id"
+      },
+      "omop_standard_concept": {
+        "@id": "omop_standard_concept"
+      },
+      "omop_vocabulary_id": {
+        "@id": "omop_vocabulary_id"
+      },
+      "orcid": {
+        "@type": "xsd:anyURI",
+        "@id": "orcid"
+      },
+      "organization_type": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "organization_type"
+      },
+      "output_variables": {
+        "@id": "output_variables"
+      },
+      "parent_concept": {
+        "@type": "xsd:anyURI",
+        "@id": "parent_concept"
+      },
+      "parent_organization": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:parentOrganization"
+      },
+      "part_of_programs": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:isPartOf"
+      },
+      "part_of_project": {
+        "@type": "xsd:anyURI",
+        "@id": "part_of_project"
+      },
+      "participating_organizations": {
+        "@type": "xsd:anyURI",
+        "@id": "participating_organizations"
+      },
+      "pmcid": {
+        "@id": "pmcid"
+      },
+      "pmid": {
+        "@id": "pmid"
+      },
+      "principal_investigators": {
+        "@type": "xsd:anyURI",
+        "@id": "principal_investigators"
+      },
+      "produced_by_projects": {
+        "@type": "xsd:anyURI",
+        "@id": "produced_by_projects"
+      },
+      "produces_resources": {
+        "@type": "xsd:anyURI",
+        "@id": "produces_resources"
+      },
+      "programming_language": {
+        "@id": "schema:programmingLanguage"
+      },
+      "publication_date": {
+        "@type": "xsd:date",
+        "@id": "schema:datePublished"
+      },
+      "publication_type": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "publication_type"
+      },
+      "reference_type": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "reference_type"
+      },
+      "related_resources": {
+        "@type": "xsd:anyURI",
+        "@id": "related_resources"
+      },
+      "relationship_to_literature": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "relationship_to_literature"
+      },
+      "repository": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:codeRepository"
+      },
+      "resource_type": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "resource_type"
+      },
+      "reviewed_by": {
+        "@type": "xsd:anyURI",
+        "@id": "reviewed_by"
+      },
+      "role": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "prov:hadRole"
+      },
+      "roles": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "roles"
+      },
+      "ror_id": {
+        "@type": "xsd:anyURI",
+        "@id": "ror_id"
+      },
+      "same_as": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:sameAs"
+      },
+      "software_type": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "software_type"
+      },
+      "software_version": {
+        "@id": "schema:softwareVersion"
+      },
+      "source": {
+        "@type": "xsd:anyURI",
+        "@id": "source"
+      },
+      "source_resource": {
+        "@type": "xsd:anyURI",
+        "@id": "source_resource"
+      },
+      "south": {
+        "@type": "xsd:float",
+        "@id": "south"
+      },
+      "spatial_coverage": {
+        "@id": "dcterms:spatial"
+      },
+      "spatial_extent": {
+        "@type": "@id",
+        "@id": "dcterms:spatial"
+      },
+      "spatial_resolution": {
+        "@id": "spatial_resolution"
+      },
+      "spatial_support": {
+        "@type": "@id",
+        "@id": "spatial_support"
+      },
+      "spatial_text": {
+        "@id": "spatial_text"
+      },
+      "special_topic_annotations": {
+        "@type": "@id",
+        "@id": "special_topic_annotations"
+      },
+      "specified_text": {
+        "@id": "specified_text"
+      },
+      "sponsor": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:sponsor"
+      },
+      "sponsoring_organizations": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:sponsor"
+      },
+      "start_date": {
+        "@type": "xsd:date",
+        "@id": "schema:startDate"
+      },
+      "status": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "status"
+      },
+      "study_objective": {
+        "@id": "study_objective"
+      },
+      "subject": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:about"
+      },
+      "support_type": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "support_type"
+      },
+      "temporal_alignment": {
+        "@context": {
+          "text": "skos:notation",
+          "description": "skos:prefLabel",
+          "meaning": "@id"
+        },
+        "@id": "temporal_alignment"
+      },
+      "temporal_coverage": {
+        "@id": "dcterms:temporal"
+      },
+      "temporal_resolution": {
+        "@id": "temporal_resolution"
+      },
+      "temporal_support": {
+        "@type": "@id",
+        "@id": "temporal_support"
+      },
+      "themes": {
+        "@type": "xsd:anyURI",
+        "@id": "themes"
+      },
+      "title": {
+        "@id": "schema:name"
+      },
+      "unit": {
+        "@id": "unit"
+      },
+      "url": {
+        "@type": "xsd:anyURI",
+        "@id": "schema:url"
+      },
+      "used_by_projects": {
+        "@type": "xsd:anyURI",
+        "@id": "used_by_projects"
+      },
+      "uses_resources": {
+        "@type": "xsd:anyURI",
+        "@id": "uses_resources"
+      },
+      "variables": {
+        "@type": "@id",
+        "@id": "variables"
+      },
+      "west": {
+        "@type": "xsd:float",
+        "@id": "west"
+      },
+      "wkt": {
+        "@id": "geo:asWKT"
+      },
+      "Agent": {
+        "@id": "prov:Agent"
+      },
+      "AgentAssociation": {
+        "@id": "prov:Association"
+      },
+      "BoundingBox": {
+        "@id": "BoundingBox"
+      },
+      "CohortResource": {
+        "@id": "CohortResource"
+      },
+      "DataDictionary": {
+        "@id": "schema:Dataset"
+      },
+      "DatasetResource": {
+        "@id": "schema:Dataset"
+      },
+      "DataToolMethodAnnotation": {
+        "@id": "DataToolMethodAnnotation"
+      },
+      "Distribution": {
+        "@id": "dcat:Distribution"
+      },
+      "EnvironmentalVariable": {
+        "@id": "EnvironmentalVariable"
+      },
+      "ExposureAnnotation": {
+        "@id": "ExposureAnnotation"
+      },
+      "FundingSource": {
+        "@id": "schema:Grant"
+      },
+      "GeographicLocation": {
+        "@id": "biolink:GeographicLocation"
+      },
+      "GeographyAnnotation": {
+        "@id": "GeographyAnnotation"
+      },
+      "Geometry": {
+        "@id": "geo:Geometry"
+      },
+      "GeospatialResource": {
+        "@id": "GeospatialResource"
+      },
+      "HealthImpactAnnotation": {
+        "@id": "HealthImpactAnnotation"
+      },
+      "HEWResource": {
+        "@id": "schema:CreativeWork"
+      },
+      "HEWSystematicReviewAnnotation": {
+        "@id": "prov:Entity"
+      },
+      "LiteratureResource": {
+        "@id": "schema:ScholarlyArticle"
+      },
+      "MentionedResource": {
+        "@id": "MentionedResource"
+      },
+      "ModelResource": {
+        "@id": "ModelResource"
+      },
+      "OMOPConceptBinding": {
+        "@id": "OMOPConceptBinding"
+      },
+      "Organization": {
+        "@id": "schema:Organization"
+      },
+      "Person": {
+        "@id": "schema:Person"
+      },
+      "Program": {
+        "@id": "schema:Project"
+      },
+      "Project": {
+        "@id": "schema:Project"
+      },
+      "SoftwareAgent": {
+        "@id": "prov:SoftwareAgent"
+      },
+      "SoftwareResource": {
+        "@id": "schema:SoftwareSourceCode"
+      },
+      "SpatialExtent": {
+        "@id": "SpatialExtent"
+      },
+      "SpatialSupport": {
+        "@id": "SpatialSupport"
+      },
+      "SpecialTopicAnnotation": {
+        "@id": "SpecialTopicAnnotation"
+      },
+      "SurveyInstrument": {
+        "@id": "SurveyInstrument"
+      },
+      "TemporalSupport": {
+        "@id": "TemporalSupport"
+      },
+      "Variable": {
+        "@id": "Variable"
+      }
+    },
+    "@type": "LiteratureResource"
+  },
+  "technical_metadata": {
+    "created": "2026-09-21T15:04:58.265353",
+    "modified": "2026-09-21T15:04:58.265353",
+    "verified": "2026-09-21T15:04:58.265353",
+    "data_checksum": "d508e8807a608de382fab55d3cdb78bcaebd7dd7926118cb554639ad7b430183",
+    "target_schema_type": "hew-publication",
+    "target_schema_version": "1.0.0",
+    "original_source_type": "laserai_spreadsheet",
+    "original_source_identifier": "10.1177/17455057241259171",
+    "original_source_link": "export.xlsx",
+    "additional_data": [],
+    "history": [
+      {
+        "timestamp": "2026-09-21T15:04:47.369708",
+        "msg": "ingest from landing zone: export.xlsx"
+      },
+      {
+        "timestamp": "2026-09-21T15:04:58.265358",
+        "msg": "accession from hew-publication with identifier 10.1177/17455057241259171 in operation LaserAI_Ingest-manual__2026-09-21T15:04:25.413915+00:00"
+      }
+    ],
+    "dissemination_endpoints": []
+  }
+}

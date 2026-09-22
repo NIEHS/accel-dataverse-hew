@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "accelerator_dataverse_hew"
+version = "0.1.0"
+description = "Accelerator components for the HEW Dataverse"
+authors = [
+    { name = "Mike Conway", email = "mike.conway@nih.gov" },
+]
+requires-python = ">=3.11"
+license = { text = "BSD 3-Clause" }
+dependencies = [
+    "accelerator_core @ git+https://github.com/NIEHS/accelerator-core@58-hew",
+    "requests~=2.32.3",
+    "pydantic~=2.13.0",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/NIEHS/accelerator-dataverse-hew"
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit~=4.1.0",
+    "black~=25.1.0",
+    "pytest~=8.3.5",
+    "coverage~=7.6.12",
+]
+
+[tool.setuptools.packages.find]
+include = ["accelerator_dataverse_hew*"]

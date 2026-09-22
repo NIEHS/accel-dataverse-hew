@@ -224,8 +224,11 @@ For the first HEW publications dissemination workflow, emit:
    metadata blocks.
 
 The source and geospatial-file CAFE blocks should remain enabled for future
-dataset, model, and geospatial-resource dissemination, but should generally be
-empty for literature-only records.
+dataset, model, and geospatial-resource dissemination. For literature-only
+records, the required CAFE indicators must be explicitly set to `No` when the
+HEW record does not provide evidence that the publication is derived from an
+existing dataset or includes a geospatial file; the other CAFE fields should
+remain empty.
 
 ## Crosswalk requirements
 

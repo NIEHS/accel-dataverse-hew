@@ -13,6 +13,8 @@ publication records:
 
 - `citation`
 - `hewResource`
+- `customCAFEDataSources`
+- `customCAFEDataLocation`
 
 Enable these blocks when the corresponding source data is present:
 
@@ -20,9 +22,10 @@ Enable these blocks when the corresponding source data is present:
 - `geospatial` for meaningful resource-level geographic coverage;
 - `AdditionalMetadataAboutDataset` for exact CAFE vocabulary matches.
 
-The CAFE source-data, CAFE geospatial-file, and computational-workflow blocks
-remain available for later resource types but are not required for ordinary
-literature records.
+The publication projection supplies the required CAFE derivation and
+geospatial-file indicators as `No` when those facts are absent from the HEW
+record. The remaining CAFE fields and the computational-workflow block remain
+available for later resource types.
 
 Install the block definitions with:
 

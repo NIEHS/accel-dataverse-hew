@@ -41,11 +41,13 @@ class PublicationCrosswalkTest(unittest.TestCase):
         projection = crosswalk_publication(record, self.context)
         payload = projection.to_dataverse_payload()
         blocks = payload["datasetVersion"]["metadataBlocks"]
+        self.assertIn("BSD-3-Clause", payload["datasetVersion"]["termsOfUse"])
         citation = blocks["citation"]["fields"]
         resource = blocks["hewResource"]["fields"]
 
         self.assertEqual(validate_publication_source(record).publication_date, date(2026, 1, 2))
-        self.assertEqual(citation[1]["value"], "https://example.org/publication")
+        alternative_url = next(field for field in citation if field["typeName"] == "alternativeURL")
+        self.assertEqual(alternative_url["value"], "https://example.org/publication")
         identifiers = next(field for field in citation if field["typeName"] == "otherId")
         self.assertEqual(
             [(item["otherIdAgency"]["value"], item["otherIdValue"]["value"]) for item in identifiers["value"]],
@@ -71,6 +73,44 @@ class PublicationCrosswalkTest(unittest.TestCase):
         self.assertIn("url", omitted_sources)
         self.assertIn("keywords", omitted_sources)
         self.assertNotIn('"value": ""', json.dumps(projection.to_dataverse_payload()))
+
+    def test_defaults_required_cafe_publication_values_to_no(self):
+        projection = crosswalk_publication(
+            {"id": "HEWRES:test-cafe", "title": "Publication", "resource_type": "literature"},
+            self.context,
+        )
+        blocks = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]
+
+        self.assertEqual(
+            blocks["customCAFEDataSources"]["fields"][0]["value"],
+            "No",
+        )
+        self.assertEqual(
+            blocks["customCAFEDataLocation"]["fields"][0]["value"],
+            "No",
+        )
+
+    def test_preserves_explicit_cafe_publication_values(self):
+        projection = crosswalk_publication(
+            {
+                "id": "HEWRES:test-cafe-explicit",
+                "title": "Publication",
+                "resource_type": "literature",
+                "derived_from_existing_dataset": True,
+                "includes_geospatial_file": False,
+            },
+            self.context,
+        )
+        blocks = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]
+
+        self.assertEqual(
+            blocks["customCAFEDataSources"]["fields"][0]["value"],
+            "Yes",
+        )
+        self.assertEqual(
+            blocks["customCAFEDataLocation"]["fields"][0]["value"],
+            "No",
+        )
 
     def test_rejects_missing_or_invalid_publication_contract(self):
         with self.assertRaises(PublicationValidationError):
@@ -138,7 +178,7 @@ class PublicationCrosswalkTest(unittest.TestCase):
         self.assertEqual(fields[0]["value"], mongo_document["data"]["title"])
         self.assertEqual(
             [field["typeName"] for field in fields],
-            ["title", "otherId", "author"],
+            ["title", "subject", "otherId", "author", "dsDescription"],
         )
 
     def test_rejects_jsonld_without_hew_context_or_type(self):

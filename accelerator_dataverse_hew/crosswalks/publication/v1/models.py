@@ -7,6 +7,15 @@ from typing import Any, Literal
 from pydantic import AnyUrl, BaseModel, ConfigDict, Field, field_validator
 
 
+DEFAULT_TERMS_OF_USE = (
+    "BSD 3-Clause License (SPDX-License-Identifier: BSD-3-Clause). "
+    "Redistribution and use in source and binary forms, with or without "
+    "modification, are permitted provided that the copyright notice, this "
+    "list of conditions, and the disclaimer are retained. The software is "
+    "provided without warranty or liability."
+)
+
+
 class PublicationSource(BaseModel):
     """The HEW publication fields consumed by the v1 projection."""
 
@@ -105,6 +114,7 @@ class DataversePublicationProjection(BaseModel):
     def to_dataverse_payload(self) -> dict[str, Any]:
         return {
             "datasetVersion": {
+                "termsOfUse": DEFAULT_TERMS_OF_USE,
                 "metadataBlocks": {
                     name: block.model_dump(by_alias=True, exclude_none=True)
                     for name, block in self.metadata_blocks.items()
