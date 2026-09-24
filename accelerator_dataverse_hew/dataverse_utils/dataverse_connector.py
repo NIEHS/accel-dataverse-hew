@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from __future__ import annotations
+
 import json
 import time
 from urllib.parse import quote
@@ -12,8 +14,6 @@ from accelerator_dataverse_hew.crosswalks.publication.v1 import (
     DataversePublicationProjection,
     crosswalk_jsonld_publication,
 )
-from build.lib.accelerator_dataverse_hew.dataverse_utils.dataverse_types import DataverseCollection
-
 import logging
 
 logger = logging.getLogger()
