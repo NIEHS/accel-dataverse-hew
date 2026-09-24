@@ -15,6 +15,8 @@ dependencies = [
     "accelerator_core @ git+https://github.com/NIEHS/accelerator-core@58-hew",
     "requests~=2.32.3",
     "pydantic~=2.13.0",
+    "pydataverse~=0.3.4",
+    "urllib3~=2.4.0"
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
