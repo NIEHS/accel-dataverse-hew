@@ -1,0 +1,88 @@
+crosswalk_id: hew-publication-to-dataverse
+crosswalk_version: 1.0.0
+hew_schema:
+  version: 1.2.0
+  source: https://w3id.org/hew/schema
+source:
+  format: jsonld
+  class: LiteratureResource
+  context_required: true
+  type_required: true
+  required:
+    - id
+    - title
+    - resource_type
+  constraints:
+    resource_type: literature
+dataverse:
+  required_blocks:
+    - citation
+    - hewResource
+  optional_blocks:
+    - hewReview
+    - geospatial
+    - AdditionalMetadataAboutDataset
+  preservation_attachment:
+    format: jsonld
+    required: true
+context:
+  required:
+    - catalog_version
+    - metadata_block_version
+    - target_collection
+  output_fields:
+    catalog_version: hewResource.hewCatalogVersion
+    hew_schema_version: hewResource.hewSchemaVersion
+    crosswalk_version: hewResource.hewCrosswalkVersion
+mappings:
+  - source: id
+    target: hewResource.hewResourceId
+  - source: title
+    target: citation.title
+  - source: abstract
+    target: citation.dsDescription
+  - source: description
+    target: citation.dsDescription
+  - source: url
+    target: citation.alternativeURL
+  - source: doi
+    target: citation.otherId
+    identifier_type: DOI
+  - source: pmid
+    target: citation.otherId
+    identifier_type: PMID
+  - source: pmcid
+    target: citation.otherId
+    identifier_type: PMCID
+  - source: identifiers
+    target: citation.otherId
+    identifier_type: source_defined
+  - source: authors
+    target: citation.author
+  - source: keywords
+    target: citation.keyword
+  - source: citation
+    target: citation.notesText
+  - source: publication_type
+    target: citation.topicClassification
+  - source: journal
+    target: citation.notesText
+  - source: publication_date
+    target: citation.productionDate
+  - source: resource_type
+    target: hewResource.hewResourceType
+    vocabulary:
+      literature: Literature resource
+  - source: status
+    target: hewResource.hewResourceStatus
+  - source: related_resources
+    target: hewResource.hewRelatedResource
+  - source: annotations
+    target: hewReview
+    transform: summarize_review_annotations
+  - source: spatial_extent
+    target: geospatial
+    transform: project_resource_spatial_extent
+  - source: themes
+    target: AdditionalMetadataAboutDataset.cafeDatasetTerms
+    transform: map_exact_cafe_terms

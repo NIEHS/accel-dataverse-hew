@@ -1,14 +1,23 @@
-import json
+from __future__ import annotations
 
-from accelerator_core.utils.logger import setup_logger
-from pyDataverse.api import NativeApi
-from pyDataverse.exceptions import DataverseNotFoundError, DataverseNotEmptyError
-from pyDataverse.models import Dataverse
+from __future__ import annotations
+
+import json
+import time
+from urllib.parse import quote
+
+import requests
 
 from accelerator_dataverse_hew.dataverse_utils.dataverse_config import DataverseConfig
-from accelerator_dataverse_hew.dataverse_utils.dataverse_types import DataverseCollection, DataverseDataset
+from accelerator_dataverse_hew.crosswalks.publication.v1 import (
+    CrosswalkContext,
+    DataversePublicationProjection,
+    crosswalk_jsonld_publication,
+)
+import logging
 
-logger = setup_logger("accelerator-dataverse")
+logger = logging.getLogger()
+
 
 class DataverseListing:
     """
@@ -59,12 +68,19 @@ class DataverseDisseminationResult:
     and any error or reponse information.
     """
 
-    def __init__(self):
-        self.pid = ""
-        self.success = True
-        self.message = ""
-        self.status_code = 0
-        self.api_url = ""
+    def __init__(
+        self,
+        pid: str = "",
+        success: bool = True,
+        message: str = "",
+        status_code: int = 0,
+        api_url: str = "",
+    ):
+        self.pid = pid
+        self.success = success
+        self.message = message
+        self.status_code = status_code
+        self.api_url = api_url
 
     @staticmethod
     def from_dict(json_dict:dict):
@@ -261,4 +277,130 @@ class DataverseConnector(AbstractDataverseConnector):
         return resp.is_success
 
 
+class DataverseConnector:
+    """Small Dataverse API client for HEW publication projections."""
 
+    def __init__(self, dataverse_config: DataverseConfig, session: requests.Session | None = None):
+        self.dataverse_config = dataverse_config
+        self.session = session or requests.Session()
+
+    @property
+    def _headers(self) -> dict[str, str]:
+        headers = {"Content-Type": "application/json"}
+        if self.dataverse_config.api_key:
+            headers["X-Dataverse-key"] = self.dataverse_config.api_key
+        return headers
+
+    def _response_result(self, response: requests.Response) -> dict:
+        try:
+            response.raise_for_status()
+        except requests.HTTPError as error:
+            detail = response.text.strip()
+            if detail:
+                raise requests.HTTPError(
+                    f"{error}; response body: {detail}", response=response
+                ) from error
+            raise
+        result = response.json()
+        if result.get("status") not in (None, "OK"):
+            raise RuntimeError(f"Dataverse request failed: {result}")
+        return result
+
+    def create_dataset_from_dict(
+        self, dataverse: str, dataverse_dataset: dict, publish: bool = False
+    ) -> DataverseDisseminationResult:
+        """Create a dataset and optionally publish it as a major release."""
+        target = quote(dataverse, safe="")
+        response = self.session.post(
+            f"{self.dataverse_config.dataverse_host.rstrip('/')}/api/dataverses/{target}/datasets",
+            headers=self._headers,
+            json=dataverse_dataset,
+        )
+        result = self._response_result(response)
+        data = result.get("data") or {}
+        dissemination_result = DataverseDisseminationResult(
+            pid=data.get("persistentId", ""),
+            success=True,
+            message=json.dumps(result),
+            status_code=response.status_code,
+            api_url=str(response.url),
+        )
+        if publish:
+            publish_url = (
+                f"{self.dataverse_config.dataverse_host.rstrip('/')}/api/datasets/"
+                ":persistentId/actions/:publish"
+            )
+            publish_params = {
+                "persistentId": dissemination_result.pid,
+                "type": "major",
+                "assureIsIndexed": "true",
+            }
+            for attempt in range(30):
+                publish_response = self.session.post(
+                    publish_url,
+                    headers=self._headers,
+                    params=publish_params,
+                )
+                try:
+                    publish_result = self._response_result(publish_response)
+                    break
+                except requests.HTTPError as error:
+                    if (
+                        publish_response.status_code != 409
+                        or "awaiting indexing" not in publish_response.text.lower()
+                        or attempt == 29
+                    ):
+                        raise
+                    time.sleep(1)
+            dissemination_result.message = json.dumps(publish_result)
+            dissemination_result.status_code = publish_response.status_code
+            dissemination_result.api_url = str(publish_response.url)
+        return dissemination_result
+
+    def create_dataset(
+        self,
+        dataverse: str,
+        projection: DataversePublicationProjection,
+    ) -> DataverseDisseminationResult:
+        return self.create_dataset_from_dict(dataverse, projection.to_dataverse_payload())
+
+    def crosswalk_publication(
+        self,
+        document: dict | str,
+        context: CrosswalkContext,
+    ) -> DataversePublicationProjection:
+        """Crosswalk one HEW JSON-LD publication without making API calls."""
+        return crosswalk_jsonld_publication(document, context)
+
+    def upload_jsonld_file(
+        self,
+        dataset_pid: str,
+        document: dict | str,
+        filename: str = "hew-resource.jsonld",
+    ) -> dict:
+        """Attach the original HEW JSON-LD document to an existing dataset."""
+        content = document if isinstance(document, str) else json.dumps(document, indent=2)
+        headers = {}
+        if self.dataverse_config.api_key:
+            headers["X-Dataverse-key"] = self.dataverse_config.api_key
+        response = self.session.post(
+            f"{self.dataverse_config.dataverse_host.rstrip('/')}/api/datasets/:persistentId/add",
+            headers=headers,
+            params={"persistentId": dataset_pid},
+            files={"file": (filename, content.encode("utf-8"), "application/ld+json")},
+        )
+        return self._response_result(response)
+
+    def disseminate_publication(
+        self,
+        dataverse: str,
+        projection: DataversePublicationProjection,
+        document: dict | str | None = None,
+        filename: str = "hew-resource.jsonld",
+    ) -> dict:
+        """Disseminate an existing projection and optionally attach its source JSON-LD."""
+        dataset_result = self.create_dataset(dataverse, projection)
+        result = {"dataset": dataset_result.to_dict()}
+        if document is not None:
+            result["file"] = self.upload_jsonld_file(dataset_result.pid, document, filename)
+        return result
