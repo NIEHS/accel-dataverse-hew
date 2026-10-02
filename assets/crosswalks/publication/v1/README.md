@@ -1,7 +1,7 @@
 # HEW publication crosswalk v1
 
 This directory defines the first HEW-to-Dataverse publication projection. The
-crosswalk targets HEW schema version `1.2.0` and accepts the compact JSON-LD
+crosswalk targets HEW schema version `2.0.0` and accepts the compact JSON-LD
 `LiteratureResource` document persisted by MongoDB. It does not require the
 source record to be stored as LinkML YAML or as a LinkML-shaped JSON document.
 The machine-readable contract is in `mapping.yaml`.
@@ -44,13 +44,19 @@ catalog version is not currently a slot in the HEW source schema.
 ## Publication input contract
 
 Before transformation, parse the JSON-LD document and verify its context and
-`@type` against HEW schema version `1.2.0`. Then validate the supported HEW
+`@type` against HEW schema version `2.0.0`. Then validate the supported HEW
 publication semantics and adapt the document into a temporary source view for
 the crosswalk. The minimum publication record contains:
 
 - `id` or the JSON-LD equivalent `@id`;
 - `title`;
 - `resource_type: literature`.
+
+`authors` may be inlined HEW agents or, for older records, plain strings. An
+agent's `authorName` is its `name`, else "family_name, given_name", else its
+`id`; an ORCID in `orcid` or `id` is emitted as the author identifier.
+`publication_date` may be `YYYY`, `YYYY-MM`, or `YYYY-MM-DD`, and `status` is one
+of `draft`, `active`, or `archived`.
 
 LinkML remains the schema authority and can validate the adapted slot map; it is
 not an intermediate persistence format. Pydantic validates the crosswalk

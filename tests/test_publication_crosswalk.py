@@ -1,6 +1,5 @@
 import json
 import unittest
-from datetime import date
 from pathlib import Path
 
 from accelerator_dataverse_hew.crosswalks.publication.v1 import (
@@ -45,7 +44,7 @@ class PublicationCrosswalkTest(unittest.TestCase):
         citation = blocks["citation"]["fields"]
         resource = blocks["hewResource"]["fields"]
 
-        self.assertEqual(validate_publication_source(record).publication_date, date(2026, 1, 2))
+        self.assertEqual(validate_publication_source(record).publication_date, "2026-01-02")
         alternative_url = next(field for field in citation if field["typeName"] == "alternativeURL")
         self.assertEqual(alternative_url["value"], "https://example.org/publication")
         identifiers = next(field for field in citation if field["typeName"] == "otherId")
@@ -59,6 +58,75 @@ class PublicationCrosswalkTest(unittest.TestCase):
         self.assertEqual(len(authors["value"]), 1)
         self.assertIn("hewCrosswalkVersion", {field["typeName"] for field in resource})
         self.assertEqual(projection.report.unmapped, [])
+
+    def test_maps_inlined_agent_authors(self):
+        record = {
+            "id": "HEWRES:test-authors",
+            "title": "Authored publication",
+            "resource_type": "literature",
+            "authors": [
+                {
+                    "id": "HEW:person-doe",
+                    "agent_type": "Person",
+                    "given_name": "Jane",
+                    "family_name": "Doe",
+                    "orcid": "https://orcid.org/0000-0002-1825-009x",
+                },
+                {"id": "ORCID:0000-0001-5109-3700", "agent_type": "Person", "name": "Smith, Alex"},
+                {"id": "ROR:00j4k1h63", "agent_type": "Organization", "name": "NIEHS", "ror_id": "https://ror.org/00j4k1h63"},
+                "orcid:0000-0000-0000-0001",
+            ],
+        }
+
+        citation = crosswalk_publication(record, self.context).to_dataverse_payload()[
+            "datasetVersion"
+        ]["metadataBlocks"]["citation"]["fields"]
+        authors = next(field for field in citation if field["typeName"] == "author")["value"]
+
+        self.assertEqual(
+            [
+                (
+                    item["authorName"]["value"],
+                    item.get("authorIdentifierScheme", {}).get("value"),
+                    item.get("authorIdentifier", {}).get("value"),
+                )
+                for item in authors
+            ],
+            [
+                ("Doe, Jane", "ORCID", "0000-0002-1825-009X"),
+                ("Smith, Alex", "ORCID", "0000-0001-5109-3700"),
+                ("NIEHS", None, None),
+                ("orcid:0000-0000-0000-0001", None, None),
+            ],
+        )
+
+    def test_jsonld_inlined_author_keeps_properties(self):
+        projection = crosswalk_jsonld_publication(
+            {
+                "@context": {"HEW": "https://w3id.org/hew/"},
+                "@type": "LiteratureResource",
+                "@id": "HEWRES:test-jsonld-authors",
+                "title": "JSON-LD authored publication",
+                "resource_type": "literature",
+                "authors": [{"@id": "HEW:person-doe", "@type": "Person", "name": "Jane Doe"}],
+            },
+            self.context,
+        )
+
+        citation = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]["citation"][
+            "fields"
+        ]
+        authors = next(field for field in citation if field["typeName"] == "author")["value"]
+        self.assertEqual(authors[0]["authorName"]["value"], "Jane Doe")
+
+    def test_accepts_partial_publication_dates(self):
+        base = {"id": "HEWRES:test-date", "title": "Dated", "resource_type": "literature"}
+        for value in ("2024", "2024-03", "2024-03-09"):
+            source = validate_publication_source({**base, "publication_date": value})
+            self.assertEqual(source.publication_date, value)
+        for value in ("2024/03", "2024-13", "2024-02-30", "March 2024"):
+            with self.assertRaises(PublicationValidationError):
+                validate_publication_source({**base, "publication_date": value})
 
     def test_omits_empty_optional_values_and_reports_them(self):
         projection = crosswalk_publication(

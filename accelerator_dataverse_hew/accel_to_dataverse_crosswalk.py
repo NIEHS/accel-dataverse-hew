@@ -10,6 +10,7 @@ from accelerator_dataverse_hew.crosswalks.publication.v1 import (
     CrosswalkContext,
     crosswalk_jsonld_publication,
 )
+from accelerator_dataverse_hew.crosswalks.publication.v1.models import HEW_SCHEMA_VERSION
 
 
 class AccelToDataverseHewCrosswalk(DisseminationCrosswalk):
@@ -49,7 +50,7 @@ class AccelToDataverseHewCrosswalk(DisseminationCrosswalk):
                 "target_collection", descriptor.dissemination_type or "root"
             ),
             hew_schema_version=context_values.get(
-                "hew_schema_version", descriptor.schema_version or "1.2.0"
+                "hew_schema_version", HEW_SCHEMA_VERSION
             ),
             crosswalk_version=context_values.get(
                 "crosswalk_version", descriptor.dissemination_version or "1.0.0"

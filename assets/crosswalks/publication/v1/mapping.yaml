@@ -1,7 +1,7 @@
 crosswalk_id: hew-publication-to-dataverse
 crosswalk_version: 1.0.0
 hew_schema:
-  version: 1.2.0
+  version: 2.0.0
   source: https://w3id.org/hew/schema
 source:
   format: jsonld
@@ -59,6 +59,11 @@ mappings:
     identifier_type: source_defined
   - source: authors
     target: citation.author
+    subfields:
+      authorName: name, else "family_name, given_name", else id
+      authorIdentifierScheme: ORCID when orcid (or an ORCID id) is present
+      authorIdentifier: normalized ORCID iD
+    legacy: plain string authors map to authorName only
   - source: keywords
     target: citation.keyword
   - source: citation
@@ -77,6 +82,28 @@ mappings:
     target: hewResource.hewResourceStatus
   - source: related_resources
     target: hewResource.hewRelatedResource
+  - source: description
+    target: hewResource.hewResourceDescription
+  - source: same_as
+    target: hewResource.hewSameAs
+  - source: themes
+    target: hewResource.hewTheme
+  - source: spatial_coverage
+    target: hewResource.hewSpatialCoverage
+  - source: temporal_coverage
+    target: hewResource.hewTemporalCoverage
+  - source: access_rights
+    target: hewResource.hewAccessRights
+  - source: license
+    target: hewResource.hewLicense
+  - source: study_objective
+    target: hewResource.hewStudyObjective
+  - source: contacts
+    target: hewResource.hewContact
+  - source: contributors
+    target: hewResource.hewContributor
+  - source: funding_sources
+    target: hewResource.hewFundingSource
   - source: annotations
     target: hewReview
     transform: summarize_review_annotations

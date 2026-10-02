@@ -10,6 +10,7 @@ from urllib.parse import urlsplit, urlunsplit
 from pydantic import ValidationError
 
 from accelerator_dataverse_hew.crosswalks.publication.v1.models import (
+    AuthorSource,
     CrosswalkContext,
     DataverseField,
     DataverseMetadataBlock,
@@ -43,7 +44,13 @@ def _jsonld_value(value: Any) -> Any:
         if "@value" in value:
             return value["@value"]
         if "@id" in value:
-            return value["@id"]
+            properties = {
+                key: _jsonld_value(item) for key, item in value.items() if not key.startswith("@")
+            }
+            # A bare node reference collapses to its IRI; an inlined node keeps its properties.
+            if not properties:
+                return value["@id"]
+            return {"id": value["@id"], **properties}
         if "@list" in value:
             return [_jsonld_value(item) for item in value["@list"]]
         return {key: _jsonld_value(item) for key, item in value.items()}
@@ -89,6 +96,7 @@ def _normalized_jsonld_source(document: Mapping[str, Any], context: CrosswalkCon
 DOI_PATTERN = re.compile(r"^10\.\d{4,9}/\S+$", re.IGNORECASE)
 PMID_PATTERN = re.compile(r"^\d+$")
 PMCID_PATTERN = re.compile(r"^PMC\d+$", re.IGNORECASE)
+ORCID_PATTERN = re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$", re.IGNORECASE)
 
 KNOWN_SOURCE_FIELDS = {
     "id",
@@ -109,6 +117,16 @@ KNOWN_SOURCE_FIELDS = {
     "publication_date",
     "status",
     "related_resources",
+    "same_as",
+    "themes",
+    "spatial_coverage",
+    "temporal_coverage",
+    "access_rights",
+    "license",
+    "study_objective",
+    "contacts",
+    "contributors",
+    "funding_sources",
     "derived_from_existing_dataset",
     "includes_geospatial_file",
     "contact_email",
@@ -175,6 +193,15 @@ def _validate_list(record: Mapping[str, Any], field_name: str) -> None:
         raise PublicationValidationError(f"{field_name} must be a list of strings")
 
 
+def _validate_authors(record: Mapping[str, Any]) -> None:
+    value = record.get("authors")
+    if value is not None and (
+        not isinstance(value, list)
+        or any(not isinstance(item, (str, Mapping)) for item in value)
+    ):
+        raise PublicationValidationError("authors must be a list of strings or agent objects")
+
+
 def validate_publication_source(record: Mapping[str, Any]) -> PublicationSource:
     """Validate the publication contract without discarding unknown HEW fields."""
     if not isinstance(record, Mapping):
@@ -184,8 +211,9 @@ def validate_publication_source(record: Mapping[str, Any]) -> PublicationSource:
             raise PublicationValidationError(f"missing required field: {field_name}")
     if record["resource_type"] != "literature":
         raise PublicationValidationError("resource_type must be 'literature'")
-    for field_name in ("identifiers", "authors", "keywords", "related_resources"):
+    for field_name in ("identifiers", "keywords", "related_resources"):
         _validate_list(record, field_name)
+    _validate_authors(record)
     for field_name in ("doi", "pmid", "pmcid", "url"):
         if record.get(field_name) is not None:
             _optional_text(record[field_name], field_name)
@@ -244,12 +272,38 @@ def _other_id_values(source: PublicationSource) -> list[dict[str, Any]]:
     ]
 
 
+def _normalize_orcid(value: str | None) -> str | None:
+    if not value:
+        return None
+    normalized = re.sub(r"^https?://(www\.)?orcid\.org/", "", value.strip(), flags=re.I)
+    normalized = re.sub(r"^orcid:\s*", "", normalized, flags=re.I).rstrip("/")
+    return normalized.upper() if ORCID_PATTERN.fullmatch(normalized) else None
+
+
+def _author_name(author: AuthorSource) -> str:
+    if author.name:
+        return author.name
+    if author.family_name and author.given_name:
+        return f"{author.family_name}, {author.given_name}"
+    return author.family_name or author.given_name or author.id
+
+
 def _author_values(source: PublicationSource) -> list[dict[str, Any]]:
-    return [
-        {"authorName": _field("authorName", author.strip())}
-        for author in source.authors or []
-        if author.strip()
-    ]
+    values = []
+    for author in source.authors or []:
+        if isinstance(author, str):
+            if author.strip():
+                values.append({"authorName": _field("authorName", author.strip())})
+            continue
+        value = {"authorName": _field("authorName", _author_name(author))}
+        orcid = _normalize_orcid(author.orcid) or _normalize_orcid(author.id)
+        if orcid:
+            value["authorIdentifierScheme"] = _field(
+                "authorIdentifierScheme", "ORCID", "controlledVocabulary"
+            )
+            value["authorIdentifier"] = _field("authorIdentifier", orcid)
+        values.append(value)
+    return values
 
 
 def _description_values(source: PublicationSource) -> list[dict[str, Any]]:
@@ -317,6 +371,14 @@ def _status_label(status: str | None) -> str | None:
     return {"active": "Active", "draft": "Draft", "archived": "Archived"}.get(
         status.strip().lower()
     )
+
+
+def _string_values(value: Any) -> list[str]:
+    if isinstance(value, str) and value.strip():
+        return [value.strip()]
+    if isinstance(value, list):
+        return [item.strip() for item in value if isinstance(item, str) and item.strip()]
+    return []
 
 
 def _record(report: list[MappingEntry], source: str, target: str | None = None, detail: str | None = None):
@@ -402,7 +464,7 @@ def crosswalk_publication(
         _record(omitted, "publication_type", "citation.topicClassification", "empty")
 
     if source.publication_date:
-        citation_fields.append(_field("productionDate", source.publication_date.isoformat()))
+        citation_fields.append(_field("productionDate", source.publication_date))
         _record(mapped, "publication_date", "citation.productionDate")
     else:
         _record(omitted, "publication_date", "citation.productionDate", "empty")
@@ -429,6 +491,20 @@ def crosswalk_publication(
     if source.url:
         resource_fields.append(_field("hewCanonicalUrl", _normalize_url(source.url, "url")))
         _record(mapped, "url", "hewResource.hewCanonicalUrl")
+    for source_name, target_name in (
+        ("description", "hewResourceDescription"),
+        ("spatial_coverage", "hewSpatialCoverage"),
+        ("temporal_coverage", "hewTemporalCoverage"),
+        ("access_rights", "hewAccessRights"),
+        ("license", "hewLicense"),
+        ("study_objective", "hewStudyObjective"),
+    ):
+        value = getattr(source, source_name)
+        if value:
+            resource_fields.append(_field(target_name, value))
+            _record(mapped, source_name, f"hewResource.{target_name}")
+        else:
+            _record(omitted, source_name, f"hewResource.{target_name}", "empty")
     if identifiers:
         resource_fields.append(
             _field(
@@ -445,6 +521,20 @@ def crosswalk_publication(
         _record(mapped, "related_resources", "hewResource.hewRelatedResource")
     else:
         _record(omitted, "related_resources", "hewResource.hewRelatedResource", "empty")
+
+    for source_name, target_name in (
+        ("same_as", "hewSameAs"),
+        ("themes", "hewTheme"),
+        ("contacts", "hewContact"),
+        ("contributors", "hewContributor"),
+        ("funding_sources", "hewFundingSource"),
+    ):
+        values = _string_values(getattr(source, source_name))
+        if values:
+            resource_fields.append(_field(target_name, values))
+            _record(mapped, source_name, f"hewResource.{target_name}")
+        else:
+            _record(omitted, source_name, f"hewResource.{target_name}", "empty")
 
     cafe_source_fields = [
         _field(

@@ -22,7 +22,7 @@ from accelerator_dataverse_hew.dataverse_utils.dataverse_connector import (
 
 def make_payload(document):
     descriptor = DisseminationDescriptor()
-    descriptor.schema_version = "1.2.0"
+    descriptor.schema_version = "2.0.0"
     descriptor.dissemination_type = "dataverse"
     descriptor.dissemination_version = "1.0.0"
     descriptor.dissemination_identifier = "component-test"

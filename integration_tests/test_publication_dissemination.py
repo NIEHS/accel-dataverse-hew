@@ -74,7 +74,7 @@ class PublicationDisseminationIntegrationTest(unittest.TestCase):
 
         for filename, document in self.documents:
             descriptor = DisseminationDescriptor()
-            descriptor.schema_version = os.environ.get("HEW_SCHEMA_VERSION", "1.2.0")
+            descriptor.schema_version = os.environ.get("HEW_SCHEMA_VERSION", "2.0.0")
             descriptor.dissemination_type = "dataverse"
             descriptor.dissemination_version = os.environ.get(
                 "HEW_CROSSWALK_VERSION", "1.0.0"
