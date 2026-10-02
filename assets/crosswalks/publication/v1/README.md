@@ -1,9 +1,10 @@
 # HEW publication crosswalk v1
 
 This directory defines the first HEW-to-Dataverse publication projection. The
-crosswalk targets HEW schema version `2.0.0` and accepts the compact JSON-LD
-`LiteratureResource` document persisted by MongoDB. It does not require the
-source record to be stored as LinkML YAML or as a LinkML-shaped JSON document.
+crosswalk targets HEW schema version `2.0.0` and accepts either the compact
+JSON-LD `LiteratureResource` document persisted by MongoDB or a HEW Catalog Data
+Model 2.0 export such as a LaserAI record. Catalog exports are adapted only in
+memory and are preserved unchanged as the source attachment.
 The machine-readable contract is in `mapping.yaml`.
 
 ## Required Dataverse configuration

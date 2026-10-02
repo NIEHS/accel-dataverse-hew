@@ -4,7 +4,9 @@ hew_schema:
   version: 2.0.0
   source: https://w3id.org/hew/schema
 source:
-  format: jsonld
+  formats:
+    - jsonld
+    - hew_catalog_data_model_export
   class: LiteratureResource
   context_required: true
   type_required: true
@@ -104,6 +106,24 @@ mappings:
     target: hewResource.hewContributor
   - source: funding_sources
     target: hewResource.hewFundingSource
+  - source: exposures
+    target: hewResource.hewExposureConcept
+  - source: health_impacts
+    target: hewResource.hewHealthImpactConcept
+  - source: geography
+    target: hewResource.hewGeographyConcept
+  - source: geographic_features
+    target: hewResource.hewGeographicFeature
+  - source: special_topics
+    target: hewResource.hewTopicConcept
+  - source: review
+    target: hewReview
+    fields:
+      reference_type: hewReferenceType
+      recommend_for_removal: hewRecommendForRemoval
+      postpone: hewPostpone
+  - source: data_and_models
+    target: hewReview.hewDataToolMethodAnnotation
   - source: annotations
     target: hewReview
     transform: summarize_review_annotations

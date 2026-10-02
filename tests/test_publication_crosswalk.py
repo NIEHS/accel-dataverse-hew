@@ -249,6 +249,32 @@ class PublicationCrosswalkTest(unittest.TestCase):
             ["title", "subject", "otherId", "author", "dsDescription"],
         )
 
+    def test_projects_hew_catalog_data_model_2_export(self):
+        document = json.loads(
+            Path(
+                "/Users/conwaymc/Documents/workspace-accel/accelerator_laserai/integration_tests/test_resources/temp_dirs/0b1a39ff-1c3a-4cea-b021-b869f32a03ab.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        projection = crosswalk_jsonld_publication(document, self.context)
+        blocks = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]
+        resource_fields = {field["typeName"]: field for field in blocks["hewResource"]["fields"]}
+        review_fields = {field["typeName"]: field for field in blocks["hewReview"]["fields"]}
+
+        self.assertEqual(projection.source_id, "HEWRES:laserai:19145")
+        self.assertEqual(
+            next(field for field in blocks["citation"]["fields"] if field["typeName"] == "title")["value"],
+            document["data"]["bibliographic"]["title"],
+        )
+        self.assertEqual(resource_fields["hewSchemaVersion"]["value"], "2.0.0")
+        self.assertIn("Green Space/Blue Space", resource_fields["hewExposureConcept"]["value"])
+        self.assertIn("Mental Health and Well-Being", resource_fields["hewHealthImpactConcept"]["value"])
+        self.assertIn("Children", resource_fields["hewTopicConcept"]["value"])
+        self.assertEqual(review_fields["hewCodingMethod"]["value"], "Automated")
+        self.assertIn("Extreme Heat/Heat", review_fields["hewExposureAnnotation"]["value"])
+        self.assertIn("Children", review_fields["hewSpecialTopicAnnotation"]["value"])
+        self.assertEqual(projection.to_preservation_document(), document)
+
     def test_rejects_jsonld_without_hew_context_or_type(self):
         base_document = {
             "id": "HEWRES:test-jsonld",
