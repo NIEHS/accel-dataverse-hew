@@ -12,7 +12,7 @@
 	hewExposureConcept	Exposure Concept	HEW or external ontology identifier for an exposure concept	CURIE or URI	text	5	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
 	hewHealthImpactConcept	Health Impact Concept	HEW or external ontology identifier for a health-impact concept	CURIE or URI	text	6	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
 	hewGeographyConcept	Geography Concept	HEW or external ontology identifier for a geography concept	CURIE or URI	text	7	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
-	hewGeographicFeature	Geographic Feature	Resource-level geographic feature such as urban or rural		text	26		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewResource	
+	hewGeographicFeature	Geographic Feature	Resource-level geographic feature such as urban or rural		text	13		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewResource	
 	hewTopicConcept	HEW Topic Concept	HEW or external ontology identifier for a topic	CURIE or URI	text	8	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
 	hewRelatedResource	Related HEW Resource	Identifier of a related HEW catalog resource		text	9	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewResource	
 	hewResourceName	HEW Resource Name	Optional machine-readable name of the HEW resource		text	14		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewResource	
@@ -35,9 +35,9 @@
 	hewAnnotationDate	Annotation Date	Date on which the annotation was created		date	2		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		hewReview	
 	hewCodingMethod	Coding Method	Method used to produce the review coding		text	3		TRUE	TRUE	FALSE	TRUE	FALSE	FALSE		hewReview	
 	hewInformationSource	Information Source	Source used for the review coding		text	4		TRUE	TRUE	FALSE	TRUE	FALSE	FALSE		hewReview	
-	hewReferenceType	Reference Type	Type of publication reference used for the review coding		text	5		TRUE	TRUE	FALSE	TRUE	FALSE	FALSE		hewReview	
-	hewRecommendForRemoval	Recommend for Removal	Whether the source is recommended for removal		text	6		TRUE	TRUE	FALSE	TRUE	FALSE	FALSE		hewReview	
-	hewPostpone	Postpone	Whether the source coding should be postponed		text	7		TRUE	TRUE	FALSE	TRUE	FALSE	FALSE		hewReview	
+	hewReferenceType	Reference Type	Type of publication reference used for the review coding		text	16		TRUE	TRUE	FALSE	TRUE	FALSE	FALSE		hewReview	
+	hewRecommendForRemoval	Recommend for Removal	Whether the source is recommended for removal		text	17		TRUE	TRUE	FALSE	TRUE	FALSE	FALSE		hewReview	
+	hewPostpone	Postpone	Whether the source coding should be postponed		text	18		TRUE	TRUE	FALSE	TRUE	FALSE	FALSE		hewReview	
 	hewCoderIdentifier	Coder Identifier	Identifier for a human or software coder		text	5	#VALUE	TRUE	FALSE	TRUE	TRUE	FALSE	FALSE		hewReview	
 	hewReviewerIdentifier	Reviewer Identifier	Identifier for a human or group that reviewed the annotation		text	6	#VALUE	TRUE	FALSE	TRUE	TRUE	FALSE	FALSE		hewReview	
 	hewExposureAnnotation	Exposure Annotation	Structured or URI-based exposure coding value		text	7	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewReview	

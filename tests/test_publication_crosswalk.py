@@ -208,7 +208,8 @@ class PublicationCrosswalkTest(unittest.TestCase):
             self.context,
         )
 
-        self.assertEqual(projection.report.unmapped[0].source, "annotations")
+        self.assertNotIn("annotations", {entry.source for entry in projection.report.unmapped})
+        self.assertIn("hewReview", projection.metadata_blocks)
 
     def test_projects_mongodb_jsonld_and_preserves_original_document(self):
         fixture_path = (
@@ -274,6 +275,27 @@ class PublicationCrosswalkTest(unittest.TestCase):
         self.assertIn("Extreme Heat/Heat", review_fields["hewExposureAnnotation"]["value"])
         self.assertIn("Children", review_fields["hewSpecialTopicAnnotation"]["value"])
         self.assertEqual(projection.to_preservation_document(), document)
+
+    def test_projects_v2_review_annotations_into_concepts(self):
+        document = json.loads(
+            (Path(__file__).parent / "fixtures" / "hew_record_2.json").read_text(
+                encoding="utf-8"
+            )
+        )
+
+        projection = crosswalk_jsonld_publication(document, self.context)
+        blocks = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]
+        resource_fields = {field["typeName"]: field for field in blocks["hewResource"]["fields"]}
+        review_fields = {field["typeName"]: field for field in blocks["hewReview"]["fields"]}
+
+        self.assertIn("Extreme Heat/Heat", resource_fields["hewExposureConcept"]["value"])
+        self.assertIn("Birth Outcome", resource_fields["hewHealthImpactConcept"]["value"])
+        self.assertIn("Africa", resource_fields["hewGeographyConcept"]["value"])
+        self.assertIn("Rural", resource_fields["hewGeographicFeature"]["value"])
+        self.assertIn("Pregnant or Breastfeeding Women", resource_fields["hewTopicConcept"]["value"])
+        self.assertEqual(review_fields["hewCodingScheme"]["value"], "LaserAI Export")
+        self.assertEqual(review_fields["hewCodingMethod"]["value"], "Automated")
+        self.assertEqual(review_fields["hewInformationSource"]["value"], "Complete resource")
 
     def test_rejects_jsonld_without_hew_context_or_type(self):
         base_document = {
