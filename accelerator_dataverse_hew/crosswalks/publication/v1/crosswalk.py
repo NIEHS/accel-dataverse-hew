@@ -620,11 +620,25 @@ def _catalog_review_fields(source: PublicationSource) -> list[DataverseField]:
     special = _string_values((special_levels or {}).get("1")) + _string_values((special_levels or {}).get("2"))
     special = special or annotation_view["special_topics"]
     fields = []
+    multiple_fields = {
+        "hewCoderIdentifier",
+        "hewReviewerIdentifier",
+        "hewExposureAnnotation",
+        "hewHealthImpactAnnotation",
+        "hewGeographyAnnotation",
+        "hewDataToolMethodAnnotation",
+        "hewSpecialTopicAnnotation",
+        "hewEvidenceText",
+        "hewAnnotationNotes",
+        "hewConfidence",
+        "hewNeedsHumanReview",
+    }
 
     def add(name: str, value: Any, type_class: str = "primitive") -> None:
         values = _string_values(value)
         if values:
-            fields.append(_field(name, values, type_class) if len(values) > 1 else _field(name, values[0], type_class))
+            field_value = values if name in multiple_fields or len(values) > 1 else values[0]
+            fields.append(_field(name, field_value, type_class))
 
     add("hewCodingScheme", review.get("coding_scheme") or annotation_view.get("coding_scheme") or extra.get("source"))
     add("hewCodingSchemeVersion", "2.0.0")
