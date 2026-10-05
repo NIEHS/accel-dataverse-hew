@@ -608,9 +608,13 @@ def _catalog_review_fields(source: PublicationSource) -> list[DataverseField]:
     information_source = "Complete resource" if information_source == "complete_resource" else information_source
     add("hewCodingMethod", coding_method or "Automated", "controlledVocabulary")
     add("hewInformationSource", information_source, "controlledVocabulary")
-    add("hewReferenceType", review.get("reference_type") or annotation_view.get("reference_type"))
-    add("hewRecommendForRemoval", review.get("recommend_for_removal"))
-    add("hewPostpone", review.get("postpone"))
+    add(
+        "hewReferenceType",
+        review.get("reference_type") or annotation_view.get("reference_type"),
+        "controlledVocabulary",
+    )
+    add("hewRecommendForRemoval", review.get("recommend_for_removal"), "controlledVocabulary")
+    add("hewPostpone", review.get("postpone"), "controlledVocabulary")
     add("hewExposureAnnotation", exposures)
     add("hewHealthImpactAnnotation", health_impacts)
     add("hewGeographyAnnotation", geography)
@@ -817,7 +821,8 @@ def crosswalk_publication(
         ("hewTopicConcept", catalog_topic_values),
     ):
         if values:
-            resource_fields.append(_field(target_name, values))
+            type_class = "controlledVocabulary" if target_name == "hewGeographicFeature" else "primitive"
+            resource_fields.append(_field(target_name, values, type_class))
             _record(mapped, target_name, f"hewResource.{target_name}")
 
     for field_name in sorted(set(record) - KNOWN_SOURCE_FIELDS):

@@ -126,6 +126,32 @@
 	hewPublicationType	review_article	hew_publication_review_article	2
 	hewPublicationType	commentary_opinion	hew_publication_commentary_opinion	3
 	hewPublicationType	assessment_book_report	hew_publication_assessment_book_report	4
+	hewGeographicFeature	General geographic feature	hew_geographic_general	1
+	hewGeographicFeature	Built environment	hew_geographic_built_environment	2
+	hewGeographicFeature	Desert	hew_geographic_desert	3
+	hewGeographicFeature	Forest	hew_geographic_forest	4
+	hewGeographicFeature	Freshwater	hew_geographic_freshwater	5
+	hewGeographicFeature	Grassland	hew_geographic_grassland	6
+	hewGeographicFeature	Island	hew_geographic_island	7
+	hewGeographicFeature	Mountain	hew_geographic_mountain	8
+	hewGeographicFeature	Ocean/coastal	hew_geographic_ocean_coastal	9
+	hewGeographicFeature	Polar	hew_geographic_polar	10
+	hewGeographicFeature	Rainforest	hew_geographic_rainforest	11
+	hewGeographicFeature	Rural	hew_geographic_rural	12
+	hewGeographicFeature	Temperate	hew_geographic_temperate	13
+	hewGeographicFeature	Tropical	hew_geographic_tropical	14
+	hewGeographicFeature	Urban	hew_geographic_urban	15
+	hewGeographicFeature	Valley	hew_geographic_valley	16
+	hewGeographicFeature	Wetland	hew_geographic_wetland	17
+	hewGeographicFeature	Other	hew_geographic_other	18
+	hewReferenceType	research_article	hew_reference_research_article	1
+	hewReferenceType	review_article	hew_reference_review_article	2
+	hewReferenceType	commentary_opinion	hew_reference_commentary_opinion	3
+	hewReferenceType	assessment_book_report	hew_reference_assessment_book_report	4
+	hewRecommendForRemoval	Yes	hew_review_yes	1
+	hewRecommendForRemoval	No	hew_review_no	2
+	hewPostpone	Yes	hew_postpone_yes	1
+	hewPostpone	No	hew_postpone_no	2
 	hewResourceStatus	Active	hew_status_active	1
 	hewResourceStatus	Draft	hew_status_draft	2
 	hewResourceStatus	Archived	hew_status_archived	3
