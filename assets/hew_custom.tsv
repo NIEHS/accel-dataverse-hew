@@ -168,7 +168,7 @@
 	hewSurveyAdministeredBy	Medical professional	medical_professional	1
 	hewSurveyAdministeredBy	Parent or teacher	parent_or_teacher	2
 	hewSurveyAdministeredBy	Researcher or professional interviewer	researcher_or_professional_interviewer	3
-	hewSurveyAdministeredBy	Self	self	4
+	hewSurveyAdministeredBy	Self	self_administered	4
 	hewSurveyAdministeredBy	Trained non-expert	trained_non_expert	5
 	hewSurveyAdministeredBy	Untrained non-expert	untrained_non_expert	6
 	hewSurveyAdministeredBy	Not applicable	not_applicable	7
