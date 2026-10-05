@@ -407,6 +407,32 @@ def _catalog_term_values(value: Any) -> list[str]:
     return list(dict.fromkeys(values))
 
 
+GEOGRAPHIC_FEATURE_LABELS = {
+    "general_geographic_feature": "General geographic feature",
+    "built_environment": "Built environment",
+    "desert": "Desert",
+    "forest": "Forest",
+    "freshwater": "Freshwater",
+    "grassland": "Grassland",
+    "island": "Island",
+    "mountain": "Mountain",
+    "ocean_coastal": "Ocean/coastal",
+    "polar": "Polar",
+    "rainforest": "Rainforest",
+    "rural": "Rural",
+    "temperate": "Temperate",
+    "tropical": "Tropical",
+    "urban": "Urban",
+    "valley": "Valley",
+    "wetland": "Wetland",
+    "other": "Other",
+}
+
+
+def _geographic_feature_labels(values: list[str]) -> list[str]:
+    return [GEOGRAPHIC_FEATURE_LABELS.get(value.strip().lower(), value) for value in values]
+
+
 def _annotation_list(source: PublicationSource) -> list[Mapping[str, Any]]:
     annotations = (source.model_extra or {}).get("annotations") or []
     return [annotation for annotation in annotations if isinstance(annotation, Mapping)]
@@ -810,6 +836,7 @@ def crosswalk_publication(
     catalog_health_values = _catalog_term_values((source.model_extra or {}).get("health_impacts")) or annotation_view["health_impacts"]
     catalog_geography_values = _catalog_term_values((source.model_extra or {}).get("geography")) or annotation_view["geography"]
     catalog_feature_values = _string_values((source.model_extra or {}).get("geographic_features")) or annotation_view["geographic_features"]
+    catalog_feature_values = _geographic_feature_labels(catalog_feature_values)
     catalog_topic_values = _catalog_term_values((source.model_extra or {}).get("special_topics", {}).get("levels", {}).get("1", []))
     catalog_topic_values += _catalog_term_values((source.model_extra or {}).get("special_topics", {}).get("levels", {}).get("2", []))
     catalog_topic_values = catalog_topic_values or annotation_view["special_topics"]
