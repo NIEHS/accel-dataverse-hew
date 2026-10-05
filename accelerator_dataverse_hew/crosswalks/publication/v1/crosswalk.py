@@ -795,7 +795,8 @@ def crosswalk_publication(
     ):
         value = getattr(source, source_name)
         if value:
-            publication_fields.append(_field(target_name, value))
+            type_class = "controlledVocabulary" if target_name == "hewPublicationType" else "primitive"
+            publication_fields.append(_field(target_name, value, type_class))
             _record(mapped, source_name, f"hewPublication.{target_name}")
         else:
             _record(omitted, source_name, f"hewPublication.{target_name}", "empty")
