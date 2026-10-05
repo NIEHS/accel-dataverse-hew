@@ -14,6 +14,7 @@ publication records:
 
 - `citation`
 - `hewResource`
+- `hewPublication`
 - `customCAFEDataSources`
 - `customCAFEDataLocation`
 

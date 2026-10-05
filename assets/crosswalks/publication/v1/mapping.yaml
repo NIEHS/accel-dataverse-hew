@@ -20,6 +20,7 @@ dataverse:
   required_blocks:
     - citation
     - hewResource
+    - hewPublication
   optional_blocks:
     - hewReview
     - geospatial
@@ -72,6 +73,20 @@ mappings:
     target: citation.notesText
   - source: publication_type
     target: citation.topicClassification
+  - source: doi
+    target: hewPublication.hewPublicationDoi
+  - source: pmid
+    target: hewPublication.hewPublicationPmid
+  - source: pmcid
+    target: hewPublication.hewPublicationPmcid
+  - source: abstract
+    target: hewPublication.hewPublicationAbstract
+  - source: citation
+    target: hewPublication.hewPublicationCitation
+  - source: publication_type
+    target: hewPublication.hewPublicationType
+  - source: journal
+    target: hewPublication.hewPublicationJournal
   - source: journal
     target: citation.notesText
   - source: publication_date

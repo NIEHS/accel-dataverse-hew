@@ -3,6 +3,8 @@
 	hewReview		HEW Review Coding
 	hewDataResource		HEW Data Resource Metadata
 	hewProvenance		HEW Provenance Metadata
+	hewPublication		HEW Publication Metadata
+	hewSurvey		HEW Survey Metadata
 #datasetField	name	title	description	watermark	fieldType	displayOrder	displayFormat	advancedSearchField	allowControlledVocabulary	allowmultiples	facetable	displayoncreate	required	parent	metadatablock_id	termURI
 	hewResourceId	HEW Resource Identifier	Canonical identifier for the HEW catalog resource		text	0		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewResource	
 	hewResourceType	HEW Resource Type	Type of resource represented by this record		text	1		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewResource	
@@ -30,6 +32,33 @@
 	hewCatalogVersion	HEW Catalog Version	Version of the HEW catalog or source record used for dissemination		text	10		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewResource	
 	hewSchemaVersion	HEW Schema Version	Version of the HEW schema used for the projection		text	11		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewResource	
 	hewCrosswalkVersion	HEW Crosswalk Version	Version of the HEW-to-Dataverse crosswalk used for the projection		text	12		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewResource	https://w3id.org/hew/term/crosswalk-version
+	hewPublicationDoi	DOI	Digital Object Identifier for the publication		text	0	#VALUE	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewPublication
+	hewPublicationPmid	PMID	PubMed identifier for the publication		text	1	#VALUE	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewPublication
+	hewPublicationPmcid	PMCID	PubMed Central identifier for the publication		text	2	#VALUE	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewPublication
+	hewPublicationAbstract	Abstract	Abstract of the publication		textbox	3		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewPublication
+	hewPublicationCitation	Citation	Full citation for the publication		textbox	4		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewPublication
+	hewPublicationType	Publication Type	Type of publication		text	5		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewPublication
+	hewPublicationJournal	Journal	Journal or source in which the publication appears		text	6		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewPublication
+	hewSurveyVersion	Survey Version	Version of the survey instrument		text	0		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyConstruct	Survey Construct	Construct, domain, or scale measured by the survey		text	1	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyQuestion	Survey Question	Question, item, or prompt in the survey instrument		textbox	2		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewSurvey
+	hewSurveyTargetPopulation	Target Population	Population targeted by the survey instrument		text	3	#VALUE	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyPopulationTag	Population Tag	Controlled population tag for the survey resource		text	4	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyAdministeredBy	Administered By	Person or role administering the survey		text	5		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyAdministrationMode	Administration Mode	Mode used to administer the survey		text	6		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyAdministrationTime	Administration Time	Expected time required to complete or administer the survey		text	7		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyEaseOfUse	Ease of Use	Ease of use of the survey instrument		text	8		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyElectronicDataCapture	Electronic Data Capture	Electronic data-capture system used by the survey		text	9		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyReadabilityLevel	Readability Level	Flesch-Kincaid grade level of the survey instrument		float	10		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyQuestionCount	Question Count	Number or number range of questions in the survey instrument		text	11		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyLanguage	Language	BCP 47 language tag for the survey instrument		text	12		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyCdeIntegration	CDE Integration	Whether the survey integrates Common Data Elements		boolean	13		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyAdaptedFrom	Adapted From	Resource, template, or instrument from which the survey was adapted		text	14	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyResearchProgram	Research Program	Research program or funding initiative associated with the survey		text	15	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyEventType	Event Type	Event or disaster concept for which the survey is appropriate		text	16	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyExposureAgent	Exposure Agent	Exposure-agent concept addressed by the survey		text	17	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyHealthImpact	Health Impact	Health-impact concept addressed by the survey		text	18	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveySpecialTopic	Special Topic	Special-topic concept addressed by the survey		text	19	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
 	hewCodingScheme	Coding Scheme	Name of the review coding scheme		text	0		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		hewReview	
 	hewCodingSchemeVersion	Coding Scheme Version	Version of the review coding scheme		text	1		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		hewReview	
 	hewAnnotationDate	Annotation Date	Date on which the annotation was created		date	2		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		hewReview	
@@ -93,6 +122,10 @@
 	hewResourceType	Project	hew_resource_project	15
 	hewResourceType	Funding source	hew_resource_funding_source	16
 	hewResourceType	Other resource	hew_resource_other	17
+	hewPublicationType	research_article	hew_publication_research_article	1
+	hewPublicationType	review_article	hew_publication_review_article	2
+	hewPublicationType	commentary_opinion	hew_publication_commentary_opinion	3
+	hewPublicationType	assessment_book_report	hew_publication_assessment_book_report	4
 	hewResourceStatus	Active	hew_status_active	1
 	hewResourceStatus	Draft	hew_status_draft	2
 	hewResourceStatus	Archived	hew_status_archived	3
@@ -132,3 +165,27 @@
 	hewAgentRole	Principal investigator	hew_role_principal_investigator	5
 	hewAgentRole	Maintainer	hew_role_maintainer	6
 	hewAgentRole	Funder	hew_role_funder	7
+	hewSurveyAdministeredBy	Medical professional	medical_professional	1
+	hewSurveyAdministeredBy	Parent or teacher	parent_or_teacher	2
+	hewSurveyAdministeredBy	Researcher or professional interviewer	researcher_or_professional_interviewer	3
+	hewSurveyAdministeredBy	Self	self	4
+	hewSurveyAdministeredBy	Trained non-expert	trained_non_expert	5
+	hewSurveyAdministeredBy	Untrained non-expert	untrained_non_expert	6
+	hewSurveyAdministeredBy	Not applicable	not_applicable	7
+	hewSurveyAdministeredBy	Other	other	8
+	hewSurveyAdministrationMode	Web	web	1
+	hewSurveyAdministrationMode	Telephone	telephone	2
+	hewSurveyAdministrationMode	In-person interview	in_person_interview	3
+	hewSurveyAdministrationMode	Paper	paper	4
+	hewSurveyAdministrationMode	Mail	mail	5
+	hewSurveyAdministrationMode	Mixed mode	mixed_mode	6
+	hewSurveyAdministrationMode	Other	other	7
+	hewSurveyEaseOfUse	Easy	easy	1
+	hewSurveyEaseOfUse	Moderate	moderate	2
+	hewSurveyEaseOfUse	Difficult	difficult	3
+	hewSurveyElectronicDataCapture	Epi Info	epi_info	1
+	hewSurveyElectronicDataCapture	GitHub	github	2
+	hewSurveyElectronicDataCapture	Qualtrics	qualtrics	3
+	hewSurveyElectronicDataCapture	REDCap	redcap	4
+	hewSurveyElectronicDataCapture	Not applicable	not_applicable	5
+	hewSurveyElectronicDataCapture	Other	other	6

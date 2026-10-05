@@ -783,6 +783,23 @@ def crosswalk_publication(
         )
         _record(mapped, "doi/pmid/pmcid/identifiers", "hewResource.hewAlternateIdentifier")
 
+    publication_fields = []
+    for source_name, target_name in (
+        ("doi", "hewPublicationDoi"),
+        ("pmid", "hewPublicationPmid"),
+        ("pmcid", "hewPublicationPmcid"),
+        ("abstract", "hewPublicationAbstract"),
+        ("citation", "hewPublicationCitation"),
+        ("publication_type", "hewPublicationType"),
+        ("journal", "hewPublicationJournal"),
+    ):
+        value = getattr(source, source_name)
+        if value:
+            publication_fields.append(_field(target_name, value))
+            _record(mapped, source_name, f"hewPublication.{target_name}")
+        else:
+            _record(omitted, source_name, f"hewPublication.{target_name}", "empty")
+
     annotation_view = _annotation_review_view(source)
     catalog_exposure_values = _catalog_term_values((source.model_extra or {}).get("exposures")) or annotation_view["exposures"]
     catalog_health_values = _catalog_term_values((source.model_extra or {}).get("health_impacts")) or annotation_view["health_impacts"]
@@ -863,6 +880,9 @@ def crosswalk_publication(
             ),
             "hewResource": DataverseMetadataBlock(
                 displayName="HEW Resource Metadata", fields=resource_fields
+            ),
+            "hewPublication": DataverseMetadataBlock(
+                displayName="HEW Publication Metadata", fields=publication_fields
             ),
             "customCAFEDataSources": DataverseMetadataBlock(
                 displayName="Metadata About Data Sources", fields=cafe_source_fields
