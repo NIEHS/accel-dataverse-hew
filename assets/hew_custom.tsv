@@ -52,7 +52,7 @@
 	hewSurveyReadabilityLevel	Readability Level	Flesch-Kincaid grade level of the survey instrument		float	10		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
 	hewSurveyQuestionCount	Question Count	Number or number range of questions in the survey instrument		text	11		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
 	hewSurveyLanguage	Language	BCP 47 language tag for the survey instrument		text	12		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
-	hewSurveyCdeIntegration	CDE Integration	Whether the survey integrates Common Data Elements		boolean	13		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
+	hewSurveyCdeIntegration	CDE Integration	Whether the survey integrates Common Data Elements		text	13		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewSurvey
 	hewSurveyAdaptedFrom	Adapted From	Resource, template, or instrument from which the survey was adapted		text	14	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
 	hewSurveyResearchProgram	Research Program	Research program or funding initiative associated with the survey		text	15	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
 	hewSurveyEventType	Event Type	Event or disaster concept for which the survey is appropriate		text	16	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
