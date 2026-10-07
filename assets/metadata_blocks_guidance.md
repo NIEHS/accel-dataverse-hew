@@ -56,6 +56,10 @@ Dataverse projection, but should not reproduce the complete HEW model.
    similar. Add a HEW-specific block when the semantics or cardinality differ.
 6. Keep the original HEW record available as JSON or JSON-LD when Dataverse
    fields cannot preserve the complete model.
+7. Standardize ontology concept CURIEs across resource types: use canonical uppercase
+   OBO prefixes (`ECTO:`, `ENVO:`, `MONDO:`, `HP:`, `CHEBI:`, etc.) for exposure, health impact,
+   and environmental concepts in both publications and surveys, ensuring Dataverse faceted search
+   aggregates results consistently.
 
 ## Existing blocks
 
@@ -211,6 +215,28 @@ Recommended fields:
 For the first release, simple authors, contacts, contributors, producers, and
 funding identifiers can use `citation`. Full role-bearing provenance may remain
 in JSON-LD until the HEW block is implemented.
+
+### HEW Survey Metadata
+
+Recommended fields:
+
+- survey version;
+- constructs and question prompts;
+- target population and population tags;
+- administration mode, administrator role, administration time, and ease of use;
+- electronic data capture (EDC) system and readability level;
+- Common Data Elements (CDE) integration status;
+- survey-specific concepts: exposure agents, health impacts, event types, and special topics;
+- adapted-from and research program relationships.
+
+For cross-resource discovery, survey concepts and geographic characteristics should also
+project into the shared `hewResource` block:
+- `exposure_agents` -> `hewResource.hewExposureConcept` and `hewSurvey.hewSurveyExposureAgent`;
+- `health_impacts` -> `hewResource.hewHealthImpactConcept` and `hewSurvey.hewSurveyHealthImpact`;
+- `geographic_features` -> `hewResource.hewGeographicFeature`;
+- `geographic_locations` -> `hewResource.hewGeographyConcept`;
+- `special_topics` -> `hewResource.hewTopicConcept` and `hewSurvey.hewSurveySpecialTopic`;
+- `event_types` -> `hewSurvey.hewSurveyEventType`.
 
 ## Initial publication scope
 
