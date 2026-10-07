@@ -11,9 +11,12 @@ The source CAFE block definition is:
 
 `accelerator-dataverse/cafe_blocks.json`
 
-The canonical HEW model is:
+The canonical HEW model (schema 2.0.0) is:
 
-`HEW_Catalog_Data_Model/hew-model/schema/hew-geospatial.yaml`
+- `HEW_Catalog_Data_Model/hew-model/schema/hew.yaml` — core: publications,
+  review coding, and surveys;
+- `HEW_Catalog_Data_Model/hew-model/schema/hew-extended.yaml` — core plus the
+  geospatial, project, and additional resource-type extensions.
 
 ## Source document and validation boundary
 
@@ -72,15 +75,15 @@ HEW mapping guidance:
 
 | HEW model | Citation field |
 |---|---|
-| `title`, `name` | `title` or `alternativeTitle` |
+| `title` | `title` |
 | `description`, `abstract` | `dsDescription` |
 | `url` | `alternativeURL` |
 | `doi`, `pmid`, `pmcid`, `identifiers` | `otherId` |
-| `authors` | `author` |
+| `authors` (inlined agents) | `author`: `authorName`, plus `authorIdentifierScheme`/`authorIdentifier` for ORCID |
 | `contacts` | `datasetContact` |
 | `keywords` | `keyword` |
 | `publication_type`, `citation`, `journal` | `publication`, `topicClassification`, or `notesText` as appropriate |
-| `publication_date` | `productionDate` when no more specific installed field is available |
+| `publication_date` (`YYYY`, `YYYY-MM`, or `YYYY-MM-DD`) | `productionDate` when no more specific installed field is available |
 | `temporal_coverage` | `timePeriodCovered` |
 | `license`, `access_rights` | Dataset-level terms/configuration, not citation text |
 | `related_resources` | `relatedDatasets` or `relatedMaterial` |

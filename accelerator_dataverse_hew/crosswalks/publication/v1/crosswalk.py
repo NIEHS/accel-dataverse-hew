@@ -10,6 +10,7 @@ from urllib.parse import urlsplit, urlunsplit
 from pydantic import ValidationError
 
 from accelerator_dataverse_hew.crosswalks.publication.v1.models import (
+    AuthorSource,
     CrosswalkContext,
     DataverseField,
     DataverseMetadataBlock,
@@ -43,7 +44,13 @@ def _jsonld_value(value: Any) -> Any:
         if "@value" in value:
             return value["@value"]
         if "@id" in value:
-            return value["@id"]
+            properties = {
+                key: _jsonld_value(item) for key, item in value.items() if not key.startswith("@")
+            }
+            # A bare node reference collapses to its IRI; an inlined node keeps its properties.
+            if not properties:
+                return value["@id"]
+            return {"id": value["@id"], **properties}
         if "@list" in value:
             return [_jsonld_value(item) for item in value["@list"]]
         return {key: _jsonld_value(item) for key, item in value.items()}
@@ -89,6 +96,7 @@ def _normalized_jsonld_source(document: Mapping[str, Any], context: CrosswalkCon
 DOI_PATTERN = re.compile(r"^10\.\d{4,9}/\S+$", re.IGNORECASE)
 PMID_PATTERN = re.compile(r"^\d+$")
 PMCID_PATTERN = re.compile(r"^PMC\d+$", re.IGNORECASE)
+ORCID_PATTERN = re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$", re.IGNORECASE)
 
 KNOWN_SOURCE_FIELDS = {
     "id",
@@ -109,11 +117,33 @@ KNOWN_SOURCE_FIELDS = {
     "publication_date",
     "status",
     "related_resources",
+    "same_as",
+    "themes",
+    "spatial_coverage",
+    "temporal_coverage",
+    "access_rights",
+    "license",
+    "study_objective",
+    "contacts",
+    "contributors",
+    "funding_sources",
     "derived_from_existing_dataset",
     "includes_geospatial_file",
     "contact_email",
     "contact_name",
     "subject",
+    "source",
+    "source_reference_number",
+    "bibliographic",
+    "review",
+    "exposures",
+    "health_impacts",
+    "geography",
+    "geographic_features",
+    "data_and_models",
+    "special_topics",
+    "raw_values",
+    "annotations",
 }
 
 
@@ -175,6 +205,15 @@ def _validate_list(record: Mapping[str, Any], field_name: str) -> None:
         raise PublicationValidationError(f"{field_name} must be a list of strings")
 
 
+def _validate_authors(record: Mapping[str, Any]) -> None:
+    value = record.get("authors")
+    if value is not None and (
+        not isinstance(value, list)
+        or any(not isinstance(item, (str, Mapping)) for item in value)
+    ):
+        raise PublicationValidationError("authors must be a list of strings or agent objects")
+
+
 def validate_publication_source(record: Mapping[str, Any]) -> PublicationSource:
     """Validate the publication contract without discarding unknown HEW fields."""
     if not isinstance(record, Mapping):
@@ -184,8 +223,9 @@ def validate_publication_source(record: Mapping[str, Any]) -> PublicationSource:
             raise PublicationValidationError(f"missing required field: {field_name}")
     if record["resource_type"] != "literature":
         raise PublicationValidationError("resource_type must be 'literature'")
-    for field_name in ("identifiers", "authors", "keywords", "related_resources"):
+    for field_name in ("identifiers", "keywords", "related_resources"):
         _validate_list(record, field_name)
+    _validate_authors(record)
     for field_name in ("doi", "pmid", "pmcid", "url"):
         if record.get(field_name) is not None:
             _optional_text(record[field_name], field_name)
@@ -244,12 +284,38 @@ def _other_id_values(source: PublicationSource) -> list[dict[str, Any]]:
     ]
 
 
+def _normalize_orcid(value: str | None) -> str | None:
+    if not value:
+        return None
+    normalized = re.sub(r"^https?://(www\.)?orcid\.org/", "", value.strip(), flags=re.I)
+    normalized = re.sub(r"^orcid:\s*", "", normalized, flags=re.I).rstrip("/")
+    return normalized.upper() if ORCID_PATTERN.fullmatch(normalized) else None
+
+
+def _author_name(author: AuthorSource) -> str:
+    if author.name:
+        return author.name
+    if author.family_name and author.given_name:
+        return f"{author.family_name}, {author.given_name}"
+    return author.family_name or author.given_name or author.id
+
+
 def _author_values(source: PublicationSource) -> list[dict[str, Any]]:
-    return [
-        {"authorName": _field("authorName", author.strip())}
-        for author in source.authors or []
-        if author.strip()
-    ]
+    values = []
+    for author in source.authors or []:
+        if isinstance(author, str):
+            if author.strip():
+                values.append({"authorName": _field("authorName", author.strip())})
+            continue
+        value = {"authorName": _field("authorName", _author_name(author))}
+        orcid = _normalize_orcid(author.orcid) or _normalize_orcid(author.id)
+        if orcid:
+            value["authorIdentifierScheme"] = _field(
+                "authorIdentifierScheme", "ORCID", "controlledVocabulary"
+            )
+            value["authorIdentifier"] = _field("authorIdentifier", orcid)
+        values.append(value)
+    return values
 
 
 def _description_values(source: PublicationSource) -> list[dict[str, Any]]:
@@ -319,6 +385,315 @@ def _status_label(status: str | None) -> str | None:
     )
 
 
+def _string_values(value: Any) -> list[str]:
+    if isinstance(value, str) and value.strip():
+        return [value.strip()]
+    if isinstance(value, list):
+        return [item.strip() for item in value if isinstance(item, str) and item.strip()]
+    return []
+
+
+def _catalog_term_values(value: Any) -> list[str]:
+    """Flatten HEW 2.0 catalog hierarchy entries without losing labels."""
+    values = []
+    for item in value or []:
+        if isinstance(item, Mapping):
+            for key in ("level1", "level2", "level3"):
+                label = item.get(key)
+                if isinstance(label, str) and label.strip():
+                    values.append(label.strip())
+        elif isinstance(item, str) and item.strip():
+            values.append(item.strip())
+    return list(dict.fromkeys(values))
+
+
+GEOGRAPHIC_FEATURE_LABELS = {
+    "general_geographic_feature": "General geographic feature",
+    "built_environment": "Built environment",
+    "desert": "Desert",
+    "forest": "Forest",
+    "freshwater": "Freshwater",
+    "grassland": "Grassland",
+    "island": "Island",
+    "mountain": "Mountain",
+    "ocean_coastal": "Ocean/coastal",
+    "polar": "Polar",
+    "rainforest": "Rainforest",
+    "rural": "Rural",
+    "temperate": "Temperate",
+    "tropical": "Tropical",
+    "urban": "Urban",
+    "valley": "Valley",
+    "wetland": "Wetland",
+    "other": "Other",
+}
+
+
+def _geographic_feature_labels(values: list[str]) -> list[str]:
+    return [GEOGRAPHIC_FEATURE_LABELS.get(value.strip().lower(), value) for value in values]
+
+
+def _annotation_list(source: PublicationSource) -> list[Mapping[str, Any]]:
+    annotations = (source.model_extra or {}).get("annotations") or []
+    return [annotation for annotation in annotations if isinstance(annotation, Mapping)]
+
+
+def _annotation_concepts(
+    annotations: list[Mapping[str, Any]], annotation_name: str, value_names: tuple[str, ...]
+) -> list[str]:
+    values = []
+    for annotation in annotations:
+        for item in annotation.get(annotation_name) or []:
+            if isinstance(item, Mapping):
+                for value_name in value_names:
+                    value = item.get(value_name)
+                    if isinstance(value, str) and value.strip():
+                        values.append(value.strip())
+                        break
+            elif isinstance(item, str) and item.strip():
+                values.append(item.strip())
+    return list(dict.fromkeys(values))
+
+
+def _annotation_field_values(
+    annotations: list[Mapping[str, Any]], annotation_name: str, field_name: str
+) -> list[str]:
+    values = []
+    for annotation in annotations:
+        items = [annotation] if not annotation_name else annotation.get(annotation_name) or []
+        for item in items:
+            if isinstance(item, Mapping):
+                value = item.get(field_name)
+                if isinstance(value, list):
+                    values.extend(str(item).strip() for item in value if str(item).strip())
+                elif value not in (None, ""):
+                    values.append(str(value).strip())
+    return list(dict.fromkeys(values))
+
+
+def _identifier_values_from_nodes(value: Any) -> list[str]:
+    values = []
+    items = value if isinstance(value, list) else [value]
+    for item in items:
+        if isinstance(item, Mapping):
+            item_value = item.get("id") or item.get("identifier")
+            if item_value:
+                values.append(str(item_value).strip())
+        elif isinstance(item, str) and item.strip():
+            values.append(item.strip())
+    return list(dict.fromkeys(values))
+
+
+def _annotation_node_identifiers(
+    annotations: list[Mapping[str, Any]], *field_names: str
+) -> list[str]:
+    nodes = []
+    for annotation in annotations:
+        for field_name in field_names:
+            value = annotation.get(field_name)
+            if value not in (None, ""):
+                nodes.extend(value if isinstance(value, list) else [value])
+                break
+    return _identifier_values_from_nodes(nodes)
+
+
+def _annotation_detail_values(
+    annotations: list[Mapping[str, Any]], annotation_name: str
+) -> list[str]:
+    values = []
+    for annotation in annotations:
+        for item in annotation.get(annotation_name) or []:
+            if not isinstance(item, Mapping):
+                continue
+            concept = item.get("coded_concept") or item.get("exposure_concept") or item.get("health_impact_concept") or item.get("topic_concept")
+            details = []
+            for key in ("parent_concept", "specified_text", "coding_depth"):
+                if item.get(key) not in (None, ""):
+                    details.append(f"{key}={item[key]}")
+            if concept and details:
+                values.append(f"{concept} ({', '.join(details)})")
+    return list(dict.fromkeys(values))
+
+
+def _annotation_review_view(source: PublicationSource) -> dict[str, list[str] | str]:
+    annotations = _annotation_list(source)
+    exposures = _annotation_concepts(annotations, "exposure_annotations", ("coded_concept", "exposure_concept"))
+    health_impacts = _annotation_concepts(annotations, "health_impact_annotations", ("coded_concept", "health_impact_concept"))
+    special_topics = _annotation_concepts(annotations, "special_topic_annotations", ("coded_concept", "topic_concept"))
+    geography = []
+    features = []
+    data_tools = []
+    models = []
+    for annotation in annotations:
+        for item in annotation.get("geography_annotations") or []:
+            if isinstance(item, Mapping):
+                geography.extend(_string_values(item.get("geographic_locations")))
+                features.extend(_string_values(item.get("geographic_features")))
+        for item in annotation.get("data_tool_method_annotations") or []:
+            if isinstance(item, Mapping):
+                data_tools.extend(_string_values(item.get("data_resource_types")))
+                models.extend(_string_values(item.get("model_types")))
+    view: dict[str, list[str] | str] = {
+        "exposures": list(dict.fromkeys(exposures)),
+        "health_impacts": list(dict.fromkeys(health_impacts)),
+        "geography": list(dict.fromkeys(geography)),
+        "geographic_features": list(dict.fromkeys(features)),
+        "data_tools": list(dict.fromkeys(data_tools)),
+        "models": list(dict.fromkeys(models)),
+        "special_topics": list(dict.fromkeys(special_topics)),
+    }
+    for annotation in annotations:
+        for field_name in ("coding_scheme", "coding_method", "information_source", "reference_type"):
+            value = annotation.get(field_name)
+            if isinstance(value, str) and value.strip() and field_name not in view:
+                view[field_name] = value.strip()
+    return view
+
+
+def _catalog_record_to_publication(record: Mapping[str, Any]) -> dict[str, Any] | None:
+    """Adapt a HEW Catalog Data Model 2.0 export into the publication view."""
+    if isinstance(record.get("data"), Mapping):
+        record = record["data"]
+    if not isinstance(record.get("bibliographic"), Mapping):
+        return None
+    bibliographic = record["bibliographic"]
+    source_name = str(record.get("source") or "hew").strip()
+    reference_number = str(record.get("source_reference_number") or "").strip()
+    if not reference_number or not bibliographic.get("title"):
+        return None
+
+    publication: dict[str, Any] = {
+        "id": f"HEWRES:{source_name}:{reference_number}",
+        "title": bibliographic["title"],
+        "resource_type": "literature",
+        "doi": bibliographic.get("doi"),
+        "identifiers": [
+            str(value) for value in [
+                bibliographic.get("accession_number"),
+                *(bibliographic.get("study_identifiers") or []),
+            ] if value not in (None, "")
+        ],
+        "authors": ([bibliographic["first_author"]]
+                    if bibliographic.get("first_author") else []),
+        "publication_date": str(bibliographic["year"])
+        if bibliographic.get("year") is not None else None,
+        "source": source_name,
+        "source_reference_number": reference_number,
+        "bibliographic": bibliographic,
+        "review": record.get("review") or {},
+        "exposures": record.get("exposures") or [],
+        "health_impacts": record.get("health_impacts") or [],
+        "geography": record.get("geography") or [],
+        "geographic_features": record.get("geographic_features") or [],
+        "data_and_models": record.get("data_and_models") or {},
+        "special_topics": record.get("special_topics") or {},
+        "raw_values": record.get("raw_values") or {},
+    }
+    return {key: value for key, value in publication.items() if value not in (None, [], {})}
+
+
+def _catalog_review_fields(source: PublicationSource) -> list[DataverseField]:
+    extra = source.model_extra or {}
+    review = extra.get("review") or {}
+    if not (
+        review
+        or extra.get("annotations")
+        or extra.get("exposures")
+        or extra.get("health_impacts")
+        or extra.get("geography")
+        or extra.get("data_and_models")
+        or extra.get("special_topics")
+    ):
+        return []
+    annotation_view = _annotation_review_view(source)
+    exposures = _catalog_term_values(extra.get("exposures")) or annotation_view["exposures"]
+    health_impacts = _catalog_term_values(extra.get("health_impacts")) or annotation_view["health_impacts"]
+    geography = _catalog_term_values(extra.get("geography")) or annotation_view["geography"]
+    data_and_models = extra.get("data_and_models") or {}
+    levels = data_and_models.get("levels") if isinstance(data_and_models, Mapping) else {}
+    data_tools = _catalog_term_values((levels or {}).get("1")) + _catalog_term_values((levels or {}).get("2"))
+    models = _string_values(data_and_models.get("model_types")) if isinstance(data_and_models, Mapping) else []
+    data_tools = data_tools or annotation_view["data_tools"]
+    models = models or annotation_view["models"]
+    special_topics = extra.get("special_topics") or {}
+    special_levels = special_topics.get("levels") if isinstance(special_topics, Mapping) else {}
+    special = _string_values((special_levels or {}).get("1")) + _string_values((special_levels or {}).get("2"))
+    special = special or annotation_view["special_topics"]
+    fields = []
+    multiple_fields = {
+        "hewCoderIdentifier",
+        "hewReviewerIdentifier",
+        "hewExposureAnnotation",
+        "hewHealthImpactAnnotation",
+        "hewGeographyAnnotation",
+        "hewDataToolMethodAnnotation",
+        "hewSpecialTopicAnnotation",
+        "hewEvidenceText",
+        "hewAnnotationNotes",
+        "hewConfidence",
+        "hewNeedsHumanReview",
+    }
+
+    def add(name: str, value: Any, type_class: str = "primitive") -> None:
+        values = _string_values(value)
+        if values:
+            field_value = values if name in multiple_fields or len(values) > 1 else values[0]
+            fields.append(_field(name, field_value, type_class))
+
+    add("hewCodingScheme", review.get("coding_scheme") or annotation_view.get("coding_scheme") or extra.get("source"))
+    add("hewCodingSchemeVersion", "2.0.0")
+    coding_method = review.get("coding_method") or annotation_view.get("coding_method")
+    coding_method = "Automated" if coding_method in {"automated", "laser_ai_generated"} else coding_method
+    information_source = review.get("information_source") or annotation_view.get("information_source")
+    information_source = "Complete resource" if information_source == "complete_resource" else information_source
+    add("hewCodingMethod", coding_method or "Automated", "controlledVocabulary")
+    add("hewInformationSource", information_source, "controlledVocabulary")
+    add(
+        "hewReferenceType",
+        review.get("reference_type") or annotation_view.get("reference_type"),
+        "controlledVocabulary",
+    )
+    add("hewRecommendForRemoval", review.get("recommend_for_removal"), "controlledVocabulary")
+    add("hewPostpone", review.get("postpone"), "controlledVocabulary")
+    add("hewExposureAnnotation", exposures)
+    add("hewHealthImpactAnnotation", health_impacts)
+    add("hewGeographyAnnotation", geography)
+    add("hewDataToolMethodAnnotation", data_tools + models)
+    add("hewSpecialTopicAnnotation", special)
+    annotations = _annotation_list(source)
+    add("hewAnnotationDate", _annotation_field_values(annotations, "", "annotation_date"))
+    add("hewCoderIdentifier", _annotation_node_identifiers(annotations, "coded_by", "generated_by"))
+    add("hewReviewerIdentifier", _annotation_node_identifiers(annotations, "reviewed_by"))
+    add("hewEvidenceText", [
+        value for annotation_name in (
+            "exposure_annotations", "health_impact_annotations", "geography_annotations",
+            "data_tool_method_annotations", "special_topic_annotations",
+        ) for value in _annotation_field_values(annotations, annotation_name, "evidence_text")
+    ])
+    add("hewAnnotationNotes", [
+        *(_string_values(review.get("notes"))),
+        *_annotation_detail_values(annotations, "exposure_annotations"),
+        *_annotation_detail_values(annotations, "health_impact_annotations"),
+        *_annotation_detail_values(annotations, "special_topic_annotations"),
+    ])
+    confidence_values = [
+        value for annotation in annotations
+        for value in [annotation.get("confidence")]
+        if value not in (None, "")
+    ]
+    add("hewConfidence", confidence_values)
+    needs_review = [
+        "Yes" if annotation.get("needs_human_review") else "No"
+        for annotation in annotations
+        if "needs_human_review" in annotation
+    ]
+    add("hewNeedsHumanReview", needs_review, "controlledVocabulary")
+    removal = review.get("recommend_for_removal")
+    postpone = review.get("postpone")
+    add("hewAnnotationNotes", [f"recommend_for_removal: {removal}", f"postpone: {postpone}"] if removal or postpone else [])
+    return fields
+
+
 def _record(report: list[MappingEntry], source: str, target: str | None = None, detail: str | None = None):
     report.append(MappingEntry(source=source, target=target, detail=detail))
 
@@ -327,7 +702,7 @@ def crosswalk_publication(
     record: Mapping[str, Any], context: CrosswalkContext
 ) -> DataversePublicationProjection:
     """Project a validated HEW literature resource into Dataverse metadata."""
-    source = validate_publication_source(record)
+    source = validate_publication_source(_catalog_record_to_publication(record) or record)
     mapped: list[MappingEntry] = []
     omitted: list[MappingEntry] = []
     unmapped: list[MappingEntry] = []
@@ -402,7 +777,7 @@ def crosswalk_publication(
         _record(omitted, "publication_type", "citation.topicClassification", "empty")
 
     if source.publication_date:
-        citation_fields.append(_field("productionDate", source.publication_date.isoformat()))
+        citation_fields.append(_field("productionDate", source.publication_date))
         _record(mapped, "publication_date", "citation.productionDate")
     else:
         _record(omitted, "publication_date", "citation.productionDate", "empty")
@@ -429,6 +804,20 @@ def crosswalk_publication(
     if source.url:
         resource_fields.append(_field("hewCanonicalUrl", _normalize_url(source.url, "url")))
         _record(mapped, "url", "hewResource.hewCanonicalUrl")
+    for source_name, target_name in (
+        ("description", "hewResourceDescription"),
+        ("spatial_coverage", "hewSpatialCoverage"),
+        ("temporal_coverage", "hewTemporalCoverage"),
+        ("access_rights", "hewAccessRights"),
+        ("license", "hewLicense"),
+        ("study_objective", "hewStudyObjective"),
+    ):
+        value = getattr(source, source_name)
+        if value:
+            resource_fields.append(_field(target_name, value))
+            _record(mapped, source_name, f"hewResource.{target_name}")
+        else:
+            _record(omitted, source_name, f"hewResource.{target_name}", "empty")
     if identifiers:
         resource_fields.append(
             _field(
@@ -438,13 +827,68 @@ def crosswalk_publication(
         )
         _record(mapped, "doi/pmid/pmcid/identifiers", "hewResource.hewAlternateIdentifier")
 
+    publication_fields = []
+    for source_name, target_name in (
+        ("doi", "hewPublicationDoi"),
+        ("pmid", "hewPublicationPmid"),
+        ("pmcid", "hewPublicationPmcid"),
+        ("abstract", "hewPublicationAbstract"),
+        ("citation", "hewPublicationCitation"),
+        ("publication_type", "hewPublicationType"),
+        ("journal", "hewPublicationJournal"),
+    ):
+        value = getattr(source, source_name)
+        if value:
+            type_class = "controlledVocabulary" if target_name == "hewPublicationType" else "primitive"
+            publication_fields.append(_field(target_name, value, type_class))
+            _record(mapped, source_name, f"hewPublication.{target_name}")
+        else:
+            _record(omitted, source_name, f"hewPublication.{target_name}", "empty")
+
+    annotation_view = _annotation_review_view(source)
+    catalog_exposure_values = _catalog_term_values((source.model_extra or {}).get("exposures")) or annotation_view["exposures"]
+    catalog_health_values = _catalog_term_values((source.model_extra or {}).get("health_impacts")) or annotation_view["health_impacts"]
+    catalog_geography_values = _catalog_term_values((source.model_extra or {}).get("geography")) or annotation_view["geography"]
+    catalog_feature_values = _string_values((source.model_extra or {}).get("geographic_features")) or annotation_view["geographic_features"]
+    catalog_feature_values = _geographic_feature_labels(catalog_feature_values)
+    catalog_topic_values = _catalog_term_values((source.model_extra or {}).get("special_topics", {}).get("levels", {}).get("1", []))
+    catalog_topic_values += _catalog_term_values((source.model_extra or {}).get("special_topics", {}).get("levels", {}).get("2", []))
+    catalog_topic_values = catalog_topic_values or annotation_view["special_topics"]
+    for target_name, values in (
+        ("hewExposureConcept", catalog_exposure_values),
+        ("hewHealthImpactConcept", catalog_health_values),
+        ("hewGeographyConcept", catalog_geography_values),
+        ("hewGeographicFeature", catalog_feature_values),
+        ("hewTopicConcept", catalog_topic_values),
+    ):
+        if values:
+            type_class = "controlledVocabulary" if target_name == "hewGeographicFeature" else "primitive"
+            resource_fields.append(_field(target_name, values, type_class))
+            _record(mapped, target_name, f"hewResource.{target_name}")
+
     for field_name in sorted(set(record) - KNOWN_SOURCE_FIELDS):
         _record(unmapped, field_name, detail="not supported by publication-v1")
+    if _annotation_list(source):
+        _record(mapped, "annotations", "hewReview")
     if source.related_resources:
         resource_fields.append(_field("hewRelatedResource", source.related_resources))
         _record(mapped, "related_resources", "hewResource.hewRelatedResource")
     else:
         _record(omitted, "related_resources", "hewResource.hewRelatedResource", "empty")
+
+    for source_name, target_name in (
+        ("same_as", "hewSameAs"),
+        ("themes", "hewTheme"),
+        ("contacts", "hewContact"),
+        ("contributors", "hewContributor"),
+        ("funding_sources", "hewFundingSource"),
+    ):
+        values = _string_values(getattr(source, source_name))
+        if values:
+            resource_fields.append(_field(target_name, values))
+            _record(mapped, source_name, f"hewResource.{target_name}")
+        else:
+            _record(omitted, source_name, f"hewResource.{target_name}", "empty")
 
     cafe_source_fields = [
         _field(
@@ -463,6 +907,10 @@ def crosswalk_publication(
     _record(mapped, "derived_from_existing_dataset", "customCAFEDataSources.cafeDerivedFromExistingDataset")
     _record(mapped, "includes_geospatial_file", "customCAFEDataLocation.cafeIncludesGeospatialFile")
 
+    review_fields = _catalog_review_fields(source)
+    if review_fields:
+        _record(mapped, "review/exposures/health_impacts/geography/data_and_models/special_topics", "hewReview")
+
     report = MappingReport(
         crosswalk_version=context.crosswalk_version,
         source_id=source.id,
@@ -480,12 +928,20 @@ def crosswalk_publication(
             "hewResource": DataverseMetadataBlock(
                 displayName="HEW Resource Metadata", fields=resource_fields
             ),
+            "hewPublication": DataverseMetadataBlock(
+                displayName="HEW Publication Metadata", fields=publication_fields
+            ),
             "customCAFEDataSources": DataverseMetadataBlock(
                 displayName="Metadata About Data Sources", fields=cafe_source_fields
             ),
             "customCAFEDataLocation": DataverseMetadataBlock(
                 displayName="Metadata About Geospatial Files", fields=cafe_location_fields
             ),
+            **({
+                "hewReview": DataverseMetadataBlock(
+                    displayName="HEW Review Coding", fields=review_fields
+                )
+            } if review_fields else {}),
         },
         report=report,
     )
@@ -502,7 +958,9 @@ def crosswalk_jsonld_publication(
             raise PublicationValidationError("invalid JSON-LD document") from error
     if not isinstance(document, Mapping):
         raise PublicationValidationError("JSON-LD publication must be an object")
-    source = _normalized_jsonld_source(document, context)
+    catalog_source = _catalog_record_to_publication(document)
+    source_document = document.get("data") if isinstance(document.get("data"), Mapping) else document
+    source = catalog_source or _normalized_jsonld_source(source_document, context)
     projection = crosswalk_publication(source, context)
     projection.source_jsonld = deepcopy(dict(document))
     return projection

@@ -1,10 +1,12 @@
 crosswalk_id: hew-publication-to-dataverse
 crosswalk_version: 1.0.0
 hew_schema:
-  version: 1.2.0
+  version: 2.0.0
   source: https://w3id.org/hew/schema
 source:
-  format: jsonld
+  formats:
+    - jsonld
+    - hew_catalog_data_model_export
   class: LiteratureResource
   context_required: true
   type_required: true
@@ -18,6 +20,7 @@ dataverse:
   required_blocks:
     - citation
     - hewResource
+    - hewPublication
   optional_blocks:
     - hewReview
     - geospatial
@@ -59,12 +62,31 @@ mappings:
     identifier_type: source_defined
   - source: authors
     target: citation.author
+    subfields:
+      authorName: name, else "family_name, given_name", else id
+      authorIdentifierScheme: ORCID when orcid (or an ORCID id) is present
+      authorIdentifier: normalized ORCID iD
+    legacy: plain string authors map to authorName only
   - source: keywords
     target: citation.keyword
   - source: citation
     target: citation.notesText
   - source: publication_type
     target: citation.topicClassification
+  - source: doi
+    target: hewPublication.hewPublicationDoi
+  - source: pmid
+    target: hewPublication.hewPublicationPmid
+  - source: pmcid
+    target: hewPublication.hewPublicationPmcid
+  - source: abstract
+    target: hewPublication.hewPublicationAbstract
+  - source: citation
+    target: hewPublication.hewPublicationCitation
+  - source: publication_type
+    target: hewPublication.hewPublicationType
+  - source: journal
+    target: hewPublication.hewPublicationJournal
   - source: journal
     target: citation.notesText
   - source: publication_date
@@ -77,6 +99,46 @@ mappings:
     target: hewResource.hewResourceStatus
   - source: related_resources
     target: hewResource.hewRelatedResource
+  - source: description
+    target: hewResource.hewResourceDescription
+  - source: same_as
+    target: hewResource.hewSameAs
+  - source: themes
+    target: hewResource.hewTheme
+  - source: spatial_coverage
+    target: hewResource.hewSpatialCoverage
+  - source: temporal_coverage
+    target: hewResource.hewTemporalCoverage
+  - source: access_rights
+    target: hewResource.hewAccessRights
+  - source: license
+    target: hewResource.hewLicense
+  - source: study_objective
+    target: hewResource.hewStudyObjective
+  - source: contacts
+    target: hewResource.hewContact
+  - source: contributors
+    target: hewResource.hewContributor
+  - source: funding_sources
+    target: hewResource.hewFundingSource
+  - source: exposures
+    target: hewResource.hewExposureConcept
+  - source: health_impacts
+    target: hewResource.hewHealthImpactConcept
+  - source: geography
+    target: hewResource.hewGeographyConcept
+  - source: geographic_features
+    target: hewResource.hewGeographicFeature
+  - source: special_topics
+    target: hewResource.hewTopicConcept
+  - source: review
+    target: hewReview
+    fields:
+      reference_type: hewReferenceType
+      recommend_for_removal: hewRecommendForRemoval
+      postpone: hewPostpone
+  - source: data_and_models
+    target: hewReview.hewDataToolMethodAnnotation
   - source: annotations
     target: hewReview
     transform: summarize_review_annotations

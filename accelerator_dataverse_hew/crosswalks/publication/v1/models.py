@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import date
 import json
+import re
 from typing import Any, Literal
 
 from pydantic import AnyUrl, BaseModel, ConfigDict, Field, field_validator
@@ -14,10 +15,24 @@ DEFAULT_TERMS_OF_USE = (
     "list of conditions, and the disclaimer are retained. The software is "
     "provided without warranty or liability."
 )
+HEW_SCHEMA_VERSION = "2.0.0"
+PUBLICATION_DATE_PATTERN = re.compile(r"^\d{4}(-\d{2}(-\d{2})?)?$")
+
+
+class AuthorSource(BaseModel):
+    """The fields of an inlined HEW author Agent that the projection reads."""
+
+    model_config = ConfigDict(extra="allow", str_strip_whitespace=True)
+
+    id: str
+    name: str | None = None
+    given_name: str | None = None
+    family_name: str | None = None
+    orcid: str | None = None
 
 
 class PublicationSource(BaseModel):
-    """The HEW publication fields consumed by the v1 projection."""
+    """The HEW 2.0 publication fields consumed by the v1 projection."""
 
     model_config = ConfigDict(extra="allow", str_strip_whitespace=True)
 
@@ -31,14 +46,26 @@ class PublicationSource(BaseModel):
     pmid: str | None = None
     pmcid: str | None = None
     identifiers: list[str] | None = None
-    authors: list[str] | None = None
+    # Plain strings are legacy author references; objects are inlined HEW Agents.
+    authors: list[str | AuthorSource] | None = None
     keywords: list[str] | None = None
     citation: str | None = None
     journal: str | None = None
     publication_type: str | None = None
-    publication_date: date | None = None
+    # HEW 2.0 allows YYYY, YYYY-MM, or YYYY-MM-DD; Dataverse productionDate accepts all three.
+    publication_date: str | None = None
     status: str | None = None
     related_resources: list[str] | None = None
+    same_as: list[str] | None = None
+    themes: list[str] | None = None
+    spatial_coverage: str | None = None
+    temporal_coverage: str | None = None
+    access_rights: str | None = None
+    license: str | None = None
+    study_objective: str | None = None
+    contacts: list[str] | None = None
+    contributors: list[str] | None = None
+    funding_sources: list[str] | None = None
 
     @field_validator("id", "title")
     @classmethod
@@ -47,6 +74,21 @@ class PublicationSource(BaseModel):
             raise ValueError("must not be empty")
         return value
 
+    @field_validator("publication_date", mode="before")
+    @classmethod
+    def partial_iso_date(cls, value: Any) -> Any:
+        if isinstance(value, date):
+            return value.isoformat()
+        if value is None:
+            return value
+        text = str(value).strip()
+        if not PUBLICATION_DATE_PATTERN.fullmatch(text):
+            raise ValueError("must be YYYY, YYYY-MM, or YYYY-MM-DD")
+        # Reject impossible months and days in the partial forms too.
+        year, month, day = (text.split("-") + ["01", "01"])[:3]
+        date(int(year), int(month), int(day))
+        return text
+
 
 class CrosswalkContext(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
@@ -54,7 +96,7 @@ class CrosswalkContext(BaseModel):
     catalog_version: str
     metadata_block_version: str
     target_collection: str
-    hew_schema_version: str = "1.2.0"
+    hew_schema_version: str = HEW_SCHEMA_VERSION
     crosswalk_version: str = "1.0.0"
 
     @field_validator(
