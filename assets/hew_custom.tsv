@@ -66,7 +66,11 @@
 	hewInformationSource	Information Source	Source used for the review coding		text	4		TRUE	TRUE	FALSE	TRUE	FALSE	FALSE		hewReview
 	hewCoderIdentifier	Coder Identifier	Identifier for a human or software coder		text	5	#VALUE	TRUE	FALSE	TRUE	TRUE	FALSE	FALSE		hewReview
 	hewReviewerIdentifier	Reviewer Identifier	Identifier for a human or group that reviewed the annotation		text	6	#VALUE	TRUE	FALSE	TRUE	TRUE	FALSE	FALSE		hewReview
-	hewExposureAnnotation	Exposure Annotation	Structured or URI-based exposure coding value		text	7	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewReview
+	hewExposureAnnotation	Exposure Annotation	Preferred display label for an exposure concept annotation		text	7	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewReview
+	hewExposureAnnotationCurie	Exposure Annotation Coded Concept	CURIE, URI, or source-coded concept value for an exposure annotation	CURIE or URI	text	19	#VALUE	TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewReview
+	hewExposureAnnotationAlias	Exposure Annotation Alias	Alias labels associated with an exposure concept		text	20	#VALUE	TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewReview
+	hewExposureAnnotationExactMapping	Exposure Annotation Exact Mapping	Exact mappings from an exposure concept to target ontologies	CURIE or URI	text	21	#VALUE	TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewReview
+	hewExposureAnnotationSourceVocabulary	Exposure Annotation Source Vocabulary	Vocabulary URI providing the exposure concept	CURIE or URI	text	22	#VALUE	TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewReview
 	hewHealthImpactAnnotation	Health Impact Annotation	Structured or URI-based health-impact coding value		text	8	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewReview
 	hewGeographyAnnotation	Geography Annotation	Structured or URI-based geography coding value		text	9	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewReview
 	hewDataToolMethodAnnotation	Data Tool or Method Annotation	Structured or URI-based data-tool or model coding value		text	10	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewReview

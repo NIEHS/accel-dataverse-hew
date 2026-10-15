@@ -305,6 +305,7 @@ class PublicationCrosswalkTest(unittest.TestCase):
         exposure = {
             "coded_concept": "HEWM:0000181",
             "source_vocabularies": ["https://w3id.org/hew/measures/schema"],
+            "aliases": ["Preferred drought label", "Alternate drought label"],
             "exact_mappings": ["envo:1000745"],
             "coding_depth": 2,
             "@type": "ConceptAnnotation",
@@ -318,11 +319,39 @@ class PublicationCrosswalkTest(unittest.TestCase):
         preserved = projection.to_preservation_document()
         preserved_exposure = preserved["data"]["annotations"][0]["exposure_annotations"][-1]
 
-        self.assertEqual(preserved_exposure["aliases"], ["Drought", "drought"])
-        self.assertNotIn("aliases", exposure)
-        self.assertIn("Drought", resource_fields["hewExposureConcept"]["value"])
-        self.assertIn("Drought", review_fields["hewExposureAnnotation"]["value"])
-        self.assertIn("drought", review_fields["hewExposureAnnotation"]["value"])
+        self.assertEqual(
+            preserved_exposure["aliases"],
+            ["Preferred drought label", "Alternate drought label", "Drought", "drought"],
+        )
+        self.assertEqual(
+            exposure["aliases"],
+            ["Preferred drought label", "Alternate drought label"],
+        )
+        self.assertIn("Preferred drought label", resource_fields["hewExposureConcept"]["value"])
+        self.assertNotIn("Alternate drought label", resource_fields["hewExposureConcept"]["value"])
+        self.assertIn("Preferred drought label", review_fields["hewExposureAnnotation"]["value"])
+        self.assertNotIn("Alternate drought label", review_fields["hewExposureAnnotation"]["value"])
+        self.assertEqual(
+            review_fields["hewExposureAnnotationCurie"]["value"],
+            ["Temperature", "Extreme Heat/Heat", "HEWM:0000181"],
+        )
+        self.assertEqual(
+            review_fields["hewExposureAnnotationAlias"]["value"],
+            [
+                "Preferred drought label",
+                "Alternate drought label",
+                "Drought",
+                "drought",
+            ],
+        )
+        self.assertIn(
+            "envo:1000745",
+            review_fields["hewExposureAnnotationExactMapping"]["value"],
+        )
+        self.assertIn(
+            "https://w3id.org/hew/measures/schema",
+            review_fields["hewExposureAnnotationSourceVocabulary"]["value"],
+        )
 
     def test_rejects_jsonld_without_hew_context_or_type(self):
         base_document = {

@@ -83,12 +83,22 @@ class AccelDataverseComponentsTest(unittest.TestCase):
             "accelerator_dataverse_hew.accel_to_dataverse_crosswalk.crosswalk_jsonld_publication",
             side_effect=capture_projection,
         ):
-            crosswalk.transform(make_payload(document))
+            transformed = crosswalk.transform(make_payload(document))
 
         projected_document = projections[0].to_preservation_document()
         projected_exposure = projected_document["annotations"][0]["exposure_annotations"][-1]
         self.assertEqual(projected_exposure["aliases"], ["Drought", "drought"])
         self.assertNotIn("aliases", exposure)
+        blocks = transformed.payload[0]["datasetVersion"]["metadataBlocks"]
+        resource_fields = {
+            field["typeName"]: field for field in blocks["hewResource"]["fields"]
+        }
+        review_fields = {
+            field["typeName"]: field for field in blocks["hewReview"]["fields"]
+        }
+        self.assertIn("Drought", resource_fields["hewExposureConcept"]["value"])
+        self.assertIn("Drought", review_fields["hewExposureAnnotation"]["value"])
+        self.assertNotIn("drought", review_fields["hewExposureAnnotation"]["value"])
 
     @patch(
         "accelerator_dataverse_hew.accel_to_dataverse_dissemination.DataverseConnector"

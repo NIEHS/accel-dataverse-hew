@@ -142,6 +142,13 @@ mappings:
   - source: annotations
     target: hewReview
     transform: summarize_review_annotations
+    fields:
+      exposure_annotations:
+        preferred_label: hewExposureAnnotation
+        coded_concept: hewExposureAnnotationCurie
+        aliases: hewExposureAnnotationAlias
+        exact_mappings: hewExposureAnnotationExactMapping
+        source_vocabularies: hewExposureAnnotationSourceVocabulary
   - source: spatial_extent
     target: geospatial
     transform: project_resource_spatial_extent

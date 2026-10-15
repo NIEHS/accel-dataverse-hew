@@ -499,6 +499,42 @@ def _annotation_concepts(
     return list(dict.fromkeys(values))
 
 
+def _annotation_concept_facets(
+    annotations: list[Mapping[str, Any]], annotation_name: str
+) -> list[str]:
+    values = []
+    for annotation in annotations:
+        for item in annotation.get(annotation_name) or []:
+            if isinstance(item, Mapping):
+                preferred_alias = _string_values(item.get("aliases"))
+                value = (
+                    preferred_alias[0]
+                    if preferred_alias
+                    else item.get("coded_concept")
+                    or item.get("exposure_concept")
+                )
+                if isinstance(value, str) and value.strip():
+                    values.append(value.strip())
+            elif isinstance(item, str) and item.strip():
+                values.append(item.strip())
+    return list(dict.fromkeys(values))
+
+
+def _annotation_concept_metadata(
+    annotations: list[Mapping[str, Any]], annotation_name: str, field_name: str
+) -> list[str]:
+    values = []
+    for annotation in annotations:
+        for item in annotation.get(annotation_name) or []:
+            if not isinstance(item, Mapping):
+                continue
+            value = item.get(field_name)
+            if field_name == "coded_concept" and value in (None, ""):
+                value = item.get("exposure_concept")
+            values.extend(_string_values(value))
+    return list(dict.fromkeys(values))
+
+
 def _annotation_field_values(
     annotations: list[Mapping[str, Any]], annotation_name: str, field_name: str
 ) -> list[str]:
@@ -561,7 +597,7 @@ def _annotation_detail_values(
 
 def _annotation_review_view(source: PublicationSource) -> dict[str, list[str] | str]:
     annotations = _annotation_list(source)
-    exposures = _annotation_concepts(annotations, "exposure_annotations", ("coded_concept", "exposure_concept"))
+    exposures = _annotation_concept_facets(annotations, "exposure_annotations")
     health_impacts = _annotation_concepts(annotations, "health_impact_annotations", ("coded_concept", "health_impact_concept"))
     special_topics = _annotation_concepts(annotations, "special_topic_annotations", ("coded_concept", "topic_concept"))
     geography = []
@@ -585,6 +621,18 @@ def _annotation_review_view(source: PublicationSource) -> dict[str, list[str] | 
         "data_tools": list(dict.fromkeys(data_tools)),
         "models": list(dict.fromkeys(models)),
         "special_topics": list(dict.fromkeys(special_topics)),
+        "exposure_curies": _annotation_concept_metadata(
+            annotations, "exposure_annotations", "coded_concept"
+        ),
+        "exposure_aliases": _annotation_concept_metadata(
+            annotations, "exposure_annotations", "aliases"
+        ),
+        "exposure_exact_mappings": _annotation_concept_metadata(
+            annotations, "exposure_annotations", "exact_mappings"
+        ),
+        "exposure_source_vocabularies": _annotation_concept_metadata(
+            annotations, "exposure_annotations", "source_vocabularies"
+        ),
     }
     for annotation in annotations:
         for field_name in ("coding_scheme", "coding_method", "information_source", "reference_type"):
@@ -669,6 +717,10 @@ def _catalog_review_fields(source: PublicationSource) -> list[DataverseField]:
         "hewCoderIdentifier",
         "hewReviewerIdentifier",
         "hewExposureAnnotation",
+        "hewExposureAnnotationCurie",
+        "hewExposureAnnotationAlias",
+        "hewExposureAnnotationExactMapping",
+        "hewExposureAnnotationSourceVocabulary",
         "hewHealthImpactAnnotation",
         "hewGeographyAnnotation",
         "hewDataToolMethodAnnotation",
@@ -701,6 +753,16 @@ def _catalog_review_fields(source: PublicationSource) -> list[DataverseField]:
     add("hewRecommendForRemoval", review.get("recommend_for_removal"), "controlledVocabulary")
     add("hewPostpone", review.get("postpone"), "controlledVocabulary")
     add("hewExposureAnnotation", exposures)
+    add("hewExposureAnnotationCurie", annotation_view["exposure_curies"])
+    add("hewExposureAnnotationAlias", annotation_view["exposure_aliases"])
+    add(
+        "hewExposureAnnotationExactMapping",
+        annotation_view["exposure_exact_mappings"],
+    )
+    add(
+        "hewExposureAnnotationSourceVocabulary",
+        annotation_view["exposure_source_vocabularies"],
+    )
     add("hewHealthImpactAnnotation", health_impacts)
     add("hewGeographyAnnotation", geography)
     add("hewDataToolMethodAnnotation", data_tools + models)
@@ -891,7 +953,10 @@ def crosswalk_publication(
             _record(omitted, source_name, f"hewPublication.{target_name}", "empty")
 
     annotation_view = _annotation_review_view(source)
-    catalog_exposure_values = _catalog_term_values((source.model_extra or {}).get("exposures")) or annotation_view["exposures"]
+    catalog_exposure_values = list(dict.fromkeys([
+        *_catalog_term_values((source.model_extra or {}).get("exposures")),
+        *annotation_view["exposures"],
+    ]))
     catalog_health_values = _catalog_term_values((source.model_extra or {}).get("health_impacts")) or annotation_view["health_impacts"]
     catalog_geography_values = _catalog_term_values((source.model_extra or {}).get("geography")) or annotation_view["geography"]
     catalog_feature_values = _string_values((source.model_extra or {}).get("geographic_features")) or annotation_view["geographic_features"]

@@ -54,6 +54,13 @@ preserved JSON-LD and projected metadata. The packaged lookup is based on
 HEW_Measures vocabulary version `1.0.0` and licensed CC-BY-4.0. The minimum
 publication record contains:
 
+For exposure annotations, `hewExposureAnnotation` and the facetable
+`hewResource.hewExposureConcept` use the first alias as the preferred label
+when aliases are available. The review block also exposes the coded CURIE,
+all aliases, exact ontology mappings, and source vocabulary URI as separate
+repeated fields; all aliases remain available without creating duplicate
+facets.
+
 - `id` or the JSON-LD equivalent `@id`;
 - `title`;
 - `resource_type: literature`.

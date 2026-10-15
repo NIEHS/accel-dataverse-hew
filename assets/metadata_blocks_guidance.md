@@ -189,6 +189,8 @@ Recommended fields:
 - coder, reviewer, and generating-agent identifiers;
 - exposure, health-impact, geography, data-tool/method, and special-topic
   annotations;
+- preferred exposure-term labels for faceting, with exposure CURIEs, aliases,
+  exact ontology mappings, and source vocabularies retained in separate fields;
 - evidence text, confidence, notes, and human-review status.
 
 ### HEW Data Resource Metadata
