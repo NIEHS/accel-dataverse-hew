@@ -1,0 +1,132 @@
+{
+  "data": {
+    "source": "laserai",
+    "source_reference_number": "19145",
+    "bibliographic": {
+      "title": "Greening and mental health in urban communities",
+      "first_author": "Taylor",
+      "year": 2024,
+      "doi": "10.1234/example.1",
+      "accession_number": "19145",
+      "study_identifiers": ["A-19145"]
+    },
+    "review": {
+      "reference_type": "research_article",
+      "coding_scheme": "LaserAI Export",
+      "coding_method": "laser_ai_generated",
+      "information_source": "complete_resource",
+      "recommend_for_removal": null,
+      "postpone": null
+    },
+    "exposures": [
+      {
+        "level1": "Green Space/Blue Space",
+        "level2": "Urban Greening",
+        "level3": ""
+      }
+    ],
+    "health_impacts": [
+      {
+        "level1": "Mental Health and Well-Being",
+        "level2": "Stress",
+        "level3": ""
+      }
+    ],
+    "geography": [
+      {
+        "level1": "Non-United States",
+        "level2": "Europe",
+        "level3": ""
+      }
+    ],
+    "geographic_features": [
+      "Rural"
+    ],
+    "data_and_models": {
+      "levels": {
+        "1": [
+          "Cohort"
+        ],
+        "2": [
+          "Survey"
+        ]
+      },
+      "model_types": []
+    },
+    "special_topics": {
+      "levels": {
+        "1": [
+          "Study Population"
+        ],
+        "2": [
+          "Children"
+        ]
+      },
+      "write_in": []
+    },
+    "annotations": [
+      {
+        "id": "HEWANN:laserai:19145",
+        "subject": "HEWRES:laserai:19145",
+        "coding_scheme": "LaserAI Export",
+        "coding_method": "laser_ai_generated",
+        "reference_type": "research_article",
+        "information_source": "complete_resource",
+        "exposure_annotations": [
+          {
+            "coded_concept": "Extreme Heat/Heat",
+            "coding_depth": 2,
+            "@type": "ExposureAnnotation"
+          }
+        ],
+        "health_impact_annotations": [
+          {
+            "coded_concept": "Mental Health and Well-Being",
+            "coding_depth": 1,
+            "@type": "HealthImpactAnnotation"
+          }
+        ],
+        "geography_annotations": [
+          {
+            "geographic_locations": [
+              "Non-United States",
+              "Europe"
+            ],
+            "geographic_features": [
+              "Rural"
+            ],
+            "locations": [
+              {
+                "name": "Non-United States",
+                "location_type": "other"
+              },
+              {
+                "name": "Europe",
+                "location_type": "other"
+              }
+            ],
+            "@type": "GeographyAnnotation"
+          }
+        ],
+        "data_tool_method_annotations": [
+          {
+            "data_resource_types": [
+              "Cohort"
+            ],
+            "model_types": [],
+            "@type": "DataToolMethodAnnotation"
+          }
+        ],
+        "special_topic_annotations": [
+          {
+            "coded_concept": "Children",
+            "coding_depth": 2,
+            "@type": "SpecialTopicAnnotation"
+          }
+        ],
+        "@type": "HEWSystematicReviewAnnotation"
+      }
+    ],
+    "raw_values": {}
+  }
+}

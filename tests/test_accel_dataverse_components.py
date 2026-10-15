@@ -12,6 +12,9 @@ from accelerator_core.workflow.accel_data_models import (
 from accelerator_dataverse_hew.accel_to_dataverse_crosswalk import (
     AccelToDataverseHewCrosswalk,
 )
+from accelerator_dataverse_hew.crosswalks.publication.v1 import (
+    crosswalk_jsonld_publication,
+)
 from accelerator_dataverse_hew.accel_to_dataverse_dissemination import (
     AccelDataverseHewDissemination,
 )
@@ -59,6 +62,33 @@ class AccelDataverseComponentsTest(unittest.TestCase):
             ][0]["value"],
             self.document["data"]["title"],
         )
+
+    def test_transform_preserves_enriched_hew_measure_aliases(self):
+        document = json.loads(json.dumps(self.document))
+        exposure = {
+            "coded_concept": "HEWM:0000181",
+            "source_vocabularies": ["https://w3id.org/hew/measures/schema"],
+            "@type": "ConceptAnnotation",
+        }
+        document["data"]["annotations"][0]["exposure_annotations"].append(exposure)
+        crosswalk = AccelToDataverseHewCrosswalk(self.resolver)
+        projections = []
+
+        def capture_projection(*args, **kwargs):
+            projection = crosswalk_jsonld_publication(*args, **kwargs)
+            projections.append(projection)
+            return projection
+
+        with patch(
+            "accelerator_dataverse_hew.accel_to_dataverse_crosswalk.crosswalk_jsonld_publication",
+            side_effect=capture_projection,
+        ):
+            crosswalk.transform(make_payload(document))
+
+        projected_document = projections[0].to_preservation_document()
+        projected_exposure = projected_document["annotations"][0]["exposure_annotations"][-1]
+        self.assertEqual(projected_exposure["aliases"], ["Drought", "drought"])
+        self.assertNotIn("aliases", exposure)
 
     @patch(
         "accelerator_dataverse_hew.accel_to_dataverse_dissemination.DataverseConnector"

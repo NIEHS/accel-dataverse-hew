@@ -4,6 +4,8 @@ import json
 import re
 from collections.abc import Mapping
 from copy import deepcopy
+from functools import lru_cache
+from importlib.resources import files
 from typing import Any
 from urllib.parse import urlsplit, urlunsplit
 
@@ -438,6 +440,46 @@ def _annotation_list(source: PublicationSource) -> list[Mapping[str, Any]]:
     return [annotation for annotation in annotations if isinstance(annotation, Mapping)]
 
 
+@lru_cache(maxsize=1)
+def _hew_measures_terms() -> Mapping[str, Mapping[str, Any]]:
+    resource = files(__package__).joinpath("hew_measures_terms.json")
+    return json.loads(resource.read_text(encoding="utf-8"))["terms"]
+
+
+def _enrich_hew_measure_aliases(document: Mapping[str, Any]) -> None:
+    annotations = document.get("annotations")
+    if not isinstance(annotations, list):
+        return
+
+    vocabulary = _hew_measures_terms()
+    concept_annotation_names = (
+        "exposure_annotations",
+        "health_impact_annotations",
+        "special_topic_annotations",
+    )
+    for annotation in annotations:
+        if not isinstance(annotation, Mapping):
+            continue
+        for annotation_name in concept_annotation_names:
+            for concept in annotation.get(annotation_name) or []:
+                if not isinstance(concept, Mapping):
+                    continue
+                coded_concept = concept.get("coded_concept")
+                if not isinstance(coded_concept, str):
+                    continue
+                if coded_concept.startswith("https://w3id.org/hew/measures/term/"):
+                    coded_concept = f"HEWM:{coded_concept.rsplit('/', 1)[-1]}"
+                term = vocabulary.get(coded_concept)
+                if term is None:
+                    continue
+                aliases = [
+                    *_string_values(concept.get("aliases")),
+                    *_string_values(term.get("title")),
+                    *_string_values(term.get("aliases")),
+                ]
+                concept["aliases"] = list(dict.fromkeys(aliases))
+
+
 def _annotation_concepts(
     annotations: list[Mapping[str, Any]], annotation_name: str, value_names: tuple[str, ...]
 ) -> list[str]:
@@ -450,6 +492,8 @@ def _annotation_concepts(
                     if isinstance(value, str) and value.strip():
                         values.append(value.strip())
                         break
+                for value_name in ("aliases", "terms"):
+                    values.extend(_string_values(item.get(value_name)))
             elif isinstance(item, str) and item.strip():
                 values.append(item.strip())
     return list(dict.fromkeys(values))
@@ -581,6 +625,7 @@ def _catalog_record_to_publication(record: Mapping[str, Any]) -> dict[str, Any] 
         "source_reference_number": reference_number,
         "bibliographic": bibliographic,
         "review": record.get("review") or {},
+        "annotations": record.get("annotations") or [],
         "exposures": record.get("exposures") or [],
         "health_impacts": record.get("health_impacts") or [],
         "geography": record.get("geography") or [],
@@ -606,9 +651,9 @@ def _catalog_review_fields(source: PublicationSource) -> list[DataverseField]:
     ):
         return []
     annotation_view = _annotation_review_view(source)
-    exposures = _catalog_term_values(extra.get("exposures")) or annotation_view["exposures"]
-    health_impacts = _catalog_term_values(extra.get("health_impacts")) or annotation_view["health_impacts"]
-    geography = _catalog_term_values(extra.get("geography")) or annotation_view["geography"]
+    exposures = annotation_view["exposures"] or _catalog_term_values(extra.get("exposures"))
+    health_impacts = annotation_view["health_impacts"] or _catalog_term_values(extra.get("health_impacts"))
+    geography = annotation_view["geography"] or _catalog_term_values(extra.get("geography"))
     data_and_models = extra.get("data_and_models") or {}
     levels = data_and_models.get("levels") if isinstance(data_and_models, Mapping) else {}
     data_tools = _catalog_term_values((levels or {}).get("1")) + _catalog_term_values((levels or {}).get("2"))
@@ -950,7 +995,7 @@ def crosswalk_publication(
 def crosswalk_jsonld_publication(
     document: Mapping[str, Any] | str, context: CrosswalkContext
 ) -> DataversePublicationProjection:
-    """Validate compact HEW JSON-LD and project it without replacing the source."""
+    """Validate HEW JSON-LD and project it, enriching known HEW Measures concepts."""
     if isinstance(document, str):
         try:
             document = json.loads(document)
@@ -958,9 +1003,15 @@ def crosswalk_jsonld_publication(
             raise PublicationValidationError("invalid JSON-LD document") from error
     if not isinstance(document, Mapping):
         raise PublicationValidationError("JSON-LD publication must be an object")
-    catalog_source = _catalog_record_to_publication(document)
-    source_document = document.get("data") if isinstance(document.get("data"), Mapping) else document
+    source_jsonld = deepcopy(dict(document))
+    source_document = (
+        source_jsonld.get("data")
+        if isinstance(source_jsonld.get("data"), Mapping)
+        else source_jsonld
+    )
+    _enrich_hew_measure_aliases(source_document)
+    catalog_source = _catalog_record_to_publication(source_jsonld)
     source = catalog_source or _normalized_jsonld_source(source_document, context)
     projection = crosswalk_publication(source, context)
-    projection.source_jsonld = deepcopy(dict(document))
+    projection.source_jsonld = source_jsonld
     return projection

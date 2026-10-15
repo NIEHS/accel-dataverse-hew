@@ -48,7 +48,11 @@ catalog version is not currently a slot in the HEW source schema.
 Before transformation, parse the JSON-LD document and verify its context and
 `@type` against HEW schema version `2.0.0`. Then validate the supported HEW
 publication semantics and adapt the document into a temporary source view for
-the crosswalk. The minimum publication record contains:
+the crosswalk. Concept annotations whose `coded_concept` is a HEW Measures
+identifier are enriched with that term's preferred label and aliases in the
+preserved JSON-LD and projected metadata. The packaged lookup is based on
+HEW_Measures vocabulary version `1.0.0` and licensed CC-BY-4.0. The minimum
+publication record contains:
 
 - `id` or the JSON-LD equivalent `@id`;
 - `title`;

@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from copy import deepcopy
-
 from accelerator_core.utils.xcom_utils import XcomPropsResolver
 from accelerator_core.workflow.accel_data_models import DisseminationPayload
 from accelerator_core.workflow.dissemination_crosswalk import DisseminationCrosswalk
@@ -28,7 +26,6 @@ class AccelToDataverseHewCrosswalk(DisseminationCrosswalk):
 
         payload_entry = self.payload_resolve(payload, 0)
         source_document = payload_entry.get("data", payload_entry)
-        original_source_document = deepcopy(source_document)
         if isinstance(source_document, dict):
             source_document = dict(source_document)
             submission = payload_entry.get("submission")
@@ -57,7 +54,6 @@ class AccelToDataverseHewCrosswalk(DisseminationCrosswalk):
             ),
         )
         projection = crosswalk_jsonld_publication(source_document, context)
-        projection.source_jsonld = original_source_document
 
         transformed = DisseminationPayload(payload.dissemination_descriptor)
         self.report_individual_dissemination(

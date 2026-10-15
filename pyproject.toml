@@ -38,3 +38,6 @@ dev = [
 
 [tool.setuptools.packages.find]
 include = ["accelerator_dataverse_hew*"]
+
+[tool.setuptools.package-data]
+"accelerator_dataverse_hew.crosswalks.publication.v1" = ["hew_measures_terms.json"]

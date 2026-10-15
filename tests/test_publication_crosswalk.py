@@ -251,11 +251,10 @@ class PublicationCrosswalkTest(unittest.TestCase):
         )
 
     def test_projects_hew_catalog_data_model_2_export(self):
-        document = json.loads(
-            Path(
-                "/Users/conwaymc/Documents/workspace-accel/accelerator_laserai/integration_tests/test_resources/temp_dirs/0b1a39ff-1c3a-4cea-b021-b869f32a03ab.json"
-            ).read_text(encoding="utf-8")
+        fixture_path = (
+            Path(__file__).parent / "fixtures" / "hew_catalog_data_model_export.json"
         )
+        document = json.loads(fixture_path.read_text(encoding="utf-8"))
 
         projection = crosswalk_jsonld_publication(document, self.context)
         blocks = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]
@@ -296,6 +295,34 @@ class PublicationCrosswalkTest(unittest.TestCase):
         self.assertEqual(review_fields["hewCodingScheme"]["value"], "LaserAI Export")
         self.assertEqual(review_fields["hewCodingMethod"]["value"], "Automated")
         self.assertEqual(review_fields["hewInformationSource"]["value"], "Complete resource")
+
+    def test_projects_measure_aliases_and_terms_with_concept_annotations(self):
+        document = json.loads(
+            (Path(__file__).parent / "fixtures" / "hew_record_2.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        exposure = {
+            "coded_concept": "HEWM:0000181",
+            "source_vocabularies": ["https://w3id.org/hew/measures/schema"],
+            "exact_mappings": ["envo:1000745"],
+            "coding_depth": 2,
+            "@type": "ConceptAnnotation",
+        }
+        document["data"]["annotations"][0]["exposure_annotations"].append(exposure)
+
+        projection = crosswalk_jsonld_publication(document, self.context)
+        blocks = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]
+        resource_fields = {field["typeName"]: field for field in blocks["hewResource"]["fields"]}
+        review_fields = {field["typeName"]: field for field in blocks["hewReview"]["fields"]}
+        preserved = projection.to_preservation_document()
+        preserved_exposure = preserved["data"]["annotations"][0]["exposure_annotations"][-1]
+
+        self.assertEqual(preserved_exposure["aliases"], ["Drought", "drought"])
+        self.assertNotIn("aliases", exposure)
+        self.assertIn("Drought", resource_fields["hewExposureConcept"]["value"])
+        self.assertIn("Drought", review_fields["hewExposureAnnotation"]["value"])
+        self.assertIn("drought", review_fields["hewExposureAnnotation"]["value"])
 
     def test_rejects_jsonld_without_hew_context_or_type(self):
         base_document = {
