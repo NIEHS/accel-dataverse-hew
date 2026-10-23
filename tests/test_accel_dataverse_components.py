@@ -63,7 +63,7 @@ class AccelDataverseComponentsTest(unittest.TestCase):
             self.document["data"]["title"],
         )
 
-    def test_transform_preserves_enriched_hew_measure_aliases(self):
+    def test_transform_projects_measure_aliases_and_preserves_source(self):
         document = json.loads(json.dumps(self.document))
         exposure = {
             "coded_concept": "HEWM:0000181",
@@ -86,19 +86,21 @@ class AccelDataverseComponentsTest(unittest.TestCase):
             transformed = crosswalk.transform(make_payload(document))
 
         projected_document = projections[0].to_preservation_document()
-        projected_exposure = projected_document["annotations"][0]["exposure_annotations"][-1]
-        self.assertEqual(projected_exposure["aliases"], ["Drought", "drought"])
+        projected_exposure = projected_document["annotations"][0][
+            "exposure_annotations"
+        ][-1]
+        self.assertEqual(projected_exposure, exposure)
         self.assertNotIn("aliases", exposure)
         blocks = transformed.payload[0]["datasetVersion"]["metadataBlocks"]
         resource_fields = {
-            field["typeName"]: field for field in blocks["hewResource"]["fields"]
+            field["typeName"]: field for field in blocks["hewDiscovery"]["fields"]
         }
         review_fields = {
             field["typeName"]: field for field in blocks["hewReview"]["fields"]
         }
         self.assertIn("Drought", resource_fields["hewExposureConcept"]["value"])
-        self.assertIn("Drought", review_fields["hewExposureAnnotation"]["value"])
-        self.assertNotIn("drought", review_fields["hewExposureAnnotation"]["value"])
+        self.assertIn("drought", resource_fields["hewExposureAlias"]["value"])
+        self.assertNotIn("hewExposureAnnotation", review_fields)
 
     @patch(
         "accelerator_dataverse_hew.accel_to_dataverse_dissemination.DataverseConnector"

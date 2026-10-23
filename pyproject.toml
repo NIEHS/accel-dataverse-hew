@@ -40,4 +40,4 @@ dev = [
 include = ["accelerator_dataverse_hew*"]
 
 [tool.setuptools.package-data]
-"accelerator_dataverse_hew.crosswalks.publication.v1" = ["hew_measures_terms.json"]
+"accelerator_dataverse_hew.crosswalks" = ["hew_measures_terms.json", "cafe_terms.json"]

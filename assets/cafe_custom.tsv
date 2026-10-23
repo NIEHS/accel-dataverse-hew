@@ -4,81 +4,378 @@
 	customCAFEDataSources		Metadata About Data Sources
 	customCAFEDataLocation		Metadata About Geospatial Files
 #datasetField	name	title	description	watermark	fieldType	displayOrder	displayFormat	advancedSearchField	allowControlledVocabulary	allowmultiples	facetable	displayoncreate	required	parent	metadatablock_id	termURI
-	cafeDatasetTerms	CCH Terms	Terms developed by NIEHS that are applicable to this dataset		text	0		TRUE	TRUE	TRUE	TRUE	TRUE	FALSE		AdditionalMetadataAboutDataset	
-	workflowType	Computational Workflow Type	The kind of computational workflow designed to compose and execute a series of computational or data manipulation steps		text	0		TRUE	TRUE	TRUE	TRUE	TRUE	FALSE		computationalworkflow	
-	workflowCodeRepository	External Code Repository URL	A link to the repository containing the human-readable code and related code	https://...	url	1	<a href="#VALUE" target="_blank">#VALUE</a>	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		computationalworkflow	
-	workflowDocumentation	Documentation	A link or text describing the computational workflow and its use		textbox	2		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		computationalworkflow	
-	cafeDerivedFromExistingDataset	Derived from Another Dataset	Indicates if this dataset is derived from another dataset, such as a climate model		text	0		TRUE	TRUE	FALSE	TRUE	TRUE	TRUE		customCAFEDataSources	
-	cafeSourceData	Source Dataset	Information about the source dataset		text	1	;	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		customCAFEDataSources	
-	cafeSourceDataTitle	Source Dataset Title	The name or title of the dataset from which this dataset is derived		text	2	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeDatasetTerms	CCH Terms	Terms developed by NIEHS that are applicable to this dataset		text	0	#VALUE	TRUE	TRUE	TRUE	TRUE	TRUE	FALSE		AdditionalMetadataAboutDataset	
+	workflowType	Computational Workflow Type	The kind of Computational Workflow, which is designed to compose and execute a series of computational or data manipulation steps in a scientific application		text	0		TRUE	TRUE	TRUE	TRUE	TRUE	FALSE		computationalworkflow	
+	workflowCodeRepository	External Code Repository URL	A link to the repository where the un-compiled, human readable code and related code is located (e.g. GitHub, GitLab, SVN)	https://...	url	1	"<a href=""#VALUE"" target=""_blank"">#VALUE</a>"	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		computationalworkflow	
+	workflowDocumentation	Documentation	A link (URL) to the documentation or text describing the Computational Workflow and its use		textbox	2		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		computationalworkflow	
+	cafeDerivedFromExistingDataset	Derived from Another Dataset	Indicates if this Dataset is derived from another dataset, such as a climate model		text	0		TRUE	TRUE	FALSE	TRUE	TRUE	TRUE		customCAFEDataSources	
+	cafeSourceData	Source Dataset	Information about the source dataset		none	1	;	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		customCAFEDataSources	
+	cafeSourceDataTitle	Source Dataset Title	The name or title of the dataset from which this Dataset is derived		text	2	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
 	cafeSourceDataAuthor	Source Dataset Author	The author of the source dataset		text	3	#NAME: #VALUE	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
 	cafeSourceDataInstitution	Source Dataset Institution	The institution or organization at which the source dataset was created		text	4	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
 	cafeSourceDataVersionNumber	Source Dataset Version Number	The version number of the source data		text	5	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
-	cafeSourceDataDOIOrURL	Source Dataset DOI or URL	The unique identifier or web URL to the source dataset		url	6	#NAME: <a href="#VALUE" target="_blank">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
-	cafeSourceDataLastModifiedDate	Source Dataset Last Modified Date	The date on which the source dataset was last modified		date	7	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
-	cafeSourceDataDateObtained	Source Dataset Date Obtained	The date when the depositor obtained the source dataset		date	8	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataDOIOrURL	Source Dataset DOI or URL	The unique identifier or web URL to the source dataset	https://	url	6	"<a href=""#VALUE"" target=""_blank"">#VALUE</a>"	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataLastModifiedDate	Source Dataset Last Modified Date	The date on which the source dataset was last modified	YYYY-MM-DD	date	7	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataDateObtained	Source Dataset Date Obtained	The date when this Dataset's depositor obtained the source dataset	YYYY-MM-DD	date	8	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
 	cafeSourceDataType	Source Dataset Type	A broad categorization of the source data by method of data creation		text	9	#NAME: #VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
 	cafeSourceDataTypeOther	Source Dataset Other Type	A broad categorization of the source data by method of data creation		text	10	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
-	cafeSourceDataSpatialResolution	Source Dataset Spatial Resolution	The horizontal grid spacing of the source data		float	11	;	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
-	cafeSourceDataSpatialResolutionUnit	Source Dataset Spatial Resolution Unit	The unit of the source spatial resolution		text	12	#NAME: #VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	cafeSourceDataSpatialResolution	customCAFEDataSources	
-	cafeSourceDataSpatialResolutionUnitOther	Source Dataset Spatial Resolution Other Unit	The unit of the source spatial resolution		text	13	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceDataSpatialResolution	customCAFEDataSources	
+	cafeSourceDataSpatialResolution	Source Dataset Spatial Resolution	The horizontal grid spacing of the source data as a number with no unit		none	11	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataSpatialValue	Value	The horizontal grid spacing of the source data as a number with no unit		float	11	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceDataSpatialResolution	customCAFEDataSources	
+	cafeSourceDataSpatialResolutionUnit	Source Dataset Spatial Resolution Unit	The unit of the Spatial Resolution		text	12	#NAME: #VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataSpatialResolutionUnitOther	Source Dataset Spatial Resolution Other Unit	The unit of the Spatial Resolution		text	13	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
 	cafeSourceDataTimestep	Source Dataset Timestep	The temporal frequency of data in the source dataset		text	14	#NAME: #VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
 	cafeSourceDataTimestepOther	Other Source Dataset Timestep	The temporal frequency of data in the source dataset		text	15	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
-	cafeSourceDataAttribution	Source Dataset Attribution	Bibliographic references to the source data		textbox	16	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
+	cafeSourceDataAttribution	Source Dataset Attribution	Bibliographic references to the source data, which are typically included in the terms of use		textbox	16	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
 	cafeSourceDataDisclaimer	Source Dataset Disclaimer	Disclaimer text provided by the source dataset creators		textbox	17	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
-	cafeIncludesGeospatialFile	Includes a Geospatial File	Indicates if this dataset includes a geospatial file such as raster or vector data		text	0		TRUE	TRUE	FALSE	TRUE	TRUE	TRUE		customCAFEDataLocation	
-	cafeSpatialReferenceSystem	Spatial Reference System	Information about the coordinate reference system of the data		text	1	;	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		customCAFEDataLocation	
-	cafeSpatialReferenceSystemName	Name	The name of the coordinate reference system used in the deposited data		text	2	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialReferenceSystem	customCAFEDataLocation	
-	cafeSpatialReferenceSystemURL	URL	A link to the full coordinate reference system information	https://...	url	3	#NAME: <a href="#VALUE" target="_blank">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialReferenceSystem	customCAFEDataLocation	
+	cafeIncludesGeospatialFile	Includes a Geospatial File	Indicates if this Dataset includes a geospatial file (e.g. a raster or vector file)		text	0		TRUE	TRUE	FALSE	TRUE	TRUE	TRUE		customCAFEDataLocation	
+	cafeSpatialReferenceSystem	Spatial Reference System	Information about the coordinate reference system (CRS) of the data		none	1	;	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		customCAFEDataLocation	
+	cafeSpatialReferenceSystemName	Name	The name of the coordinate reference system (CRS) used in the deposited data		text	2	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialReferenceSystem	customCAFEDataLocation	
+	cafeSpatialReferenceSystemURL	URL	The link to the website with the full coordinate reference system (CRS) information, e.g. https://spatialreference.org/ref/esri/102003/html/	https://	url	3	"#NAME: <a href=""#VALUE"" target=""_blank"">#VALUE</a>"	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialReferenceSystem	customCAFEDataLocation	
 	cafeSpatialFileType	Spatial File Type	The file type of the geospatial data		text	4	#VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE		customCAFEDataLocation	
-	cafeSpatialFileTypeOther	Other Spatial File Type	The file type of the geospatial data when Other is selected		text	5	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		customCAFEDataLocation	
-	cafeSpatialResolution	Spatial Resolution	The spatial resolution of raster data		text	6	;	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		customCAFEDataLocation	
-	cafeSpatialResolutionValue	Value	The numeric horizontal grid spacing of the raster data		float	7	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialResolution	customCAFEDataLocation	
-	cafeSpatialResolutionUnit	Unit	The unit for the resolution of gridded data		text	8	#NAME: #VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	cafeSpatialResolution	customCAFEDataLocation	
-	cafeSpatialResolutionUnitOther	Other Unit	The unit for the resolution of gridded data when Other is selected		text	9	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialResolution	customCAFEDataLocation	
+	cafeSpatialFileTypeOther	Other Spatial File Type	The file type of the geospatial data		text	5	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		customCAFEDataLocation	
+	cafeSpatialResolution	Spatial Resolution	The spatial resolution of the raster data		none	6	;	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		customCAFEDataLocation	
+	cafeSpatialResolutionValue	Value	"The number value indicating the horizontal grid spacing of the raster data (e.g. ""30"" for 30 meter x 30 meter gridded data)"		float	7	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialResolution	customCAFEDataLocation	
+	cafeSpatialResolutionUnit	Unit	The unit for the resolution of the gridded data		text	8	#NAME: #VALUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	cafeSpatialResolution	customCAFEDataLocation	
+	cafeSpatialResolutionUnitOther	Other Unit	The unit for the resolution of the gridded data		text	9	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSpatialResolution	customCAFEDataLocation	
 #controlledVocabulary	DatasetField	Value	identifier	displayOrder
-	cafeDatasetTerms	Climate	cafe_term_climate	1
-	cafeDatasetTerms	Environmental Health	cafe_term_environmental_health	2
-	cafeDatasetTerms	Exposure	cafe_term_exposure	3
-	cafeDatasetTerms	Extreme Temperatures	cafe_term_extreme_temperatures	4
-	cafeDatasetTerms	Health	cafe_term_health	5
-	cafeDatasetTerms	Health Equity	cafe_term_health_equity	6
-	cafeDatasetTerms	Heat Wave	cafe_term_heat_wave	7
-	cafeDatasetTerms	Public Health	cafe_term_public_health	8
-	cafeDatasetTerms	Risk	cafe_term_risk	9
-	cafeDatasetTerms	Vulnerability	cafe_term_vulnerability	10
-	cafeDatasetTerms	Weather	cafe_term_weather	11
-	workflowType	Common Workflow Language (CWL)	workflowtype_cwl	1
-	workflowType	Workflow Description Language (WDL)	workflowtype_wdl	2
-	workflowType	Nextflow	workflowtype_nextflow	3
-	workflowType	Snakemake	workflowtype_snakemake	4
-	workflowType	Jupyter Notebook	workflowtype_jupyter	5
-	workflowType	R Notebook	workflowtype_rstudio	6
-	workflowType	Other	workflowtype_other	100
-	cafeDerivedFromExistingDataset	Yes	cafe_derived_yes	1
-	cafeDerivedFromExistingDataset	No	cafe_derived_no	2
-	cafeSourceDataType	Dataset	cafe_source_dataset	1
-	cafeSourceDataType	Geospatial dataset	cafe_source_geospatial_dataset	2
-	cafeSourceDataType	Climate model	cafe_source_climate_model	3
-	cafeSourceDataType	Other (specify)	cafe_source_other	100
-	cafeSourceDataSpatialResolutionUnit	Decimal-degrees (˚)	cafe_resolution_decimal_degrees	1
-	cafeSourceDataSpatialResolutionUnit	Kilometers (km)	cafe_resolution_km	2
-	cafeSourceDataSpatialResolutionUnit	Meters (m)	cafe_resolution_m	3
-	cafeSourceDataSpatialResolutionUnit	Other (specify)	cafe_resolution_other	100
-	cafeSourceDataTimestep	Hourly	cafe_timestep_hourly	1
-	cafeSourceDataTimestep	Daily	cafe_timestep_daily	2
-	cafeSourceDataTimestep	Monthly	cafe_timestep_monthly	3
-	cafeSourceDataTimestep	Annual	cafe_timestep_annual	4
-	cafeSourceDataTimestep	Other (specify)	cafe_timestep_other	100
-	cafeIncludesGeospatialFile	Yes	cafe_geo_file_yes	1
-	cafeIncludesGeospatialFile	No	cafe_geo_file_no	2
-	cafeSpatialFileType	Vector: Points	cafe_spatial_points	1
-	cafeSpatialFileType	Vector: Polygons	cafe_spatial_polygons	2
-	cafeSpatialFileType	Vector: Lines	cafe_spatial_lines	3
-	cafeSpatialFileType	Raster: Single-band	cafe_spatial_raster_single	4
-	cafeSpatialFileType	Raster: Multi-band	cafe_spatial_raster_multi	5
-	cafeSpatialFileType	Other (specify)	cafe_spatial_other	100
-	cafeSpatialResolutionUnit	Decimal-degrees (˚)	cafe_file_resolution_decimal_degrees	1
-	cafeSpatialResolutionUnit	Kilometers (km)	cafe_file_resolution_km	2
-	cafeSpatialResolutionUnit	Meters (m)	cafe_file_resolution_m	3
-	cafeSpatialResolutionUnit	Other (specify)	cafe_file_resolution_other	100
+	cafeDatasetTerms	Acclimatization	cafeDatasetTerms_1	1
+	cafeDatasetTerms	Adaptation	cafeDatasetTerms_2	2
+	cafeDatasetTerms	Adaptation Research	cafeDatasetTerms_3	3
+	cafeDatasetTerms	Adaptive Capacity	cafeDatasetTerms_4	4
+	cafeDatasetTerms	Aeroallergens	cafeDatasetTerms_5	5
+	cafeDatasetTerms	Air Pollution	cafeDatasetTerms_6	6
+	cafeDatasetTerms	Airborne Disease	cafeDatasetTerms_7	7
+	cafeDatasetTerms	Algae	cafeDatasetTerms_8	8
+	cafeDatasetTerms	Allergy	cafeDatasetTerms_9	9
+	cafeDatasetTerms	Animal Reservoir	cafeDatasetTerms_10	10
+	cafeDatasetTerms	Anthropogenic Emissions	cafeDatasetTerms_11	11
+	cafeDatasetTerms	Anxiety	cafeDatasetTerms_12	12
+	cafeDatasetTerms	Applied Research	cafeDatasetTerms_13	13
+	cafeDatasetTerms	Asthma	cafeDatasetTerms_14	14
+	cafeDatasetTerms	Atmospheric Aerosol	cafeDatasetTerms_15	15
+	cafeDatasetTerms	Bacteria	cafeDatasetTerms_16	16
+	cafeDatasetTerms	Basic Research	cafeDatasetTerms_17	17
+	cafeDatasetTerms	Behavioral and Social Sciences Research	cafeDatasetTerms_18	18
+	cafeDatasetTerms	Behavioral Health	cafeDatasetTerms_19	19
+	cafeDatasetTerms	Behavioral Health Equity	cafeDatasetTerms_20	20
+	cafeDatasetTerms	Biodiversity	cafeDatasetTerms_21	21
+	cafeDatasetTerms	Birth Outcome	cafeDatasetTerms_22	22
+	cafeDatasetTerms	Black Carbon	cafeDatasetTerms_23	23
+	cafeDatasetTerms	Cancer	cafeDatasetTerms_24	24
+	cafeDatasetTerms	Capacity Building	cafeDatasetTerms_25	25
+	cafeDatasetTerms	Carbon Dioxide (CO2)	cafeDatasetTerms_26	26
+	cafeDatasetTerms	Carbon Monoxide (CO)	cafeDatasetTerms_27	27
+	cafeDatasetTerms	Carbon Neutral	cafeDatasetTerms_28	28
+	cafeDatasetTerms	Cardiovascular	cafeDatasetTerms_29	29
+	cafeDatasetTerms	Chronic Obstructive Pulmonary Disease (COPD)	cafeDatasetTerms_30	30
+	cafeDatasetTerms	Citizen Science	cafeDatasetTerms_31	31
+	cafeDatasetTerms	Climate	cafeDatasetTerms_32	32
+	cafeDatasetTerms	Climate Adaptation	cafeDatasetTerms_33	33
+	cafeDatasetTerms	Climate and Health Epidemiology	cafeDatasetTerms_34	34
+	cafeDatasetTerms	Climate and Health Outcome	cafeDatasetTerms_35	35
+	cafeDatasetTerms	Climate Change	cafeDatasetTerms_36	36
+	cafeDatasetTerms	Climate Change and Health Co-Benefit	cafeDatasetTerms_37	37
+	cafeDatasetTerms	Climate Change and Socioeconomic Scenarios	cafeDatasetTerms_38	38
+	cafeDatasetTerms	Climate Equity	cafeDatasetTerms_39	39
+	cafeDatasetTerms	Climate Indicator	cafeDatasetTerms_40	40
+	cafeDatasetTerms	Climate Justice	cafeDatasetTerms_41	41
+	cafeDatasetTerms	Climate Migration	cafeDatasetTerms_42	42
+	cafeDatasetTerms	Climate Model	cafeDatasetTerms_43	43
+	cafeDatasetTerms	Climate Preparedness	cafeDatasetTerms_44	44
+	cafeDatasetTerms	Climate Risk	cafeDatasetTerms_45	45
+	cafeDatasetTerms	Climate Scenario	cafeDatasetTerms_46	46
+	cafeDatasetTerms	Climate Sensitive Diseases (CSD)	cafeDatasetTerms_47	47
+	cafeDatasetTerms	Climate Stressor	cafeDatasetTerms_48	48
+	cafeDatasetTerms	Climate Uncertainty	cafeDatasetTerms_49	49
+	cafeDatasetTerms	Climate Variability	cafeDatasetTerms_50	50
+	cafeDatasetTerms	Co-Benefit	cafeDatasetTerms_51	51
+	cafeDatasetTerms	Co-infection	cafeDatasetTerms_52	52
+	cafeDatasetTerms	Coastal Ocean	cafeDatasetTerms_53	53
+	cafeDatasetTerms	Cognitive Disorder	cafeDatasetTerms_54	54
+	cafeDatasetTerms	Cohort	cafeDatasetTerms_55	55
+	cafeDatasetTerms	Cold Wave	cafeDatasetTerms_56	56
+	cafeDatasetTerms	Communication Research	cafeDatasetTerms_57	57
+	cafeDatasetTerms	Community Engagement	cafeDatasetTerms_58	58
+	cafeDatasetTerms	Comorbidity	cafeDatasetTerms_59	59
+	cafeDatasetTerms	Compound Event	cafeDatasetTerms_60	60
+	cafeDatasetTerms	Conceptual Site Model	cafeDatasetTerms_61	61
+	cafeDatasetTerms	Cost Prediction	cafeDatasetTerms_62	62
+	cafeDatasetTerms	Crowdsourcing	cafeDatasetTerms_63	63
+	cafeDatasetTerms	Cryptosporidium	cafeDatasetTerms_64	64
+	cafeDatasetTerms	Cumulative Health Effects	cafeDatasetTerms_65	65
+	cafeDatasetTerms	Cumulative Risk	cafeDatasetTerms_66	66
+	cafeDatasetTerms	Cyanobacteria	cafeDatasetTerms_67	67
+	cafeDatasetTerms	Data Integration	cafeDatasetTerms_68	68
+	cafeDatasetTerms	Degree Days	cafeDatasetTerms_69	69
+	cafeDatasetTerms	Demographic	cafeDatasetTerms_70	70
+	cafeDatasetTerms	Dengue Fever	cafeDatasetTerms_71	71
+	cafeDatasetTerms	Dermatological Outcome	cafeDatasetTerms_72	72
+	cafeDatasetTerms	Desert	cafeDatasetTerms_73	73
+	cafeDatasetTerms	Developmental Outcome	cafeDatasetTerms_74	74
+	cafeDatasetTerms	Diabetes	cafeDatasetTerms_75	75
+	cafeDatasetTerms	Disaster	cafeDatasetTerms_76	76
+	cafeDatasetTerms	Disaster Equity	cafeDatasetTerms_77	77
+	cafeDatasetTerms	Disaster Preparedness	cafeDatasetTerms_78	78
+	cafeDatasetTerms	Disaster Recovery	cafeDatasetTerms_79	79
+	cafeDatasetTerms	Disaster Research Response	cafeDatasetTerms_80	80
+	cafeDatasetTerms	Disaster Response	cafeDatasetTerms_81	81
+	cafeDatasetTerms	Disaster Risk Reduction	cafeDatasetTerms_82	82
+	cafeDatasetTerms	Disease Burden	cafeDatasetTerms_83	83
+	cafeDatasetTerms	Dissemination Science	cafeDatasetTerms_84	84
+	cafeDatasetTerms	Downscaling	cafeDatasetTerms_85	85
+	cafeDatasetTerms	Drought	cafeDatasetTerms_86	86
+	cafeDatasetTerms	Dust Storm	cafeDatasetTerms_87	87
+	cafeDatasetTerms	Early Warning System	cafeDatasetTerms_88	88
+	cafeDatasetTerms	Economic Impact Research	cafeDatasetTerms_89	89
+	cafeDatasetTerms	Ecosystem	cafeDatasetTerms_90	90
+	cafeDatasetTerms	Ecosystem Services	cafeDatasetTerms_91	91
+	cafeDatasetTerms	Ecosystem-Based Adaptation	cafeDatasetTerms_92	92
+	cafeDatasetTerms	El Nino Southern Oscillation (ENSO)	cafeDatasetTerms_93	93
+	cafeDatasetTerms	Electrolyte Imbalance	cafeDatasetTerms_94	94
+	cafeDatasetTerms	Emergency	cafeDatasetTerms_95	95
+	cafeDatasetTerms	Emissions Scenario	cafeDatasetTerms_96	96
+	cafeDatasetTerms	Endemic	cafeDatasetTerms_97	97
+	cafeDatasetTerms	Environment	cafeDatasetTerms_98	98
+	cafeDatasetTerms	Environmental Health	cafeDatasetTerms_99	99
+	cafeDatasetTerms	Environmental Justice	cafeDatasetTerms_100	100
+	cafeDatasetTerms	Environmental Justice Index	cafeDatasetTerms_101	101
+	cafeDatasetTerms	Environmental Quality Index (EQI)	cafeDatasetTerms_102	102
+	cafeDatasetTerms	Epidemiology	cafeDatasetTerms_103	103
+	cafeDatasetTerms	Eutrophication	cafeDatasetTerms_104	104
+	cafeDatasetTerms	Exposure	cafeDatasetTerms_105	105
+	cafeDatasetTerms	Exposure Assessment	cafeDatasetTerms_106	106
+	cafeDatasetTerms	Exposure Change Prediction	cafeDatasetTerms_107	107
+	cafeDatasetTerms	Exposure Pathway	cafeDatasetTerms_108	108
+	cafeDatasetTerms	Extreme Temperatures	cafeDatasetTerms_109	109
+	cafeDatasetTerms	Extreme Weather Events	cafeDatasetTerms_110	110
+	cafeDatasetTerms	Flood	cafeDatasetTerms_111	111
+	cafeDatasetTerms	Food Quality	cafeDatasetTerms_112	112
+	cafeDatasetTerms	Food Security	cafeDatasetTerms_113	113
+	cafeDatasetTerms	Foodborne Illness/Disease	cafeDatasetTerms_114	114
+	cafeDatasetTerms	Forest	cafeDatasetTerms_115	115
+	cafeDatasetTerms	Fossil Fuels	cafeDatasetTerms_116	116
+	cafeDatasetTerms	Framework	cafeDatasetTerms_117	117
+	cafeDatasetTerms	Freshwater	cafeDatasetTerms_118	118
+	cafeDatasetTerms	Fungi	cafeDatasetTerms_119	119
+	cafeDatasetTerms	Gastrointestinal System	cafeDatasetTerms_120	120
+	cafeDatasetTerms	Glacier Melt/Snow Melt	cafeDatasetTerms_121	121
+	cafeDatasetTerms	Global Climate Models (GCM)	cafeDatasetTerms_122	122
+	cafeDatasetTerms	Global Health	cafeDatasetTerms_123	123
+	cafeDatasetTerms	Global Mean Surface Temperature	cafeDatasetTerms_124	124
+	cafeDatasetTerms	Global Warming	cafeDatasetTerms_125	125
+	cafeDatasetTerms	Grassland	cafeDatasetTerms_126	126
+	cafeDatasetTerms	Green Climate Fund	cafeDatasetTerms_127	127
+	cafeDatasetTerms	Greenhouse Effect	cafeDatasetTerms_128	128
+	cafeDatasetTerms	Greenhouse Gas	cafeDatasetTerms_129	129
+	cafeDatasetTerms	Growing Degree Days	cafeDatasetTerms_130	130
+	cafeDatasetTerms	Harmful Algal Bloom (HAB)	cafeDatasetTerms_131	131
+	cafeDatasetTerms	Health	cafeDatasetTerms_132	132
+	cafeDatasetTerms	Health Disparity	cafeDatasetTerms_133	133
+	cafeDatasetTerms	Health Effects Research	cafeDatasetTerms_134	134
+	cafeDatasetTerms	Health Equity	cafeDatasetTerms_135	135
+	cafeDatasetTerms	Health Hazard	cafeDatasetTerms_136	136
+	cafeDatasetTerms	Health Services Research	cafeDatasetTerms_137	137
+	cafeDatasetTerms	Health Systems Research	cafeDatasetTerms_138	138
+	cafeDatasetTerms	Healthcare Sector	cafeDatasetTerms_139	139
+	cafeDatasetTerms	Healthcare Services	cafeDatasetTerms_140	140
+	cafeDatasetTerms	Heat Stress/Heat Related Illness	cafeDatasetTerms_141	141
+	cafeDatasetTerms	Heat Wave	cafeDatasetTerms_142	142
+	cafeDatasetTerms	Hepatic System	cafeDatasetTerms_143	143
+	cafeDatasetTerms	Historical Trauma	cafeDatasetTerms_144	144
+	cafeDatasetTerms	Hypertension	cafeDatasetTerms_145	145
+	cafeDatasetTerms	Hyperthermia	cafeDatasetTerms_146	146
+	cafeDatasetTerms	Hypothermia	cafeDatasetTerms_147	147
+	cafeDatasetTerms	Implementation Science	cafeDatasetTerms_148	148
+	cafeDatasetTerms	Incidence	cafeDatasetTerms_149	149
+	cafeDatasetTerms	Indigenous Peoples	cafeDatasetTerms_150	150
+	cafeDatasetTerms	Indoor Environment	cafeDatasetTerms_151	151
+	cafeDatasetTerms	Infectious Disease	cafeDatasetTerms_152	152
+	cafeDatasetTerms	Infrastructure	cafeDatasetTerms_153	153
+	cafeDatasetTerms	Intergovernmental Panel on Climate Change (IPCC)	cafeDatasetTerms_154	154
+	cafeDatasetTerms	Intervention Research	cafeDatasetTerms_155	155
+	cafeDatasetTerms	Island	cafeDatasetTerms_156	156
+	cafeDatasetTerms	Land Cover	cafeDatasetTerms_157	157
+	cafeDatasetTerms	Land Use	cafeDatasetTerms_158	158
+	cafeDatasetTerms	Landslide	cafeDatasetTerms_159	159
+	cafeDatasetTerms	Law	cafeDatasetTerms_160	160
+	cafeDatasetTerms	Lived Experience	cafeDatasetTerms_161	161
+	cafeDatasetTerms	Loss and Damage	cafeDatasetTerms_162	162
+	cafeDatasetTerms	Lyme Disease	cafeDatasetTerms_163	163
+	cafeDatasetTerms	Maladaptation	cafeDatasetTerms_164	164
+	cafeDatasetTerms	Malnutrition	cafeDatasetTerms_165	165
+	cafeDatasetTerms	Mechanistic Study	cafeDatasetTerms_166	166
+	cafeDatasetTerms	Medical Visit	cafeDatasetTerms_167	167
+	cafeDatasetTerms	Mental Health	cafeDatasetTerms_168	168
+	cafeDatasetTerms	Mental Illness, Mental Disorder	cafeDatasetTerms_169	169
+	cafeDatasetTerms	Meteorological Factor	cafeDatasetTerms_170	170
+	cafeDatasetTerms	Mitigation	cafeDatasetTerms_171	171
+	cafeDatasetTerms	Model Timescale	cafeDatasetTerms_172	172
+	cafeDatasetTerms	Monsoon	cafeDatasetTerms_173	173
+	cafeDatasetTerms	Morbidity	cafeDatasetTerms_174	174
+	cafeDatasetTerms	Mortality	cafeDatasetTerms_175	175
+	cafeDatasetTerms	Mountain	cafeDatasetTerms_176	176
+	cafeDatasetTerms	Multidisciplinary Research	cafeDatasetTerms_177	177
+	cafeDatasetTerms	Nationally Determined Contributions (NDCs)	cafeDatasetTerms_178	178
+	cafeDatasetTerms	Natural Experiment	cafeDatasetTerms_179	179
+	cafeDatasetTerms	Nature-based Solutions	cafeDatasetTerms_180	180
+	cafeDatasetTerms	Nervous System	cafeDatasetTerms_181	181
+	cafeDatasetTerms	Neurological Disorder	cafeDatasetTerms_182	182
+	cafeDatasetTerms	Noncommunicable Diseases (NCDs)	cafeDatasetTerms_183	183
+	cafeDatasetTerms	Normalized Difference Vegetation Index	cafeDatasetTerms_184	184
+	cafeDatasetTerms	Nutritional Security	cafeDatasetTerms_185	185
+	cafeDatasetTerms	Ocean Acidification	cafeDatasetTerms_186	186
+	cafeDatasetTerms	One Health	cafeDatasetTerms_187	187
+	cafeDatasetTerms	Ozone (O3)	cafeDatasetTerms_188	188
+	cafeDatasetTerms	Parasite	cafeDatasetTerms_189	189
+	cafeDatasetTerms	Particulate Matter	cafeDatasetTerms_190	190
+	cafeDatasetTerms	Pathogen	cafeDatasetTerms_191	191
+	cafeDatasetTerms	Patient Registry	cafeDatasetTerms_192	192
+	cafeDatasetTerms	Permafrost	cafeDatasetTerms_193	193
+	cafeDatasetTerms	Physical Injury	cafeDatasetTerms_194	194
+	cafeDatasetTerms	Planned Relocation	cafeDatasetTerms_195	195
+	cafeDatasetTerms	Polar	cafeDatasetTerms_196	196
+	cafeDatasetTerms	Policy	cafeDatasetTerms_197	197
+	cafeDatasetTerms	Populations of Concern	cafeDatasetTerms_198	198
+	cafeDatasetTerms	Post-traumatic Stress Disorder (PTSD)	cafeDatasetTerms_199	199
+	cafeDatasetTerms	Precipitation	cafeDatasetTerms_200	200
+	cafeDatasetTerms	Predictive Modeling	cafeDatasetTerms_201	201
+	cafeDatasetTerms	Prevalence	cafeDatasetTerms_202	202
+	cafeDatasetTerms	Projection	cafeDatasetTerms_203	203
+	cafeDatasetTerms	Psychological Disorder	cafeDatasetTerms_204	204
+	cafeDatasetTerms	Pubertal Timing	cafeDatasetTerms_205	205
+	cafeDatasetTerms	Public Health	cafeDatasetTerms_206	206
+	cafeDatasetTerms	Public Health Intervention	cafeDatasetTerms_207	207
+	cafeDatasetTerms	Radiative Forcing	cafeDatasetTerms_208	208
+	cafeDatasetTerms	Rainforest	cafeDatasetTerms_209	209
+	cafeDatasetTerms	Recovery	cafeDatasetTerms_210	210
+	cafeDatasetTerms	Redlining	cafeDatasetTerms_211	211
+	cafeDatasetTerms	Reference Scenario	cafeDatasetTerms_212	212
+	cafeDatasetTerms	Regulation	cafeDatasetTerms_213	213
+	cafeDatasetTerms	Remote Sensing	cafeDatasetTerms_214	214
+	cafeDatasetTerms	Renal System	cafeDatasetTerms_215	215
+	cafeDatasetTerms	Renewable Energy	cafeDatasetTerms_216	216
+	cafeDatasetTerms	Representative Concentration Pathways (RCPs)	cafeDatasetTerms_217	217
+	cafeDatasetTerms	Reproductive System	cafeDatasetTerms_218	218
+	cafeDatasetTerms	Research Approach	cafeDatasetTerms_219	219
+	cafeDatasetTerms	Research Gap	cafeDatasetTerms_220	220
+	cafeDatasetTerms	Research Methodology	cafeDatasetTerms_221	221
+	cafeDatasetTerms	Resilience	cafeDatasetTerms_222	222
+	cafeDatasetTerms	Respiratory Disease	cafeDatasetTerms_223	223
+	cafeDatasetTerms	Respiratory System	cafeDatasetTerms_224	224
+	cafeDatasetTerms	Risk	cafeDatasetTerms_225	225
+	cafeDatasetTerms	Risk Assessment	cafeDatasetTerms_226	226
+	cafeDatasetTerms	Risk Management	cafeDatasetTerms_227	227
+	cafeDatasetTerms	Risk Perception	cafeDatasetTerms_228	228
+	cafeDatasetTerms	Rural	cafeDatasetTerms_229	229
+	cafeDatasetTerms	Salmonellosis	cafeDatasetTerms_230	230
+	cafeDatasetTerms	Scenario	cafeDatasetTerms_231	231
+	cafeDatasetTerms	Sea Level Rise	cafeDatasetTerms_232	232
+	cafeDatasetTerms	Seasonality	cafeDatasetTerms_233	233
+	cafeDatasetTerms	Sensitivity	cafeDatasetTerms_234	234
+	cafeDatasetTerms	Serious Mental Illness (SMI)	cafeDatasetTerms_235	235
+	cafeDatasetTerms	Shared Socioeconomic Pathway (SSP)	cafeDatasetTerms_236	236
+	cafeDatasetTerms	Short Lived Climate Pollutants (SLCP)	cafeDatasetTerms_237	237
+	cafeDatasetTerms	Social Determinants of Health (SDOH)	cafeDatasetTerms_238	238
+	cafeDatasetTerms	Social Stratification	cafeDatasetTerms_239	239
+	cafeDatasetTerms	Social Vulnerability Index	cafeDatasetTerms_240	240
+	cafeDatasetTerms	Sociodemographic Vulnerability	cafeDatasetTerms_241	241
+	cafeDatasetTerms	Socioeconomic Status (SES)	cafeDatasetTerms_242	242
+	cafeDatasetTerms	Solar Radiation	cafeDatasetTerms_243	243
+	cafeDatasetTerms	Special Report on Emissions Scenarios (SRES)	cafeDatasetTerms_244	244
+	cafeDatasetTerms	Storm Surge	cafeDatasetTerms_245	245
+	cafeDatasetTerms	Substance Use Disorders	cafeDatasetTerms_246	246
+	cafeDatasetTerms	Suburban	cafeDatasetTerms_247	247
+	cafeDatasetTerms	Suicide	cafeDatasetTerms_248	248
+	cafeDatasetTerms	Surveillance	cafeDatasetTerms_249	249
+	cafeDatasetTerms	Surveillance System	cafeDatasetTerms_250	250
+	cafeDatasetTerms	Temperate	cafeDatasetTerms_251	251
+	cafeDatasetTerms	Thermoregulation	cafeDatasetTerms_252	252
+	cafeDatasetTerms	Toxin	cafeDatasetTerms_253	253
+	cafeDatasetTerms	Training	cafeDatasetTerms_254	254
+	cafeDatasetTerms	Transdisciplinary Research	cafeDatasetTerms_255	255
+	cafeDatasetTerms	Trauma	cafeDatasetTerms_256	256
+	cafeDatasetTerms	Trauma-Informed Care (TIC)	cafeDatasetTerms_257	257
+	cafeDatasetTerms	Treaty	cafeDatasetTerms_258	258
+	cafeDatasetTerms	Tropical	cafeDatasetTerms_259	259
+	cafeDatasetTerms	Tropical Cyclone/Hurricane	cafeDatasetTerms_260	260
+	cafeDatasetTerms	Tundra	cafeDatasetTerms_261	261
+	cafeDatasetTerms	United Nations Framework Convention on Climate Change (UNFCCC)	cafeDatasetTerms_262	262
+	cafeDatasetTerms	Urban	cafeDatasetTerms_263	263
+	cafeDatasetTerms	Urban Heat Island Effect	cafeDatasetTerms_264	264
+	cafeDatasetTerms	Valley	cafeDatasetTerms_265	265
+	cafeDatasetTerms	Vector	cafeDatasetTerms_266	266
+	cafeDatasetTerms	Vector-borne Disease	cafeDatasetTerms_267	267
+	cafeDatasetTerms	Virus	cafeDatasetTerms_268	268
+	cafeDatasetTerms	Vulnerability	cafeDatasetTerms_269	269
+	cafeDatasetTerms	Vulnerability Assessment	cafeDatasetTerms_270	270
+	cafeDatasetTerms	Water Quality	cafeDatasetTerms_271	271
+	cafeDatasetTerms	Water Security	cafeDatasetTerms_272	272
+	cafeDatasetTerms	Water-borne Illness	cafeDatasetTerms_273	273
+	cafeDatasetTerms	Watershed	cafeDatasetTerms_274	274
+	cafeDatasetTerms	Weather	cafeDatasetTerms_275	275
+	cafeDatasetTerms	Well-Being	cafeDatasetTerms_276	276
+	cafeDatasetTerms	West Nile Virus	cafeDatasetTerms_277	277
+	cafeDatasetTerms	Wet Bulb Globe Temperature	cafeDatasetTerms_278	278
+	cafeDatasetTerms	Wetland	cafeDatasetTerms_279	279
+	cafeDatasetTerms	Wildfire	cafeDatasetTerms_280	280
+	cafeDatasetTerms	Zoonotic Disease	cafeDatasetTerms_281	281
+	workflowType	Common Workflow Language (CWL)	workflowType_1	1
+	workflowType	Workflow Description Language (WDL)	workflowType_2	2
+	workflowType	Nextflow	workflowType_3	3
+	workflowType	Snakemake	workflowType_4	4
+	workflowType	Ruffus	workflowType_5	5
+	workflowType	DAGMan	workflowType_6	6
+	workflowType	Jupyter Notebook	workflowType_7	7
+	workflowType	R Notebook	workflowType_8	8
+	workflowType	MATLAB Script	workflowType_9	9
+	workflowType	Bash Script	workflowType_10	10
+	workflowType	Makefile	workflowType_11	11
+	workflowType	Other Python-based workflow	workflowType_12	12
+	workflowType	Other R-based workflow	workflowType_13	13
+	workflowType	Other	workflowType_14	14
+	cafeDerivedFromExistingDataset	Yes	cafeDerivedFromExistingDataset_1	1
+	cafeDerivedFromExistingDataset	No	cafeDerivedFromExistingDataset_2	2
+	cafeSourceDataType	Physical or dynamical model	cafeSourceDataType_1	1
+	cafeSourceDataType	Statistical model	cafeSourceDataType_2	2
+	cafeSourceDataType	Reanalysis data	cafeSourceDataType_3	3
+	cafeSourceDataType	Satellite remote sensing data	cafeSourceDataType_4	4
+	cafeSourceDataType	Observational data (incl. wx stations and AQ monitors)	cafeSourceDataType_5	5
+	cafeSourceDataType	Experimental data	cafeSourceDataType_6	6
+	cafeSourceDataType	Survey data	cafeSourceDataType_7	7
+	cafeSourceDataType	Interview or other qualitative data	cafeSourceDataType_8	8
+	cafeSourceDataType	Other (specify)	cafeSourceDataType_9	9
+	cafeSourceDataSpatialResolutionUnit	Decimal-degrees (˚)	cafeSourceDataSpatialResolutionUnit_1	1
+	cafeSourceDataSpatialResolutionUnit	Arc-minutes (')	cafeSourceDataSpatialResolutionUnit_2	2
+	cafeSourceDataSpatialResolutionUnit	"Arc-seconds ("")"	cafeSourceDataSpatialResolutionUnit_3	3
+	cafeSourceDataSpatialResolutionUnit	Kilometers (km)	cafeSourceDataSpatialResolutionUnit_4	4
+	cafeSourceDataSpatialResolutionUnit	Meters (m)	cafeSourceDataSpatialResolutionUnit_5	5
+	cafeSourceDataSpatialResolutionUnit	Centimeters (cm)	cafeSourceDataSpatialResolutionUnit_6	6
+	cafeSourceDataSpatialResolutionUnit	Miles (mi)	cafeSourceDataSpatialResolutionUnit_7	7
+	cafeSourceDataSpatialResolutionUnit	Feet (ft)	cafeSourceDataSpatialResolutionUnit_8	8
+	cafeSourceDataSpatialResolutionUnit	Other (specify)	cafeSourceDataSpatialResolutionUnit_9	9
+	cafeSourceDataTimestep	Hourly	cafeSourceDataTimestep_1	1
+	cafeSourceDataTimestep	3-hourly	cafeSourceDataTimestep_2	2
+	cafeSourceDataTimestep	6-hourly	cafeSourceDataTimestep_3	3
+	cafeSourceDataTimestep	12-hourly	cafeSourceDataTimestep_4	4
+	cafeSourceDataTimestep	Daily	cafeSourceDataTimestep_5	5
+	cafeSourceDataTimestep	Monthly	cafeSourceDataTimestep_6	6
+	cafeSourceDataTimestep	Annual	cafeSourceDataTimestep_7	7
+	cafeSourceDataTimestep	Time-Invariant / NA	cafeSourceDataTimestep_8	8
+	cafeSourceDataTimestep	Other (specify)	cafeSourceDataTimestep_9	9
+	cafeIncludesGeospatialFile	Yes	cafeIncludesGeospatialFile_1	1
+	cafeIncludesGeospatialFile	No	cafeIncludesGeospatialFile_2	2
+	cafeSpatialFileType	Vector: Points	cafeSpatialFileType_1	1
+	cafeSpatialFileType	Vector: Polygons	cafeSpatialFileType_2	2
+	cafeSpatialFileType	Vector: Lines	cafeSpatialFileType_3	3
+	cafeSpatialFileType	Raster: Single-band	cafeSpatialFileType_4	4
+	cafeSpatialFileType	Raster: Multi-band	cafeSpatialFileType_5	5
+	cafeSpatialFileType	Other (specify)	cafeSpatialFileType_6	6
+	cafeSpatialResolutionUnit	Decimal-degrees (˚)	cafeSpatialResolutionUnit_1	1
+	cafeSpatialResolutionUnit	Arc-minutes (')	cafeSpatialResolutionUnit_2	2
+	cafeSpatialResolutionUnit	"Arc-seconds ("")"	cafeSpatialResolutionUnit_3	3
+	cafeSpatialResolutionUnit	Kilometers (km)	cafeSpatialResolutionUnit_4	4
+	cafeSpatialResolutionUnit	Meters (m)	cafeSpatialResolutionUnit_5	5
+	cafeSpatialResolutionUnit	Centimeters (cm)	cafeSpatialResolutionUnit_6	6
+	cafeSpatialResolutionUnit	Miles (mi)	cafeSpatialResolutionUnit_7	7
+	cafeSpatialResolutionUnit	Feet (ft)	cafeSpatialResolutionUnit_8	8
+	cafeSpatialResolutionUnit	Other (specify)	cafeSpatialResolutionUnit_9	9
