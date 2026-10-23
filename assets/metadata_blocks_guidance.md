@@ -11,12 +11,9 @@ The source CAFE block definition is:
 
 `accelerator-dataverse/cafe_blocks.json`
 
-The canonical HEW model (schema 2.0.0) is:
-
-- `HEW_Catalog_Data_Model/hew-model/schema/hew.yaml` — core: publications,
-  review coding, and surveys;
-- `HEW_Catalog_Data_Model/hew-model/schema/hew-extended.yaml` — core plus the
-  geospatial, project, and additional resource-type extensions.
+The canonical HEW model (schema 2.0.0) is
+`HEW_Catalog_Data_Model/hew-model/schema/hew.yaml`. It composes the publication,
+review-coding, survey, geospatial, project, and resource-type modules.
 
 ## Source document and validation boundary
 
