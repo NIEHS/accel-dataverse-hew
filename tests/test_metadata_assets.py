@@ -137,6 +137,12 @@ class MetadataAssetsTest(unittest.TestCase):
             self.assertEqual(row[15], block_name)
             self.assertEqual(row[14], parent)
             self.assertEqual(row[10] == "TRUE", field["multiple"], field["typeName"])
+            expected_type_class = (
+                "compound"
+                if row[5] == "none"
+                else "controlledVocabulary" if row[9] == "TRUE" else "primitive"
+            )
+            self.assertEqual(expected_type_class, field["typeClass"], field["typeName"])
             if field["typeClass"] == "compound":
                 entries = field["value"] if field["multiple"] else [field["value"]]
                 for entry in entries:
