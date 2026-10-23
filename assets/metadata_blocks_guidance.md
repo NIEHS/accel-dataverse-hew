@@ -1,426 +1,153 @@
-# HEW Dataverse Metadata Blocks Guidance
+# HEW Dataverse Metadata Blocks
 
-## Purpose
+## Authority and scope
 
-This document guides dissemination of the Health and Extreme Weather (HEW)
-catalog into Dataverse. HEW should reuse the existing CAFE/CHORDS metadata
-blocks wherever their semantics are compatible, preserving interoperability
-with the existing `accelerator-dataverse` installation.
+The design follows [metadata_blocks_design_notes.md](metadata_blocks_design_notes.md),
+HEW_Catalog_Data_Model schema 2.0.0 (hew-model/schema/hew.yaml and its modules),
+and HEW_Measures vocabulary 1.0.0 (data/HewMeasures.yaml).
+These are fresh block definitions; there are no legacy HEW aliases or migration fields.
 
-The source CAFE block definition is:
+The provisioning assets are cafe_custom.tsv and hew_custom.tsv. The loader
+installs every custom block and enables them together with the installed
+Dataverse citation and geospatial blocks. Empty optional blocks are not emitted
+for individual records.
 
-`accelerator-dataverse/cafe_blocks.json`
+## CAFE first
 
-The canonical HEW model (schema 2.0.0) is:
+cafe_custom.tsv provisions all four custom blocks exported in
+accelerator-dataverse/cafe_blocks.json, including all fields and controlled values:
 
-- `HEW_Catalog_Data_Model/hew-model/schema/hew.yaml` — core: publications,
-  review coding, and surveys;
-- `HEW_Catalog_Data_Model/hew-model/schema/hew-extended.yaml` — core plus the
-  geospatial, project, and additional resource-type extensions.
-
-## Source document and validation boundary
-
-The dissemination source is the HEW resource document stored in MongoDB as
-JSON-LD. It is not a LinkML YAML document and should not be converted into a
-second persisted LinkML representation before crosswalking.
-
-The source boundary has three distinct responsibilities:
-
-1. parse the JSON-LD and verify its `@context`, `@type`, and resource identity;
-2. use the matching LinkML schema version as the semantic authority for a
-   temporary normalized HEW view, when deeper validation is required;
-3. project the validated view into typed Dataverse metadata and preserve the
-   original JSON-LD document unchanged.
-
-The JSON-LD context and HEW schema version must be treated as compatibility
-inputs. A missing, unsupported, or mismatched context/schema version should
-stop the record before any Dataverse write. The crosswalk may normalize JSON-LD
-identifier objects, repeated values, and compact slot names for mapping, but
-that normalized view is transient and is not the preservation record.
-
-LinkML therefore remains the schema authority, not the source serialization
-format. Pydantic may validate the source adapter’s narrow contract and the
-Dataverse projection, but should not reproduce the complete HEW model.
-
-## Compatibility principles
-
-1. Preserve existing metadata block names, field names, and controlled values
-   when reusing an installed CAFE block.
-2. Treat CAFE-specific field names as compatibility identifiers, not as the
-   preferred HEW vocabulary. For example, retain `cafeDatasetTerms` in the
-   Dataverse projection but document it as a shared catalog-term field.
-3. Prefer structured compound fields and identifiers over concatenated notes.
-4. Use URI-valued fields for HEW concepts and external identifiers whenever the
-   existing field supports them.
-5. Do not force HEW concepts into an existing field merely because the label is
-   similar. Add a HEW-specific block when the semantics or cardinality differ.
-6. Keep the original HEW record available as JSON or JSON-LD when Dataverse
-   fields cannot preserve the complete model.
-
-## Existing blocks
-
-### `citation`
-
-Use for all HEW resources, especially literature resources. The existing block
-supports:
-
-- title, alternative title, URL, and depositor;
-- authors, contacts, producers, contributors, and funding information;
-- descriptions, subjects, keywords, and topic classifications;
-- related publications, datasets, materials, and references;
-- language, publication/production/deposit dates, and covered time periods;
-- software and data-source text.
-
-HEW mapping guidance:
-
-| HEW model | Citation field |
+| Block | HEW content |
 |---|---|
-| `title` | `title` |
-| `description`, `abstract` | `dsDescription` |
-| `url` | `alternativeURL` |
-| `doi`, `pmid`, `pmcid`, `identifiers` | `otherId` |
-| `authors` (inlined agents) | `author`: `authorName`, plus `authorIdentifierScheme`/`authorIdentifier` for ORCID |
-| `contacts` | `datasetContact` |
-| `keywords` | `keyword` |
-| `publication_type`, `citation`, `journal` | `publication`, `topicClassification`, or `notesText` as appropriate |
-| `publication_date` (`YYYY`, `YYYY-MM`, or `YYYY-MM-DD`) | `productionDate` when no more specific installed field is available |
-| `temporal_coverage` | `timePeriodCovered` |
-| `license`, `access_rights` | Dataset-level terms/configuration, not citation text |
-| `related_resources` | `relatedDatasets` or `relatedMaterial` |
-| `funding_sources` | `grantNumber` |
-
-For DOI, PMID, and PMCID, use an explicit agency/type in `otherId` rather than
-putting all identifiers in free text. Preserve the canonical URL separately.
-
-### `geospatial`
-
-Use for resource-level geographic discovery:
-
-- `geographicCoverage` for named countries, states, cities, or other places;
-- `geographicUnit` for the unit represented by the resource;
-- `geographicBoundingBox` for west/east/north/south bounds.
-
-This is a projection of HEW `spatial_extent`, not a complete replacement for
-it. The existing bounding-box fields are text fields, so validation of numeric
-ranges and coordinate reference systems remains the responsibility of the HEW
-crosswalk.
-
-HEW geometry, named-location identifiers, centroids, environmental context,
-GeoJSON, WKT, and CRS URIs should be preserved in a HEW JSON/JSON-LD attachment
-until a suitable custom block is available.
-
-### `AdditionalMetadataAboutDataset`
-
-Use `cafeDatasetTerms` for broad HEW discovery terms that are already present
-in the shared controlled vocabulary. Relevant existing values include terms
-such as `Climate`, `Exposure`, `Environmental Health`, `Extreme Temperatures`,
-`Health`, `Heat Wave`, `Wildfire`, `Health Equity`, `Public Health`, `Risk`,
-`Vulnerability`, and `Weather`.
-
-This field is valuable for CAFE/CHORDS compatibility, but it should not become
-the sole representation of HEW coding. HEW ontology identifiers, review
-coding states, evidence, and parent concepts require a richer representation.
-
-### `computationalworkflow`
-
-Use for software, notebooks, models, and workflow resources. Reuse:
-
-- `workflowType` for the existing workflow vocabulary;
-- `workflowCodeRepository` for repository URLs;
-- `workflowDocumentation` for documentation links or text.
-
-This block is not needed for ordinary publication records unless the
-publication explicitly describes a workflow or software artifact.
-
-### `customCAFEDataSources`
-
-Use for dataset, model, and derived-resource provenance. Reuse:
-
-- `cafeDerivedFromExistingDataset` for the yes/no derivation indicator;
-- `cafeSourceData` for source title, authors, institution, version, DOI/URL,
-  dates, data type, spatial resolution, timestep, attribution, and disclaimer.
-
-Do not populate this block for a publication merely because the paper cites a
-dataset. Use it when the HEW resource itself is derived from or materially
-depends on the source dataset.
-
-### `customCAFEDataLocation`
-
-Use for deposited geospatial files and dataset-level file characteristics:
-
-- `cafeIncludesGeospatialFile`;
-- `cafeSpatialReferenceSystem`;
-- `cafeSpatialFileType` and `cafeSpatialFileTypeOther`;
-- `cafeSpatialResolution`.
-
-These fields map to parts of HEW `GeospatialResource`, but they describe files
-and resource-level characteristics. They do not replace environmental-variable
-`spatial_support` or `temporal_support`.
-
-## HEW-specific blocks
-
-The existing CAFE blocks do not adequately represent the following model areas.
-These should be added as HEW-specific blocks rather than flattened into
-`notesText`:
-
-### HEW Resource Metadata
-
-Recommended fields:
-
-- HEW resource identifier;
-- HEW resource type and status;
-- canonical URL and alternate identifiers;
-- exposure, health-impact, geography, data-tool, model, and special-topic
-  concepts;
-- related HEW resource identifiers;
-- source catalog and catalog-version information.
-
-### HEW Review Coding
-
-Recommended fields:
-
-- coding scheme and version;
-- annotation date and information source;
-- coding method;
-- coder, reviewer, and generating-agent identifiers;
-- exposure, health-impact, geography, data-tool/method, and special-topic
-  annotations;
-- evidence text, confidence, notes, and human-review status.
-
-### HEW Data Resource Metadata
-
-Recommended fields:
-
-- data dictionary and variables;
-- measured and environmental variables;
-- measured property and measurement method;
-- aggregation method;
-- variable-level spatial and temporal support;
-- ontology mappings and OMOP concept bindings;
-- structured distributions and access information.
-
-### HEW Agents and Provenance
-
-Recommended fields:
-
-- people, organizations, software agents, programs, projects, and funding
-  sources;
-- role-bearing agent associations;
-- start/end dates, affiliation context, contribution description, and source.
-
-For the first release, simple authors, contacts, contributors, producers, and
-funding identifiers can use `citation`. Full role-bearing provenance may remain
-in JSON-LD until the HEW block is implemented.
-
-## Initial publication scope
-
-For the first HEW publications dissemination workflow, emit:
-
-1. the required `citation` block;
-2. `geospatial` when the publication has meaningful geographic coverage;
-3. `AdditionalMetadataAboutDataset.cafeDatasetTerms` for matching broad HEW
-   terms;
-4. HEW Resource Metadata for resource type and catalog identifiers, once the
-   custom block is installed;
-5. HEW Review Coding when systematic-review annotations are present;
-6. a JSON or JSON-LD attachment containing any fields not represented in the
-   metadata blocks.
-
-The source and geospatial-file CAFE blocks should remain enabled for future
-dataset, model, and geospatial-resource dissemination. For literature-only
-records, the required CAFE indicators must be explicitly set to `No` when the
-HEW record does not provide evidence that the publication is derived from an
-existing dataset or includes a geospatial file; the other CAFE fields should
-remain empty.
-
-## Crosswalk requirements
-
-The accelerator crosswalk should:
-
-- accept the MongoDB JSON-LD document as the source input;
-- validate the JSON-LD context, `@type`, resource identity, and supported HEW
-  schema version before writing to Dataverse;
-- omit empty fields rather than emitting empty primitive or compound values;
-- preserve HEW identifiers and identifier types;
-- map HEW controlled terms to existing CAFE values only when the mapping is
-  semantically exact;
-- retain unmapped HEW terms in the HEW JSON/JSON-LD representation;
-- distinguish resource-level spatial extent from variable-level spatial
-  support;
-- distinguish publication metadata from review annotations;
-- validate bounding-box ordering and coordinate ranges before rendering;
-- record the HEW schema version, JSON-LD context/version, and catalog
-  record/version in the output or preservation manifest.
-
-The existing CAFE blocks are therefore best treated as interoperable Dataverse
-projections of the HEW model. They provide a strong foundation for citation,
-discovery, geospatial indexing, source attribution, and workflow metadata, but
-they should not be treated as the complete HEW schema.
-
-## Crosswalk strategy and publication loading plan
-
-### Architectural strategy
-
-Keep the HEW LinkML schema as the canonical schema authority. The source record
-for this workflow is the compact JSON-LD document persisted by MongoDB, not a
-LinkML YAML or JSON document. Dataverse metadata is a versioned, intentionally
-lossy projection of that JSON-LD representation. Metadata-block installation
-and record transformation are separate concerns:
-
-- `load_metadata_blocks.py` installs and enables the CAFE and HEW blocks for a
-  Dataverse collection;
-- a JSON-LD source adapter checks the context/type, extracts the HEW publication
-  semantics, and transforms one resource into a Dataverse dataset payload;
-- the original HEW JSON or JSON-LD record is deposited as an attachment so that
-  fields not represented by Dataverse remain recoverable.
-
-Do not introduce a JSON-LD-to-LinkML document conversion as a persisted
-pipeline stage. Use the LinkML schema in three narrower ways:
-
-1. verify that the JSON-LD context and `@type` identify a supported HEW schema
-   and resource class;
-2. expand/compact or otherwise adapt JSON-LD into a temporary slot map for
-   LinkML semantic validation where required;
-3. use the same schema version to drive the crosswalk contract and fixtures.
-
-Pydantic is appropriate for the smaller source-adapter DTO, crosswalk context,
-and Dataverse projection models, but it should not duplicate the complete HEW
-model. The source adapter should preserve JSON-LD identifiers, language or
-value objects, repeated properties, and unknown properties until the mapping
-report is produced. JSON-LD parsing/semantic validation and Dataverse
-projection validation are separate validation steps.
-
-Each crosswalk must have an explicit identifier and version, for example
-`hew-publication-to-dataverse@1.0.0`. Record these values together with the HEW
-schema version, source catalog version, source resource identifier, and
-generation timestamp. Version these independently:
-
-1. HEW schema version;
-2. crosswalk implementation/version;
-3. metadata-block TSV or deployed-block version;
-4. source catalog or record version.
-
-The crosswalk should use a declarative mapping manifest for direct field and
-controlled-vocabulary mappings, with executable transformation code only for
-normalization, conditional logic, nested annotations, and validation. Every
-run should produce a mapping report containing mapped, omitted, and unmapped
-fields. Empty values should be omitted, while unmapped values should remain in
-the JSON/JSON-LD attachment and be visible in the report.
-
-### Publication projection contract
-
-The first projection, `publication-v1`, should accept a MongoDB JSON-LD
-`LiteratureResource` document and emit:
-
-- `citation` for title, abstract/description, URL, identifiers, authors,
-  publication details, keywords, and related references;
-- `hewResource` for the HEW identifier, literature resource type, status,
-  canonical URL, alternate identifiers, related resources, catalog version,
-  and schema version;
-- `hewReview` when systematic-review annotations are present, using repeated
-  fields for searchable concepts and retaining complete nested annotations in
-  JSON/JSON-LD;
-- `AdditionalMetadataAboutDataset.cafeDatasetTerms` only for exact matches to
-  the existing CAFE vocabulary;
-- `geospatial` only when the publication has meaningful resource-level
-  geographic coverage;
-- the original HEW JSON/JSON-LD record as a deposited preservation attachment.
-
-The source adapter should support the JSON-LD forms used by the HEW serializer,
-including the document `@context`, document `@type`, compact HEW slot names,
-and JSON-LD identifier values. It should reject a missing or unsupported
-context/type before any Dataverse write. A temporary normalized source view may
-use ordinary Python values for mapping, but it is not a replacement source
-record and must not be deposited instead of the original JSON-LD.
-
-The projection must not populate dataset-source, geospatial-file, or workflow
-metadata merely because a publication mentions a dataset, file, or method. Use
-those blocks only when the HEW resource itself satisfies their semantics.
-
-### Sprint plan
-
-#### Sprint 1: Contracts, fixtures, and environment
-
-Deliverables:
-
-- confirm the publication input contract and supported HEW schema version;
-- define `publication-v1` version metadata and the mapping manifest format;
-- document the required Dataverse blocks and target collection configuration;
-- create representative JSON-LD fixtures for a plain publication, a
-  publication with DOI/PMID/PMCID, and a publication with review annotations
-  and geography;
-- verify that the metadata-block loader is repeatable and preserves existing
-  collection configuration.
-
-Acceptance criteria:
-
-- JSON-LD fixtures parse successfully, identify the supported HEW context/type,
-  and validate against the corresponding HEW schema contract;
-- the target collection has the required metadata blocks enabled;
-- the same loader invocation does not create duplicate block configuration.
-
-#### Sprint 2: Publication crosswalk core
-
-Deliverables:
-
-- implement JSON-LD source parsing/validation and a typed Dataverse publication
-  projection;
-- map citation metadata and HEW resource identifiers;
-- normalize DOI, PMID, PMCID, URLs, dates, authors, and keywords;
-- omit empty values and preserve identifier types;
-- emit a mapped/omitted/unmapped report;
-- add unit tests for direct mappings, cardinality, invalid input, and empty
-  values.
-
-Acceptance criteria:
-
-- a valid literature fixture produces a deterministic Dataverse payload;
-- invalid HEW records fail before any Dataverse write;
-- identifier values are not collapsed into free text;
-- no empty citation or HEW custom fields are emitted.
-
-#### Sprint 3: Review coding, vocabulary, and preservation
-
-Deliverables:
-
-- map review coding summaries into `hewReview`;
-- map only semantically exact HEW-to-CAFE terms;
-- preserve annotation IDs, evidence, nesting, and unmapped concepts in the
-  JSON/JSON-LD attachment;
-- add geography handling with coordinate and bounding-box validation;
-- add golden-output tests for annotated publications.
-
-Acceptance criteria:
-
-- repeated annotations are represented without silent overwrites;
-- CAFE vocabulary mappings are tested and auditable;
-- nested source data can be reconstructed from the preservation attachment;
-- invalid geographic ranges fail with an actionable error.
-
-#### Sprint 4: Dataverse integration and pilot publication load
-
-Deliverables:
-
-- connect the crosswalk output to the Dataverse dataset creation/update path;
-- define idempotency behavior using the HEW resource identifier and source
-  version;
-- attach the original JSON/JSON-LD and crosswalk report;
-- run a pilot load against a non-production collection;
-- document rollback, retry, duplicate detection, and failed-record handling;
-- publish a compatibility matrix for crosswalk, HEW schema, and metadata-block
-  versions.
-
-Acceptance criteria:
-
-- a pilot batch can be loaded, retried, and reconciled without duplicates;
-- each deposited record identifies its source and projection versions;
-- failed records are reported without stopping unrelated valid records;
-- a human can discover the publication in Dataverse while the complete HEW
-  record remains available for machine processing.
-
-#### Post-pilot hardening
-
-After the publication pilot, review unmapped-field reports and user search
-needs before expanding to datasets, models, or geospatial resources. Add new
-crosswalk versions or metadata blocks when semantics or cardinality require
-them; do not broaden `publication-v1` through silent reinterpretation.
+| AdditionalMetadataAboutDataset | Exact matches to the complete cafeDatasetTerms vocabulary |
+| computationalworkflow | Workflow type, repository URL, documentation |
+| customCAFEDataSources | Derivation indicator and structured source dataset provenance |
+| customCAFEDataLocation | Geospatial-file indicator, CRS, file type, spatial resolution |
+
+Use the installed field names and controlled values unchanged. Only map values
+whose semantics match; a publication mentioning a dataset does not make the
+publication a derived dataset. The publication crosswalk defaults both required
+CAFE indicators to No when the source provides no evidence.
+
+For geospatial resources, map coordinate_reference_system and
+coordinate_reference_system_uri to cafeSpatialReferenceSystemName/URL;
+map quantitative_spatial_resolution.resolution_value/unit to
+cafeSpatialResolutionValue/Unit, using the Other fields when the unit is outside
+the CAFE vocabulary. Do not duplicate those resource/file characteristics in a
+HEW-only field. Variable support retains its own CRS and resolution within its
+structured support value.
+
+Use citation for title, subtitle, description/abstract, URL, identifiers
+(including same_as), authors, contacts, contributors, funding, keywords,
+publication details, language, and publication dates. Use dataset terms and access
+configuration for license/access_rights, rather than inventing HEW text fields.
+
+## Common discovery: hewDiscovery
+
+All resource types share these facets:
+
+| Meaning | Plain-text facet | Separate machine and synonym fields |
+|---|---|---|
+| Record type | hewResourceType | hewResourceTypeCurie, hewResourceTypeAlias, hewResourceTypeExactMapping |
+| Exposure | hewExposureConcept | hewExposureCurie, hewExposureAlias, hewExposureExactMapping |
+| Health impact | hewHealthImpactConcept | hewHealthImpactCurie, hewHealthImpactAlias, hewHealthImpactExactMapping |
+| Geography | hewGeographyConcept | hewGeographyCurie, hewGeographyAlias, hewGeographyExactMapping |
+| Topic/theme | hewTopicConcept | hewTopicCurie, hewTopicAlias, hewTopicExactMapping |
+| Event | hewEventConcept | hewEventCurie, hewEventAlias, hewEventExactMapping |
+| Data/tool | hewDataToolConcept | hewDataToolCurie, hewDataToolAlias, hewDataToolExactMapping |
+| Model | hewModelConcept | hewModelCurie, hewModelAlias, hewModelExactMapping |
+
+hewGeographicFeature is an additional plain-text facet. CURIEs, aliases, and
+exact mapping fields are searchable but never facetable. Only populate mapping
+fields when an actual mapping exists. Record-type CURIEs identify the corresponding
+HEW schema class where known.
+
+Project publication review concepts, survey exposure_agents/health_impacts/
+geographic_locations/special_topics/event_types, dataset concepts, and project
+themes here. Do not create parallel survey or review discovery facets.
+The shared discovery helper also accepts catalog hierarchy entries and simple
+plain-text terms. Explicit preferred_label/label/title/name takes precedence,
+then a matched HEW Measures title, then the first supplied alias. Unknown CURIEs
+without labels remain in the CURIE field and are reported; they never become
+human-readable facets. OBO prefixes are canonicalized to uppercase.
+
+### Measures rollup
+
+Match a HEWM CURIE (or its full HEW Measures term IRI) to the pinned packaged
+HEW Measures snapshot. Populate hewMeasureLabel/Curie/Alias/ExactMapping.
+Follow the term's taxonomy_parent and every transitive class is_a ancestor,
+omitting the abstract Category root. Populate hewMeasureParentLabel and
+hewMeasureParentCurie with deduplicated values.
+
+For example, HEWM:0000181 produces Drought and the Weather and Environment
+parent facets. Taxonomy classes have vocab: CURIEs, not fabricated HEWM numbers.
+Plain labels and aliases are not fuzzy-matched to identifiers. Unknown HEWM
+identifiers do not acquire guessed parents.
+
+The packaged snapshot records its source revision, schema, version, prefixes,
+and CC-BY-4.0 license. Rebuild it from HEW_Measures data/HewMeasures.yaml or its
+dist/hew_measures.jsonld export when upgrading the vocabulary. Keep the parent
+chain and exact_mappings as well as titles and aliases.
+
+## Geospatial and temporal
+
+Use the installed geospatial block for named geographic coverage, geographic
+units, and bounding boxes. Validate numeric coordinate ranges and ordering
+before creating a Dataverse record.
+
+hewGeospatial carries geometry type, WKT, GeoJSON, centroid, named location
+identifiers, environmental context labels/CURIEs, grid definitions, detailed
+quantitative/administrative resolution, and variable spatial support.
+Resource-level extent and variable-level support have distinct meanings.
+CRS/file metadata uses CAFE fields first.
+
+hewTemporal carries free-text coverage and repeated hewTemporalExtent compounds
+with start/end timestamps, resolution, calendar, timezone, and coverage status.
+Timestamps remain text so UTC offsets and sub-day precision survive; start is
+inclusive and end exclusive. The publication crosswalk validates explicit
+offsets and interval ordering. Variable temporal support, update cadence and
+typical latency have separate fields. Date-only project/association periods
+retain their source precision rather than inventing times.
+
+Detailed nested support, grid, variable, distribution, parameter, and value
+specifications use explicitly named JSON textbox fields where further compound
+nesting would obscure relationships. Preserve complete source JSON-LD as well.
+
+## Remaining type-specific information
+
+| Block | Classes/content not covered above |
+|---|---|
+| hewResource | Catalog resource ID, status, related resources, schema/catalog/crosswalk/block versions |
+| hewPublication | LiteratureResource study objective; bibliographic fields reuse citation |
+| hewReview | Review identifiers, coding scheme/version, dates, coders/reviewers, evidence, notes and confidence |
+| hewDataResource | DatasetResource/CohortResource/SurveyDataset data dictionary, variables, survey instruments, population, deliveries, distributions, processing and OMOP linkage |
+| hewSurvey | SurveyInstrument constructs/questions, population, administration, EDC, readability, CDE integration and instrument relationships |
+| hewProvenance | Agents and role-bearing associations; identifiers, entity, role, association dates, affiliation, contribution and source |
+| hewSoftware | SoftwareResource language, software type and maintainers; repository/documentation reuse CAFE |
+| hewModelResource | ModelResource type and input/output variables |
+| hewTool | ToolResource type, maintainers and input/output variables; repository reuses CAFE |
+| hewCollection | ResourceCollection membership, scope, curator, source project and version |
+| hewProject | Program/Project/FundingSource status, program membership, sponsorship, resource use/production and funding mechanism; award/funder reuse citation |
+| hewExposureEstimate | SpatiotemporalExposure variable/source references, value specification, population, uncertainty and quality flags |
+| hewCalculation | CovariateCalculation method, software, parameters, inputs/outputs, joins, buffers, extraction and temporal window |
+
+Common title/identity, discovery, coverage and CAFE mappings apply to every type.
+A class with no extra slots, such as CohortResource, shares its parent dataset
+block instead of receiving an empty block.
+
+## Source handling and implementation boundary
+
+MongoDB JSON-LD is the dissemination source; LinkML remains the semantic
+authority. Normalize only a temporary view and attach the original source
+unchanged. Report unsupported values rather than silently discarding them.
+Do not persist an intermediate LinkML serialization.
+
+The executable publication crosswalk uses the new blocks for common discovery,
+measure rollup, coding provenance, geographic coverage/geometry and temporal
+extent. Its contract is in crosswalks/publication/v1/mapping.yaml.
+Other resource types have provisioned fields and the mappings above; their
+deposit crosswalks remain separate implementation work.
+
+Install with the metadata-block loader documented in the repository README.
+Update Solr fields and reload/reindex after provisioning before verifying
+facets. The loader preserves unrelated collection block configuration.

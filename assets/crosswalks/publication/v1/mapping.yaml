@@ -1,150 +1,91 @@
 crosswalk_id: hew-publication-to-dataverse
 crosswalk_version: 1.0.0
+metadata_block_version: hew-blocks-1.0.0
 hew_schema:
   version: 2.0.0
   source: https://w3id.org/hew/schema
 source:
-  formats:
-    - jsonld
-    - hew_catalog_data_model_export
+  formats: [jsonld, hew_catalog_data_model_export]
   class: LiteratureResource
-  context_required: true
-  type_required: true
-  required:
-    - id
-    - title
-    - resource_type
+  required: [id, title, resource_type]
   constraints:
     resource_type: literature
 dataverse:
-  required_blocks:
-    - citation
-    - hewResource
-    - hewPublication
-  optional_blocks:
-    - hewReview
-    - geospatial
-    - AdditionalMetadataAboutDataset
+  required_blocks: [citation, hewResource, hewDiscovery, customCAFEDataSources, customCAFEDataLocation]
+  optional_blocks: [hewPublication, hewReview, geospatial, hewGeospatial, hewTemporal, AdditionalMetadataAboutDataset]
   preservation_attachment:
     format: jsonld
     required: true
+    unchanged: true
 context:
-  required:
-    - catalog_version
-    - metadata_block_version
-    - target_collection
+  required: [catalog_version, metadata_block_version, target_collection]
   output_fields:
     catalog_version: hewResource.hewCatalogVersion
     hew_schema_version: hewResource.hewSchemaVersion
     crosswalk_version: hewResource.hewCrosswalkVersion
+    metadata_block_version: hewResource.hewMetadataBlockVersion
 mappings:
   - source: id
     target: hewResource.hewResourceId
-  - source: title
-    target: citation.title
-  - source: abstract
-    target: citation.dsDescription
-  - source: description
-    target: citation.dsDescription
-  - source: url
-    target: citation.alternativeURL
-  - source: doi
-    target: citation.otherId
-    identifier_type: DOI
-  - source: pmid
-    target: citation.otherId
-    identifier_type: PMID
-  - source: pmcid
-    target: citation.otherId
-    identifier_type: PMCID
-  - source: identifiers
-    target: citation.otherId
-    identifier_type: source_defined
-  - source: authors
-    target: citation.author
-    subfields:
-      authorName: name, else "family_name, given_name", else id
-      authorIdentifierScheme: ORCID when orcid (or an ORCID id) is present
-      authorIdentifier: normalized ORCID iD
-    legacy: plain string authors map to authorName only
-  - source: keywords
-    target: citation.keyword
-  - source: citation
-    target: citation.notesText
-  - source: publication_type
-    target: citation.topicClassification
-  - source: doi
-    target: hewPublication.hewPublicationDoi
-  - source: pmid
-    target: hewPublication.hewPublicationPmid
-  - source: pmcid
-    target: hewPublication.hewPublicationPmcid
-  - source: abstract
-    target: hewPublication.hewPublicationAbstract
-  - source: citation
-    target: hewPublication.hewPublicationCitation
-  - source: publication_type
-    target: hewPublication.hewPublicationType
-  - source: journal
-    target: hewPublication.hewPublicationJournal
-  - source: journal
-    target: citation.notesText
-  - source: publication_date
-    target: citation.productionDate
-  - source: resource_type
-    target: hewResource.hewResourceType
-    vocabulary:
-      literature: Literature resource
   - source: status
     target: hewResource.hewResourceStatus
   - source: related_resources
     target: hewResource.hewRelatedResource
-  - source: description
-    target: hewResource.hewResourceDescription
-  - source: same_as
-    target: hewResource.hewSameAs
-  - source: themes
-    target: hewResource.hewTheme
-  - source: spatial_coverage
-    target: hewResource.hewSpatialCoverage
-  - source: temporal_coverage
-    target: hewResource.hewTemporalCoverage
-  - source: access_rights
-    target: hewResource.hewAccessRights
-  - source: license
-    target: hewResource.hewLicense
-  - source: study_objective
-    target: hewResource.hewStudyObjective
+  - source: title
+    target: citation.title
+  - source: [abstract, description]
+    target: citation.dsDescription
+  - source: url
+    target: citation.alternativeURL
+  - source: [doi, pmid, pmcid, identifiers, same_as]
+    target: citation.otherId
+    transform: retain_identifier_agency_and_normalize_identifiers
+  - source: authors
+    target: citation.author
+    transform: agent_names_and_orcid_identifiers
   - source: contacts
-    target: hewResource.hewContact
+    target: citation.datasetContact
   - source: contributors
-    target: hewResource.hewContributor
+    target: citation.contributor
   - source: funding_sources
-    target: hewResource.hewFundingSource
-  - source: exposures
-    target: hewResource.hewExposureConcept
-  - source: health_impacts
-    target: hewResource.hewHealthImpactConcept
-  - source: geography
-    target: hewResource.hewGeographyConcept
-  - source: geographic_features
-    target: hewResource.hewGeographicFeature
-  - source: special_topics
-    target: hewResource.hewTopicConcept
-  - source: review
-    target: hewReview
-    fields:
-      reference_type: hewReferenceType
-      recommend_for_removal: hewRecommendForRemoval
-      postpone: hewPostpone
-  - source: data_and_models
-    target: hewReview.hewDataToolMethodAnnotation
+    target: citation.grantNumber
+  - source: keywords
+    target: citation.keyword
+  - source: [citation, journal]
+    target: citation.notesText
+  - source: publication_type
+    target: citation.topicClassification
+  - source: publication_date
+    target: citation.productionDate
+  - source: study_objective
+    target: hewPublication.hewStudyObjective
+  - source: resource_type
+    target: hewDiscovery.hewResourceType
+    transform: plain_text_type_and_separate_schema_class_curie
+  - source: [exposures, health_impacts, geography, geographic_features, special_topics, themes, data_and_models, annotations]
+    target: hewDiscovery
+    transform: preferred_labels_with_separate_curies_aliases_and_exact_mappings
   - source: annotations
+    target: hewDiscovery.hewMeasureParentLabel
+    transform: match_hewm_curie_and_collect_all_taxonomy_ancestors_except_Category
+  - source: [review, annotations]
     target: hewReview
-    transform: summarize_review_annotations
-  - source: spatial_extent
-    target: geospatial
-    transform: project_resource_spatial_extent
-  - source: themes
+    transform: coding_provenance_evidence_and_confidence
+  - source: [spatial_coverage, spatial_extent]
+    target: [geospatial, hewGeospatial]
+    transform: geographic_coverage_validated_bounds_and_geometry
+  - source: [temporal_coverage, temporal_extent]
+    target: hewTemporal
+    transform: preserve_offset_timestamps_resolution_calendar_timezone_and_coverage_status
+  - source: derived_from_existing_dataset
+    target: customCAFEDataSources.cafeDerivedFromExistingDataset
+    default: "No"
+  - source: includes_geospatial_file
+    target: customCAFEDataLocation.cafeIncludesGeospatialFile
+    default: "No"
+  - source: discovery_labels
     target: AdditionalMetadataAboutDataset.cafeDatasetTerms
-    transform: map_exact_cafe_terms
+    transform: exact_case_insensitive_match_to_full_cafe_vocabulary
+unmapped:
+  - source: [license, access_rights]
+    reason: require_dataset_terms_and_access_configuration

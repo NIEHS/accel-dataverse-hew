@@ -83,7 +83,7 @@ def load_metadata_blocks(
         headers=headers,
     )
     configured_names = _configured_block_names(_response_data(response))
-    for name in loaded_names:
+    for name in ["citation", "geospatial", *loaded_names]:
         if name not in configured_names:
             configured_names.append(name)
 
