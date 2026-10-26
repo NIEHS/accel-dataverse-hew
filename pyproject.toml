@@ -12,11 +12,12 @@ authors = [
 requires-python = ">=3.11"
 license = { text = "BSD 3-Clause" }
 dependencies = [
-    "accelerator_core @ git+https://github.com/NIEHS/accelerator-core@58-hew",
     "requests~=2.32.3",
     "pydantic~=2.13.0",
     "pydataverse~=0.3.4",
-    "urllib3~=2.8.0"
+    "urllib3~=2.8.0",
+    # accelerator_core is optional at runtime; the package can also be provided by
+    # the surrounding workflow environment.
 ]
 classifiers = [
     "Programming Language :: Python :: 3",

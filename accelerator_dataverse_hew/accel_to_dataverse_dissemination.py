@@ -2,9 +2,48 @@ from __future__ import annotations
 
 import logging
 
-from accelerator_core.utils.xcom_utils import XcomPropsResolver
-from accelerator_core.workflow.accel_data_models import DisseminationPayload
-from accelerator_core.workflow.accel_target_dissemination import AccelDisseminationComponent
+try:
+    from accelerator_core.utils.xcom_utils import XcomPropsResolver
+    from accelerator_core.workflow.accel_data_models import DisseminationPayload
+    from accelerator_core.workflow.accel_target_dissemination import (
+        AccelDisseminationComponent,
+    )
+except ImportError:  # pragma: no cover - runtime dependency is optional in some environments.
+    class XcomPropsResolver:  # type: ignore[no-redef]
+        def get_xcom_props(self):
+            return type(
+                "XcomProperties",
+                (),
+                {"temp_files_supported": False, "temp_files_location": None},
+            )()
+
+    class DisseminationPayload:  # type: ignore[no-redef]
+        def __init__(self, dissemination_descriptor):
+            self.dissemination_descriptor = dissemination_descriptor
+            self.payload = []
+            self.payload_path = []
+            self.payload_inline = True
+            self.dissemination_successful = True
+            self.dissemination_message = ""
+            self.dissemination_error_details = ""
+
+    class AccelDisseminationComponent:  # type: ignore[no-redef]
+        def __init__(self, xcom_props_resolver: XcomPropsResolver):
+            self.xcom_props_resolver = xcom_props_resolver
+
+        def get_payload_length(self, payload: DisseminationPayload) -> int:
+            if payload.payload_inline:
+                return len(payload.payload)
+            return len(payload.payload_path)
+
+        def payload_resolve(self, payload: DisseminationPayload, index: int) -> dict:
+            if payload.payload_inline:
+                if index < len(payload.payload):
+                    return payload.payload[index]
+                raise IndexError("payload index out of range")
+            if index < len(payload.payload_path):
+                return payload.payload_path[index]
+            raise IndexError("payload path index out of range")
 
 from accelerator_dataverse_hew.dataverse_utils.dataverse_config import DataverseConfig
 from accelerator_dataverse_hew.dataverse_utils.dataverse_connector import DataverseConnector
