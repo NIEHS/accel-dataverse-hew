@@ -1,10 +1,55 @@
 from __future__ import annotations
 
-from copy import deepcopy
+try:
+    from accelerator_core.utils.xcom_utils import XcomPropsResolver
+    from accelerator_core.workflow.accel_data_models import DisseminationPayload
+    from accelerator_core.workflow.dissemination_crosswalk import (
+        DisseminationCrosswalk,
+    )
+except ImportError:  # pragma: no cover - runtime dependency is optional in some environments.
+    class XcomPropsResolver:  # type: ignore[no-redef]
+        def get_xcom_props(self):
+            return type(
+                "XcomProperties",
+                (),
+                {"temp_files_supported": False, "temp_files_location": None},
+            )()
 
-from accelerator_core.utils.xcom_utils import XcomPropsResolver
-from accelerator_core.workflow.accel_data_models import DisseminationPayload
-from accelerator_core.workflow.dissemination_crosswalk import DisseminationCrosswalk
+    class DisseminationPayload:  # type: ignore[no-redef]
+        def __init__(self, dissemination_descriptor):
+            self.dissemination_descriptor = dissemination_descriptor
+            self.payload = []
+            self.payload_path = []
+            self.payload_inline = True
+            self.dissemination_successful = True
+            self.dissemination_message = ""
+            self.dissemination_error_details = ""
+
+    class DisseminationCrosswalk:  # type: ignore[no-redef]
+        def __init__(self, xcom_props_resolver: XcomPropsResolver):
+            self.xcom_props_resolver = xcom_props_resolver
+
+        def get_payload_length(self, payload: DisseminationPayload) -> int:
+            if payload.payload_inline:
+                return len(payload.payload)
+            return len(payload.payload_path)
+
+        def payload_resolve(self, payload: DisseminationPayload, index: int) -> dict:
+            if payload.payload_inline:
+                if index < len(payload.payload):
+                    return payload.payload[index]
+                raise IndexError("payload index out of range")
+            if index < len(payload.payload_path):
+                return payload.payload_path[index]
+            raise IndexError("payload path index out of range")
+
+        def report_individual_dissemination(
+            self, dissemination_payload: DisseminationPayload, item_id: str, item: dict
+        ):
+            if not item_id:
+                raise ValueError("no item_id provided")
+            dissemination_payload.payload.append(item)
+            dissemination_payload.payload_inline = True
 
 from accelerator_dataverse_hew.crosswalks.publication.v1 import (
     CrosswalkContext,
@@ -28,7 +73,6 @@ class AccelToDataverseHewCrosswalk(DisseminationCrosswalk):
 
         payload_entry = self.payload_resolve(payload, 0)
         source_document = payload_entry.get("data", payload_entry)
-        original_source_document = deepcopy(source_document)
         if isinstance(source_document, dict):
             source_document = dict(source_document)
             submission = payload_entry.get("submission")
@@ -57,7 +101,6 @@ class AccelToDataverseHewCrosswalk(DisseminationCrosswalk):
             ),
         )
         projection = crosswalk_jsonld_publication(source_document, context)
-        projection.source_jsonld = original_source_document
 
         transformed = DisseminationPayload(payload.dissemination_descriptor)
         self.report_individual_dissemination(

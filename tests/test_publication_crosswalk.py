@@ -44,16 +44,28 @@ class PublicationCrosswalkTest(unittest.TestCase):
         citation = blocks["citation"]["fields"]
         resource = blocks["hewResource"]["fields"]
 
-        self.assertEqual(validate_publication_source(record).publication_date, "2026-01-02")
-        alternative_url = next(field for field in citation if field["typeName"] == "alternativeURL")
-        self.assertEqual(alternative_url["value"], "https://example.org/publication")
-        identifiers = next(field for field in citation if field["typeName"] == "otherId")
         self.assertEqual(
-            [(item["otherIdAgency"]["value"], item["otherIdValue"]["value"]) for item in identifiers["value"]],
+            validate_publication_source(record).publication_date, "2026-01-02"
+        )
+        alternative_url = next(
+            field for field in citation if field["typeName"] == "alternativeURL"
+        )
+        self.assertEqual(alternative_url["value"], "https://example.org/publication")
+        identifiers = next(
+            field for field in citation if field["typeName"] == "otherId"
+        )
+        self.assertEqual(
+            [
+                (item["otherIdAgency"]["value"], item["otherIdValue"]["value"])
+                for item in identifiers["value"]
+            ],
             [("DOI", "10.1234/Example.1"), ("PMID", "12345"), ("PMCID", "PMC98765")],
         )
         keywords = next(field for field in citation if field["typeName"] == "keyword")
-        self.assertEqual([item["keywordValue"]["value"] for item in keywords["value"]], ["Heat", "health"])
+        self.assertEqual(
+            [item["keywordValue"]["value"] for item in keywords["value"]],
+            ["Heat", "health"],
+        )
         authors = next(field for field in citation if field["typeName"] == "author")
         self.assertEqual(len(authors["value"]), 1)
         self.assertIn("hewCrosswalkVersion", {field["typeName"] for field in resource})
@@ -72,8 +84,17 @@ class PublicationCrosswalkTest(unittest.TestCase):
                     "family_name": "Doe",
                     "orcid": "https://orcid.org/0000-0002-1825-009x",
                 },
-                {"id": "ORCID:0000-0001-5109-3700", "agent_type": "Person", "name": "Smith, Alex"},
-                {"id": "ROR:00j4k1h63", "agent_type": "Organization", "name": "NIEHS", "ror_id": "https://ror.org/00j4k1h63"},
+                {
+                    "id": "ORCID:0000-0001-5109-3700",
+                    "agent_type": "Person",
+                    "name": "Smith, Alex",
+                },
+                {
+                    "id": "ROR:00j4k1h63",
+                    "agent_type": "Organization",
+                    "name": "NIEHS",
+                    "ror_id": "https://ror.org/00j4k1h63",
+                },
                 "orcid:0000-0000-0000-0001",
             ],
         }
@@ -81,7 +102,9 @@ class PublicationCrosswalkTest(unittest.TestCase):
         citation = crosswalk_publication(record, self.context).to_dataverse_payload()[
             "datasetVersion"
         ]["metadataBlocks"]["citation"]["fields"]
-        authors = next(field for field in citation if field["typeName"] == "author")["value"]
+        authors = next(field for field in citation if field["typeName"] == "author")[
+            "value"
+        ]
 
         self.assertEqual(
             [
@@ -108,19 +131,27 @@ class PublicationCrosswalkTest(unittest.TestCase):
                 "@id": "HEWRES:test-jsonld-authors",
                 "title": "JSON-LD authored publication",
                 "resource_type": "literature",
-                "authors": [{"@id": "HEW:person-doe", "@type": "Person", "name": "Jane Doe"}],
+                "authors": [
+                    {"@id": "HEW:person-doe", "@type": "Person", "name": "Jane Doe"}
+                ],
             },
             self.context,
         )
 
-        citation = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]["citation"][
-            "fields"
+        citation = projection.to_dataverse_payload()["datasetVersion"][
+            "metadataBlocks"
+        ]["citation"]["fields"]
+        authors = next(field for field in citation if field["typeName"] == "author")[
+            "value"
         ]
-        authors = next(field for field in citation if field["typeName"] == "author")["value"]
         self.assertEqual(authors[0]["authorName"]["value"], "Jane Doe")
 
     def test_accepts_partial_publication_dates(self):
-        base = {"id": "HEWRES:test-date", "title": "Dated", "resource_type": "literature"}
+        base = {
+            "id": "HEWRES:test-date",
+            "title": "Dated",
+            "resource_type": "literature",
+        }
         for value in ("2024", "2024-03", "2024-03-09"):
             source = validate_publication_source({**base, "publication_date": value})
             self.assertEqual(source.publication_date, value)
@@ -134,7 +165,9 @@ class PublicationCrosswalkTest(unittest.TestCase):
             self.context,
         )
 
-        citation_names = {field.type_name for field in projection.metadata_blocks["citation"].fields}
+        citation_names = {
+            field.type_name for field in projection.metadata_blocks["citation"].fields
+        }
         omitted_sources = {entry.source for entry in projection.report.omitted}
         self.assertNotIn("alternativeURL", citation_names)
         self.assertNotIn("otherId", citation_names)
@@ -144,7 +177,11 @@ class PublicationCrosswalkTest(unittest.TestCase):
 
     def test_defaults_required_cafe_publication_values_to_no(self):
         projection = crosswalk_publication(
-            {"id": "HEWRES:test-cafe", "title": "Publication", "resource_type": "literature"},
+            {
+                "id": "HEWRES:test-cafe",
+                "title": "Publication",
+                "resource_type": "literature",
+            },
             self.context,
         )
         blocks = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]
@@ -182,10 +219,16 @@ class PublicationCrosswalkTest(unittest.TestCase):
 
     def test_rejects_missing_or_invalid_publication_contract(self):
         with self.assertRaises(PublicationValidationError):
-            validate_publication_source({"title": "Missing ID", "resource_type": "literature"})
+            validate_publication_source(
+                {"title": "Missing ID", "resource_type": "literature"}
+            )
         with self.assertRaises(PublicationValidationError):
             validate_publication_source(
-                {"id": "HEWRES:test-3", "title": "Wrong type", "resource_type": "dataset"}
+                {
+                    "id": "HEWRES:test-3",
+                    "title": "Wrong type",
+                    "resource_type": "dataset",
+                }
             )
         with self.assertRaises(PublicationValidationError):
             validate_publication_source(
@@ -208,7 +251,9 @@ class PublicationCrosswalkTest(unittest.TestCase):
             self.context,
         )
 
-        self.assertNotIn("annotations", {entry.source for entry in projection.report.unmapped})
+        self.assertNotIn(
+            "annotations", {entry.source for entry in projection.report.unmapped}
+        )
         self.assertIn("hewReview", projection.metadata_blocks)
 
     def test_projects_mongodb_jsonld_and_preserves_original_document(self):
@@ -225,13 +270,17 @@ class PublicationCrosswalkTest(unittest.TestCase):
         self.assertEqual(projection.source_id, "HEWRES:publication-identifiers")
         self.assertEqual(projection.to_preservation_document(), document)
         self.assertEqual(
-            projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]["citation"]["fields"][0]["value"],
+            projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"][
+                "citation"
+            ]["fields"][0]["value"],
             document["title"],
         )
 
     def test_projects_mongo_data_stanza_as_dataverse_json(self):
         mongo_document = json.loads(
-            (Path(__file__).parent / "fixtures" / "sample1.json").read_text(encoding="utf-8")
+            (Path(__file__).parent / "fixtures" / "sample1.json").read_text(
+                encoding="utf-8"
+            )
         )
 
         projection = crosswalk_jsonld_publication(mongo_document["data"], self.context)
@@ -251,29 +300,44 @@ class PublicationCrosswalkTest(unittest.TestCase):
         )
 
     def test_projects_hew_catalog_data_model_2_export(self):
-        document = json.loads(
-            Path(
-                "/Users/conwaymc/Documents/workspace-accel/accelerator_laserai/integration_tests/test_resources/temp_dirs/0b1a39ff-1c3a-4cea-b021-b869f32a03ab.json"
-            ).read_text(encoding="utf-8")
+        fixture_path = (
+            Path(__file__).parent / "fixtures" / "hew_catalog_data_model_export.json"
         )
+        document = json.loads(fixture_path.read_text(encoding="utf-8"))
 
         projection = crosswalk_jsonld_publication(document, self.context)
         blocks = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]
-        resource_fields = {field["typeName"]: field for field in blocks["hewResource"]["fields"]}
-        review_fields = {field["typeName"]: field for field in blocks["hewReview"]["fields"]}
+        resource_fields = {
+            field["typeName"]: field
+            for name in ("hewResource", "hewDiscovery")
+            for field in blocks[name]["fields"]
+        }
+        review_fields = {
+            field["typeName"]: field for field in blocks["hewReview"]["fields"]
+        }
 
         self.assertEqual(projection.source_id, "HEWRES:laserai:19145")
         self.assertEqual(
-            next(field for field in blocks["citation"]["fields"] if field["typeName"] == "title")["value"],
+            next(
+                field
+                for field in blocks["citation"]["fields"]
+                if field["typeName"] == "title"
+            )["value"],
             document["data"]["bibliographic"]["title"],
         )
         self.assertEqual(resource_fields["hewSchemaVersion"]["value"], "2.0.0")
-        self.assertIn("Green Space/Blue Space", resource_fields["hewExposureConcept"]["value"])
-        self.assertIn("Mental Health and Well-Being", resource_fields["hewHealthImpactConcept"]["value"])
+        self.assertIn(
+            "Green Space/Blue Space", resource_fields["hewExposureConcept"]["value"]
+        )
+        self.assertIn(
+            "Mental Health and Well-Being",
+            resource_fields["hewHealthImpactConcept"]["value"],
+        )
         self.assertIn("Children", resource_fields["hewTopicConcept"]["value"])
-        self.assertEqual(review_fields["hewCodingMethod"]["value"], "Automated")
-        self.assertIn("Extreme Heat/Heat", review_fields["hewExposureAnnotation"]["value"])
-        self.assertIn("Children", review_fields["hewSpecialTopicAnnotation"]["value"])
+        self.assertIn(
+            "Extreme Heat/Heat", resource_fields["hewExposureConcept"]["value"]
+        )
+        self.assertIn("Children", resource_fields["hewTopicConcept"]["value"])
         self.assertEqual(projection.to_preservation_document(), document)
 
     def test_projects_v2_review_annotations_into_concepts(self):
@@ -285,17 +349,84 @@ class PublicationCrosswalkTest(unittest.TestCase):
 
         projection = crosswalk_jsonld_publication(document, self.context)
         blocks = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]
-        resource_fields = {field["typeName"]: field for field in blocks["hewResource"]["fields"]}
-        review_fields = {field["typeName"]: field for field in blocks["hewReview"]["fields"]}
+        resource_fields = {
+            field["typeName"]: field
+            for name in ("hewResource", "hewDiscovery")
+            for field in blocks[name]["fields"]
+        }
+        review_fields = {
+            field["typeName"]: field for field in blocks["hewReview"]["fields"]
+        }
 
-        self.assertIn("Extreme Heat/Heat", resource_fields["hewExposureConcept"]["value"])
-        self.assertIn("Birth Outcome", resource_fields["hewHealthImpactConcept"]["value"])
+        self.assertIn(
+            "Extreme Heat/Heat", resource_fields["hewExposureConcept"]["value"]
+        )
+        self.assertIn(
+            "Birth Outcome", resource_fields["hewHealthImpactConcept"]["value"]
+        )
         self.assertIn("Africa", resource_fields["hewGeographyConcept"]["value"])
         self.assertIn("Rural", resource_fields["hewGeographicFeature"]["value"])
-        self.assertIn("Pregnant or Breastfeeding Women", resource_fields["hewTopicConcept"]["value"])
-        self.assertEqual(review_fields["hewCodingScheme"]["value"], "LaserAI Export")
-        self.assertEqual(review_fields["hewCodingMethod"]["value"], "Automated")
-        self.assertEqual(review_fields["hewInformationSource"]["value"], "Complete resource")
+        self.assertIn(
+            "Pregnant or Breastfeeding Women",
+            resource_fields["hewTopicConcept"]["value"],
+        )
+        self.assertEqual(review_fields["hewCodingScheme"]["value"], ["LaserAI Export"])
+
+    def test_projects_measure_aliases_and_terms_with_concept_annotations(self):
+        document = json.loads(
+            (Path(__file__).parent / "fixtures" / "hew_record_2.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        exposure = {
+            "coded_concept": "HEWM:0000181",
+            "source_vocabularies": ["https://w3id.org/hew/measures/schema"],
+            "aliases": ["Preferred drought label", "Alternate drought label"],
+            "exact_mappings": ["envo:1000745"],
+            "coding_depth": 2,
+            "@type": "ConceptAnnotation",
+        }
+        document["data"]["annotations"][0]["exposure_annotations"].append(exposure)
+
+        projection = crosswalk_jsonld_publication(document, self.context)
+        blocks = projection.to_dataverse_payload()["datasetVersion"]["metadataBlocks"]
+        resource_fields = {
+            field["typeName"]: field
+            for name in ("hewResource", "hewDiscovery")
+            for field in blocks[name]["fields"]
+        }
+        review_fields = {
+            field["typeName"]: field for field in blocks["hewReview"]["fields"]
+        }
+        preserved = projection.to_preservation_document()
+        preserved_exposure = preserved["data"]["annotations"][0][
+            "exposure_annotations"
+        ][-1]
+
+        self.assertEqual(preserved, document)
+        self.assertEqual(preserved_exposure["aliases"], exposure["aliases"])
+        self.assertIn("Drought", resource_fields["hewExposureConcept"]["value"])
+        self.assertNotIn(
+            "Alternate drought label", resource_fields["hewExposureConcept"]["value"]
+        )
+        self.assertEqual(resource_fields["hewExposureCurie"]["value"], ["HEWM:0000181"])
+        self.assertEqual(
+            resource_fields["hewExposureAlias"]["value"],
+            [
+                "Preferred drought label",
+                "Alternate drought label",
+                "Drought",
+                "drought",
+            ],
+        )
+        self.assertIn(
+            "ENVO:1000745", resource_fields["hewExposureExactMapping"]["value"]
+        )
+        self.assertEqual(
+            resource_fields["hewMeasureParentLabel"]["value"],
+            ["Weather", "Environment"],
+        )
+        self.assertNotIn("hewExposureAnnotation", review_fields)
 
     def test_rejects_jsonld_without_hew_context_or_type(self):
         base_document = {

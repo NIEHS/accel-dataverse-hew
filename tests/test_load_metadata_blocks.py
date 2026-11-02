@@ -64,6 +64,8 @@ class LoadMetadataBlocksTest(unittest.TestCase):
         self.assertEqual(first_configuration, session.configured_blocks)
         self.assertEqual(len(session.configured_blocks), len(set(session.configured_blocks)))
         self.assertIn("citation", session.configured_blocks)
+        self.assertIn("geospatial", session.configured_blocks)
+        self.assertTrue({"hewDiscovery", "hewGeospatial", "hewTemporal"} <= set(first))
         self.assertEqual(
             len(
                 [

@@ -14,6 +14,23 @@ python -m pip install -e ".[dev]"
 Runtime dependencies are declared in `pyproject.toml`; the `dev` extra adds
 test, formatting, coverage, and pre-commit tools.
 
+### Troubleshoot metadata type errors
+
+If dissemination reports `incorrect typeClass for field: hewResourceType, should
+be primitive`, check the package loaded by the worker executing the crosswalk:
+
+```sh
+python -c 'import accelerator_dataverse_hew.crosswalks.publication.v1.crosswalk as crosswalk; import inspect; print(crosswalk.__file__); print(inspect.getsource(crosswalk.crosswalk_publication))'
+```
+
+The current crosswalk emits `hewResourceType` in `hewDiscovery` with
+`typeClass: primitive`, matching `assets/hew_custom.tsv`. Older crosswalks emitted
+it as `controlledVocabulary` in `hewResource`. Rebuild and reinstall the package
+from the current source in the worker environment, restart the affected workers,
+and rerun the crosswalk to regenerate the XCom payload before retrying
+dissemination. Retrying dissemination with the previous payload retains the
+incorrect field type.
+
 ## Load metadata blocks
 
 With the `dataverse` profile running from `accel-compose`, load the CAFE and HEW
