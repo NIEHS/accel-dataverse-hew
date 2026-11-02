@@ -1075,6 +1075,20 @@ def crosswalk_publication(
                 detail="Requires dataset terms/access configuration; preserved in source",
             )
 
+    for source_name, target_name in (
+        ("same_as", "hewSameAs"),
+        ("themes", "hewTheme"),
+        ("contacts", "hewContact"),
+        ("contributors", "hewContributor"),
+        ("funding_sources", "hewFundingSource"),
+    ):
+        values = _string_values(getattr(source, source_name))
+        if values:
+            resource_fields.append(_field(target_name, values))
+            _record(mapped, source_name, f"hewResource.{target_name}")
+        else:
+            _record(omitted, source_name, f"hewResource.{target_name}", "empty")
+
     cafe_source_fields = [
         _field(
             "cafeDerivedFromExistingDataset",

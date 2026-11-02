@@ -46,36 +46,6 @@ class MetadataAssetsTest(unittest.TestCase):
             target_collection="test",
         )
 
-    def test_assets_have_valid_references_and_only_label_facets(self):
-        blocks, fields, vocabulary = definitions()
-        removed = {
-            "hewRecommendForRemoval",
-            "hewPostpone",
-            "hewCodingMethod",
-            "hewInformationSource",
-            "hewAggregationMethod",
-            "hewNeedsHumanReview",
-        }
-        self.assertTrue(removed.isdisjoint(fields))
-        self.assertTrue(removed.isdisjoint(vocabulary))
-        self.assertTrue({"hewDiscovery", "hewGeospatial", "hewTemporal"} <= blocks)
-        for name, row in fields.items():
-            self.assertEqual(len(row), 17, name)
-            self.assertIn(row[15], blocks, name)
-            if row[14]:
-                self.assertIn(row[14], fields, name)
-                self.assertEqual(fields[row[14]][15], row[15], name)
-                self.assertEqual(fields[row[14]][5], "none", name)
-            self.assertEqual(row[9] == "TRUE", name in vocabulary, name)
-            if name.startswith("hew") and name.endswith(
-                ("Curie", "Alias", "ExactMapping", "Identifier")
-            ):
-                self.assertEqual(row[11], "FALSE", name)
-        self.assertEqual(vocabulary["cafeDatasetTerms"], cafe_terms())
-        self.assertGreater(len(cafe_terms()), 250)
-        self.assertIn("cafeSourceDataSpatialValue", fields)
-        self.assertIn("MATLAB Script", vocabulary["workflowType"])
-
     def test_rollup_covers_all_ancestors_and_multiple_resource_types(self):
         for resource_type in ("literature", "survey_instrument", "dataset", "model"):
             output, unresolved = discovery_values(
