@@ -224,3 +224,4 @@ __marimo__/
 .venv
 .env
 .claude
+outputs
