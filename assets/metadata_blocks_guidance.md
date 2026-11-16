@@ -54,12 +54,12 @@ All resource types share these facets:
 
 | Meaning | Plain-text facet | Separate machine and synonym fields |
 |---|---|---|
-| Record type | hewResourceType | hewResourceTypeCurie, hewResourceTypeAlias, hewResourceTypeExactMapping |
+| Record type | hewResourceType | hewResourceTypeExactMapping |
 | Exposure | hewExposureConcept | hewExposureCurie, hewExposureAlias, hewExposureExactMapping |
 | Health impact | hewHealthImpactConcept | hewHealthImpactCurie, hewHealthImpactAlias, hewHealthImpactExactMapping |
 | Geography | hewGeographyConcept | hewGeographyCurie, hewGeographyAlias, hewGeographyExactMapping |
 | Topic/theme | hewTopicConcept | hewTopicCurie, hewTopicAlias, hewTopicExactMapping |
-| Event | hewEventConcept | hewEventCurie, hewEventAlias, hewEventExactMapping |
+| Event type | hewEvent (free-text) | — |
 | Data/tool | hewDataToolConcept | hewDataToolCurie, hewDataToolAlias, hewDataToolExactMapping |
 | Model | hewModelConcept | hewModelCurie, hewModelAlias, hewModelExactMapping |
 

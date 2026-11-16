@@ -16,8 +16,6 @@
 	hewEntityReferences		HEW Named Entity References
 #datasetField	name	title	description	watermark	fieldType	displayOrder	displayFormat	advancedSearchField	allowControlledVocabulary	allowmultiples	facetable	displayoncreate	required	parent	metadatablock_id	termURI
 	hewResourceType	Record Type	Record Type		text	0		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewDiscovery
-	hewResourceTypeCurie	Record Type CURIE	Record Type CURIE		text	1		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
-	hewResourceTypeAlias	Record Type Alias	Record Type Alias		text	2		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewResourceTypeExactMapping	Record Type Exact Mapping CURIE	Record Type Exact Mapping CURIE		text	3		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewExposureConcept	Exposure Label	Exposure Label		text	4		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
 	hewExposureCurie	Exposure CURIE	Exposure CURIE		text	5		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
@@ -35,10 +33,7 @@
 	hewTopicCurie	Topic CURIE	Topic CURIE		text	17		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewTopicAlias	Topic Alias	Topic Alias		text	18		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewTopicExactMapping	Topic Exact Mapping CURIE	Topic Exact Mapping CURIE		text	19		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
-	hewEventConcept	Event Label	Event Label		text	20		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
-	hewEventCurie	Event CURIE	Event CURIE		text	21		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
-	hewEventAlias	Event Alias	Event Alias		text	22		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
-	hewEventExactMapping	Event Exact Mapping CURIE	Event Exact Mapping CURIE		text	23		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
+	hewEvent	Event Type	Event or disaster labels relevant to the resource; free text with no controlled vocabulary specified		text	20		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewDataToolConcept	Data or Tool Label	Data or Tool Label		text	24		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
 	hewDataToolCurie	Data or Tool CURIE	Data or Tool CURIE		text	25		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewDataToolAlias	Data or Tool Alias	Data or Tool Alias		text	26		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery

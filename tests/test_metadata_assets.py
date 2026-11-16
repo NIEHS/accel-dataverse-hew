@@ -55,6 +55,17 @@ class MetadataAssetsTest(unittest.TestCase):
                     "measured_variables": ["HEWM:0000181"],
                 }
             )
+            self.assertEqual(
+                output["hewResourceType"],
+                {
+                    "literature": "Literature resource",
+                    "survey_instrument": "Survey instrument",
+                    "dataset": "Dataset resource",
+                    "model": "Model resource",
+                }[resource_type],
+            )
+            self.assertNotIn("hewResourceTypeCurie", output)
+            self.assertNotIn("hewResourceTypeAlias", output)
             self.assertEqual(output["hewExposureConcept"], ["Drought"])
             self.assertEqual(
                 output["hewMeasureParentLabel"], ["Weather", "Environment"]
@@ -71,6 +82,22 @@ class MetadataAssetsTest(unittest.TestCase):
         )
         output, _ = discovery_values({"measured_variables": [nested[0]]})
         self.assertEqual(len(output["hewMeasureParentLabel"]), 3)
+
+    def test_removed_resource_type_fields_are_not_provisioned(self):
+        _, fields, _ = definitions()
+        self.assertNotIn("hewResourceTypeCurie", fields)
+        self.assertNotIn("hewResourceTypeAlias", fields)
+
+    def test_event_types_are_provisioned_as_free_text(self):
+        _, fields, _ = definitions()
+        self.assertIn("hewEvent", fields)
+        self.assertNotIn("hewEventConcept", fields)
+        self.assertNotIn("hewEventCurie", fields)
+        self.assertNotIn("hewEventAlias", fields)
+        self.assertNotIn("hewEventExactMapping", fields)
+        output, unresolved = discovery_values({"event_types": ["Heat waves"]})
+        self.assertEqual(output["hewEvent"], ["Heat waves"])
+        self.assertFalse(unresolved)
 
     def test_unknown_curies_never_become_facets(self):
         output, unresolved = discovery_values(

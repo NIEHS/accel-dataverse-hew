@@ -63,7 +63,6 @@ CONCEPT_SOURCES = {
     "hewHealthImpact": ("health_impacts", "associated_health_outcomes"),
     "hewGeography": ("geography", "geographic_locations"),
     "hewTopic": ("special_topics", "themes"),
-    "hewEvent": ("event_types",),
     "hewDataTool": ("data_and_models",),
 }
 ANNOTATION_SOURCES = {
@@ -260,18 +259,16 @@ def discovery_values(source):
             resource_type,
         )
         if is_identifier(resource_type):
-            output["hewResourceTypeCurie"] = [curie(resource_type)]
             unresolved.append(resource_type)
         else:
             output["hewResourceType"] = RESOURCE_LABELS.get(
                 resource_type, label(resource_type)
             )
-        if resource_type in RESOURCE_CLASSES:
-            output["hewResourceTypeCurie"] = ["HEW:" + RESOURCE_CLASSES[resource_type]]
     for stem, names in CONCEPT_SOURCES.items():
         for name in names:
             for item in _concepts(source.get(name)):
                 concept(stem, item)
+    add("hewEvent", source.get("event_types"))
     for feature in values(source.get("geographic_features")):
         if isinstance(feature, str):
             add("hewGeographicFeature", label(feature))
