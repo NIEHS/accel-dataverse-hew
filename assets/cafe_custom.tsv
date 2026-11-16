@@ -8,7 +8,7 @@
 	workflowType	Computational Workflow Type	The kind of Computational Workflow, which is designed to compose and execute a series of computational or data manipulation steps in a scientific application		text	0		TRUE	TRUE	TRUE	TRUE	TRUE	FALSE		computationalworkflow	
 	workflowCodeRepository	External Code Repository URL	A link to the repository where the un-compiled, human readable code and related code is located (e.g. GitHub, GitLab, SVN)	https://...	url	1	"<a href=""#VALUE"" target=""_blank"">#VALUE</a>"	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		computationalworkflow	
 	workflowDocumentation	Documentation	A link (URL) to the documentation or text describing the Computational Workflow and its use		textbox	2		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		computationalworkflow	
-	cafeDerivedFromExistingDataset	Derived from Another Dataset	Indicates if this Dataset is derived from another dataset, such as a climate model		text	0		TRUE	TRUE	FALSE	TRUE	TRUE	TRUE		customCAFEDataSources	
+	cafeDerivedFromExistingDataset	Derived from Another Dataset	Indicates whether this dataset is derived from one or more identified source datasets; model-produced alone does not imply derivation		text	0		TRUE	TRUE	FALSE	TRUE	TRUE	TRUE		customCAFEDataSources	""
 	cafeSourceData	Source Dataset	Information about the source dataset		none	1	;	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		customCAFEDataSources	
 	cafeSourceDataTitle	Source Dataset Title	The name or title of the dataset from which this Dataset is derived		text	2	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
 	cafeSourceDataAuthor	Source Dataset Author	The author of the source dataset		text	3	#NAME: #VALUE	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE	cafeSourceData	customCAFEDataSources	
@@ -333,8 +333,8 @@
 	workflowType	Other Python-based workflow	workflowType_12	12
 	workflowType	Other R-based workflow	workflowType_13	13
 	workflowType	Other	workflowType_14	14
-	cafeDerivedFromExistingDataset	Yes	cafeDerivedFromExistingDataset_1	1
-	cafeDerivedFromExistingDataset	No	cafeDerivedFromExistingDataset_2	2
+	cafeDerivedFromExistingDataset	Yes	cafeDerivedFromExistingDataset_1	1	""
+	cafeDerivedFromExistingDataset	No	cafeDerivedFromExistingDataset_2	2	""
 	cafeSourceDataType	Physical or dynamical model	cafeSourceDataType_1	1
 	cafeSourceDataType	Statistical model	cafeSourceDataType_2	2
 	cafeSourceDataType	Reanalysis data	cafeSourceDataType_3	3

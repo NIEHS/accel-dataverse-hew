@@ -50,7 +50,6 @@ RESOURCE_CLASSES = {
     "project": "Project",
     "funding_source": "FundingSource",
     "spatiotemporal_exposure": "SpatiotemporalExposure",
-    "covariate_calculation": "CovariateCalculation",
 }
 LABELS = {
     "global_or_unspecified_location": "Global or unspecified location",

@@ -1,6 +1,6 @@
 crosswalk_id: hew-publication-to-dataverse
 crosswalk_version: 1.0.0
-metadata_block_version: hew-blocks-1.0.0
+metadata_block_version: hew-blocks-1.1.0
 hew_schema:
   version: 2.0.0
   source: https://w3id.org/hew/schema
@@ -12,19 +12,22 @@ source:
     resource_type: literature
 dataverse:
   required_blocks: [citation, hewResource, hewDiscovery, customCAFEDataSources, customCAFEDataLocation]
-  optional_blocks: [hewPublication, hewReview, geospatial, hewGeospatial, hewTemporal, AdditionalMetadataAboutDataset]
+  optional_blocks: [hewPublication, geospatial, hewGeospatial, hewTemporal, AdditionalMetadataAboutDataset, hewEntityReferences, hewCalculation]
   preservation_attachment:
     format: jsonld
     required: true
     unchanged: true
 context:
   required: [catalog_version, metadata_block_version, target_collection]
-  output_fields:
-    catalog_version: hewResource.hewCatalogVersion
-    hew_schema_version: hewResource.hewSchemaVersion
-    crosswalk_version: hewResource.hewCrosswalkVersion
-    metadata_block_version: hewResource.hewMetadataBlockVersion
+  report_field: processing_context
+  public_metadata_fields: false
 mappings:
+  - source: processing_methods
+    target: hewCalculation.hewProcessingMethod
+    transform: descriptive_method_software_version_and_external_provenance_only
+  - source: "*_details (excluding review coding, annotations, and agent associations)"
+    target: hewEntityReferences.hewEntityReference
+    transform: keep_relation_identifier_name_description_and_funding_values_separate
   - source: id
     target: hewResource.hewResourceId
   - source: status
@@ -42,13 +45,14 @@ mappings:
     transform: retain_identifier_agency_and_normalize_identifiers
   - source: authors
     target: citation.author
-    transform: agent_names_and_orcid_identifiers
-  - source: contacts
+    transform: explicit_agent_names_and_orcid_identifiers_unresolved_ids_in_reference_block
+  - source: contacts_details.name
     target: citation.datasetContact
-  - source: contributors
+  - source: contributors_details.name
     target: citation.contributor
-  - source: funding_sources
+  - source: funding_sources_details
     target: citation.grantNumber
+    transform: explicit_award_number_and_funder_name_only
   - source: keywords
     target: citation.keyword
   - source: [citation, journal]
@@ -68,15 +72,15 @@ mappings:
   - source: annotations
     target: hewDiscovery.hewMeasureParentLabel
     transform: match_hewm_curie_and_collect_all_taxonomy_ancestors_except_Category
-  - source: [review, annotations]
-    target: hewReview
-    transform: coding_provenance_evidence_and_confidence
   - source: [spatial_coverage, spatial_extent]
     target: [geospatial, hewGeospatial]
-    transform: geographic_coverage_validated_bounds_and_geometry
+    transform: geographic_coverage_validated_bounds_geometry_and_compact_resolution_support_summaries
   - source: [temporal_coverage, temporal_extent]
     target: hewTemporal
-    transform: preserve_offset_timestamps_resolution_calendar_timezone_and_coverage_status
+    transform: separate_coverage_intervals_from_value_temporal_support
+  - source: temporal_support
+    target: hewTemporal.hewDatasetTemporalSupport
+    transform: preserve_resolution_alignment_day_boundary_calendar_and_iso8601_aggregation_window
   - source: derived_from_existing_dataset
     target: customCAFEDataSources.cafeDerivedFromExistingDataset
     default: "No"

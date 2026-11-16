@@ -117,6 +117,35 @@ PMID_PATTERN = re.compile(r"^\d+$")
 PMCID_PATTERN = re.compile(r"^PMC\d+$", re.IGNORECASE)
 ORCID_PATTERN = re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$", re.IGNORECASE)
 
+REFERENCE_DETAIL_FIELDS = {
+    "adapted_from_details",
+    "affiliations_details",
+    "authors_details",
+    "collection_members_details",
+    "contacts_details",
+    "contributors_details",
+    "curator_details",
+    "funder_details",
+    "funding_sources_details",
+    "generated_by_details",
+    "maintainers_details",
+    "measurement_method_details",
+    "parent_organization_details",
+    "part_of_programs_details",
+    "part_of_project_details",
+    "population_or_cohort_details",
+    "produces_resources_details",
+    "related_resources_details",
+    "research_program_details",
+    "software_details",
+    "source_dataset_details",
+    "source_organization_details",
+    "source_project_details",
+    "source_variables_details",
+    "sponsoring_organizations_details",
+    "uses_resources_details",
+}
+
 KNOWN_SOURCE_FIELDS = {
     "id",
     "title",
@@ -165,7 +194,11 @@ KNOWN_SOURCE_FIELDS = {
     "annotations",
     "spatial_extent",
     "temporal_extent",
+    "temporal_support",
 }
+
+KNOWN_SOURCE_FIELDS.update(REFERENCE_DETAIL_FIELDS)
+KNOWN_SOURCE_FIELDS.add("processing_methods")
 
 
 def _text(value: Any, field_name: str) -> str:
@@ -321,22 +354,25 @@ def _normalize_orcid(value: str | None) -> str | None:
     return normalized.upper() if ORCID_PATTERN.fullmatch(normalized) else None
 
 
-def _author_name(author: AuthorSource) -> str:
+def _author_name(author: AuthorSource) -> str | None:
     if author.name:
         return author.name
     if author.family_name and author.given_name:
         return f"{author.family_name}, {author.given_name}"
-    return author.family_name or author.given_name or author.id
+    return author.family_name or author.given_name
 
 
 def _author_values(source: PublicationSource) -> list[dict[str, Any]]:
     values = []
     for author in source.authors or []:
         if isinstance(author, str):
-            if author.strip():
+            if author.strip() and not re.match(r"^[A-Za-z][A-Za-z0-9+.-]*:", author):
                 values.append({"authorName": _field("authorName", author.strip())})
             continue
-        value = {"authorName": _field("authorName", _author_name(author))}
+        name = _author_name(author)
+        if not name:
+            continue
+        value = {"authorName": _field("authorName", name)}
         orcid = _normalize_orcid(author.orcid) or _normalize_orcid(author.id)
         if orcid:
             value["authorIdentifierScheme"] = _field(
@@ -428,99 +464,6 @@ def _string_values(value: Any) -> list[str]:
     return []
 
 
-def _annotation_list(source: PublicationSource) -> list[Mapping[str, Any]]:
-    annotations = (source.model_extra or {}).get("annotations") or []
-    return [annotation for annotation in annotations if isinstance(annotation, Mapping)]
-
-
-def _annotation_field_values(
-    annotations: list[Mapping[str, Any]], annotation_name: str, field_name: str
-) -> list[str]:
-    values = []
-    for annotation in annotations:
-        items = (
-            [annotation]
-            if not annotation_name
-            else annotation.get(annotation_name) or []
-        )
-        for item in items:
-            if isinstance(item, Mapping):
-                value = item.get(field_name)
-                if isinstance(value, list):
-                    values.extend(
-                        str(item).strip() for item in value if str(item).strip()
-                    )
-                elif value not in (None, ""):
-                    values.append(str(value).strip())
-    return list(dict.fromkeys(values))
-
-
-def _identifier_values_from_nodes(value: Any) -> list[str]:
-    values = []
-    items = value if isinstance(value, list) else [value]
-    for item in items:
-        if isinstance(item, Mapping):
-            item_value = item.get("id") or item.get("identifier")
-            if item_value:
-                values.append(str(item_value).strip())
-        elif isinstance(item, str) and item.strip():
-            values.append(item.strip())
-    return list(dict.fromkeys(values))
-
-
-def _annotation_node_identifiers(
-    annotations: list[Mapping[str, Any]], *field_names: str
-) -> list[str]:
-    nodes = []
-    for annotation in annotations:
-        for field_name in field_names:
-            value = annotation.get(field_name)
-            if value not in (None, ""):
-                nodes.extend(value if isinstance(value, list) else [value])
-                break
-    return _identifier_values_from_nodes(nodes)
-
-
-def _annotation_detail_values(
-    annotations: list[Mapping[str, Any]], annotation_name: str
-) -> list[str]:
-    values = []
-    for annotation in annotations:
-        for item in annotation.get(annotation_name) or []:
-            if not isinstance(item, Mapping):
-                continue
-            concept = (
-                item.get("coded_concept")
-                or item.get("exposure_concept")
-                or item.get("health_impact_concept")
-                or item.get("topic_concept")
-            )
-            details = []
-            for key in ("parent_concept", "specified_text", "coding_depth"):
-                if item.get(key) not in (None, ""):
-                    details.append(f"{key}={item[key]}")
-            if concept and details:
-                values.append(f"{concept} ({', '.join(details)})")
-    return list(dict.fromkeys(values))
-
-
-def _annotation_review_view(source: PublicationSource) -> dict[str, list[str]]:
-    view = {}
-    for name in (
-        "coding_scheme",
-        "coding_scheme_version",
-        "reference_type",
-    ):
-        entries = [
-            annotation[name]
-            for annotation in _annotation_list(source)
-            if annotation.get(name)
-        ]
-        if entries:
-            view[name] = list(dict.fromkeys(entries))
-    return view
-
-
 def _catalog_record_to_publication(record: Mapping[str, Any]) -> dict[str, Any] | None:
     """Adapt a HEW Catalog Data Model 2.0 export into the publication view."""
     if isinstance(record.get("data"), Mapping):
@@ -575,6 +518,7 @@ def _catalog_record_to_publication(record: Mapping[str, Any]) -> dict[str, Any] 
         "spatial_extent",
         "temporal_coverage",
         "temporal_extent",
+        "temporal_support",
         "themes",
     ):
         if record.get(name) is not None:
@@ -582,117 +526,6 @@ def _catalog_record_to_publication(record: Mapping[str, Any]) -> dict[str, Any] 
     return {
         key: value for key, value in publication.items() if value not in (None, [], {})
     }
-
-
-def _catalog_review_fields(source: PublicationSource) -> list[DataverseField]:
-    extra = source.model_extra or {}
-    review = extra.get("review") or {}
-    if not (
-        review
-        or extra.get("annotations")
-        or extra.get("exposures")
-        or extra.get("health_impacts")
-        or extra.get("geography")
-        or extra.get("data_and_models")
-        or extra.get("special_topics")
-    ):
-        return []
-    annotation_view = _annotation_review_view(source)
-    fields = []
-    multiple_fields = {
-        "hewAnnotationIdentifier",
-        "hewAnnotationDate",
-        "hewCodingScheme",
-        "hewCodingSchemeVersion",
-        "hewReferenceType",
-        "hewCoderIdentifier",
-        "hewReviewerIdentifier",
-        "hewEvidenceText",
-        "hewAnnotationNotes",
-        "hewConfidence",
-    }
-
-    def add(name: str, value: Any, type_class: str = "primitive") -> None:
-        values = [
-            str(item)
-            for item in (value if isinstance(value, list) else [value])
-            if item not in (None, "")
-        ]
-        if values:
-            field_value = (
-                values if name in multiple_fields or len(values) > 1 else values[0]
-            )
-            existing = next(
-                (field for field in fields if field.type_name == name), None
-            )
-            if existing is not None:
-                existing.value = list(dict.fromkeys([*existing.value, *values]))
-            else:
-                fields.append(_field(name, field_value, type_class))
-
-    add(
-        "hewCodingScheme",
-        review.get("coding_scheme")
-        or annotation_view.get("coding_scheme")
-        or extra.get("source"),
-    )
-    add(
-        "hewCodingSchemeVersion",
-        review.get("coding_scheme_version")
-        or annotation_view.get("coding_scheme_version"),
-    )
-    add(
-        "hewReferenceType",
-        review.get("reference_type") or annotation_view.get("reference_type"),
-        "controlledVocabulary",
-    )
-    annotations = _annotation_list(source)
-    add("hewAnnotationIdentifier", _annotation_node_identifiers(annotations, "id"))
-    add(
-        "hewAnnotationDate",
-        _annotation_field_values(annotations, "", "annotation_date"),
-    )
-    add(
-        "hewCoderIdentifier",
-        _annotation_node_identifiers(annotations, "coded_by", "generated_by"),
-    )
-    add(
-        "hewReviewerIdentifier",
-        _annotation_node_identifiers(annotations, "reviewed_by"),
-    )
-    add(
-        "hewEvidenceText",
-        [
-            value
-            for annotation_name in (
-                "exposure_annotations",
-                "health_impact_annotations",
-                "geography_annotations",
-                "data_tool_method_annotations",
-                "special_topic_annotations",
-            )
-            for value in _annotation_field_values(
-                annotations, annotation_name, "evidence_text"
-            )
-        ],
-    )
-    add(
-        "hewAnnotationNotes",
-        [
-            *(_string_values(review.get("notes"))),
-            *_annotation_detail_values(annotations, "exposure_annotations"),
-            *_annotation_detail_values(annotations, "health_impact_annotations"),
-            *_annotation_detail_values(annotations, "special_topic_annotations"),
-        ],
-    )
-    confidence_values = [
-        value
-        for annotation in annotations
-        for value in [annotation.get("confidence")]
-        if value not in (None, "")
-    ]
-    add("hewConfidence", confidence_values)
-    return fields
 
 
 def _record(
@@ -708,9 +541,14 @@ def _coverage_blocks(source: PublicationSource) -> dict[str, DataverseMetadataBl
     extra = source.model_extra or {}
     spatial = extra.get("spatial_extent") or {}
     temporal = extra.get("temporal_extent") or {}
-    if not isinstance(spatial, Mapping) or not isinstance(temporal, Mapping):
+    temporal_support = extra.get("temporal_support") or {}
+    if (
+        not isinstance(spatial, Mapping)
+        or not isinstance(temporal, Mapping)
+        or not isinstance(temporal_support, Mapping)
+    ):
         raise PublicationValidationError(
-            "spatial_extent and temporal_extent must be objects"
+            "spatial_extent, temporal_extent, and temporal_support must be objects"
         )
     blocks = {}
     geographic_fields = []
@@ -843,21 +681,49 @@ def _coverage_blocks(source: PublicationSource) -> dict[str, DataverseMetadataBl
                     ],
                 )
             )
-    for key, target in (
-        ("quantitative_spatial_resolution", "hewQuantitativeSpatialResolution"),
-        ("administrative_spatial_resolution", "hewAdministrativeSpatialResolution"),
+    # Publish compact discovery summaries, leaving full support and grids in source.
+    support = extra.get("spatial_support") or {}
+    if not isinstance(support, Mapping):
+        raise PublicationValidationError("spatial_support must be an object")
+    resolutions = []
+    for value in (
+        spatial.get("spatial_resolution"),
+        extra.get("spatial_resolution"),
+        support.get("spatial_resolution"),
     ):
-        if spatial.get(key):
-            spatial_fields.append(
-                _field(target, [json.dumps(spatial[key], sort_keys=True)])
-            )
+        if isinstance(value, str) and value.strip():
+            resolutions.append(value.strip())
+    for owner in (spatial, extra, support):
+        quantitative = owner.get("quantitative_spatial_resolution") or {}
+        administrative = owner.get("administrative_spatial_resolution") or {}
+        if (
+            isinstance(quantitative, Mapping)
+            and quantitative.get("resolution_value") is not None
+        ):
+            value = quantitative["resolution_value"]
+            unit = quantitative.get("resolution_unit") or ""
+            axis = quantitative.get("resolution_axis")
+            summary = f"{value} {unit}".strip()
+            if axis and axis != "nominal":
+                summary += f" ({axis})"
+            resolutions.append(summary)
+        if isinstance(administrative, Mapping) and administrative.get(
+            "administrative_level"
+        ):
+            resolutions.append(str(administrative["administrative_level"]))
+    if resolutions:
+        spatial_fields.append(
+            _field("hewSpatialResolution", list(dict.fromkeys(resolutions)))
+        )
+    if support.get("support_type"):
+        spatial_fields.append(
+            _field("hewSpatialSupportType", [support["support_type"]])
+        )
     temporal_children = {}
     timestamps = {}
     for key, target in (
         ("start_time", "hewTemporalStart"),
         ("end_time", "hewTemporalEnd"),
-        ("temporal_resolution", "hewTemporalResolution"),
-        ("calendar", "hewTemporalCalendar"),
         ("timezone", "hewTemporalTimezone"),
         ("coverage_status", "hewTemporalCoverageStatus"),
     ):
@@ -883,6 +749,27 @@ def _coverage_blocks(source: PublicationSource) -> dict[str, DataverseMetadataBl
         temporal_fields.append(
             _compound_field("hewTemporalExtent", [temporal_children])
         )
+    support_values = dict(temporal_support)
+    # Older HEW exports placed these support properties on temporal_extent.
+    # Preserve them, but serialize them under the separate support compound.
+    for key in ("temporal_resolution", "calendar"):
+        if key not in support_values and temporal.get(key) is not None:
+            support_values[key] = temporal[key]
+    support_children = {}
+    for key, target in (
+        ("temporal_resolution", "hewTemporalResolution"),
+        ("calendar", "hewTemporalCalendar"),
+        ("temporal_alignment", "hewTemporalAlignment"),
+        ("day_boundary_convention", "hewDayBoundaryConvention"),
+        ("aggregation_window", "hewAggregationWindow"),
+        ("timezone", "hewDatasetTemporalTimezone"),
+    ):
+        if support_values.get(key) is not None:
+            support_children[target] = _field(target, support_values[key])
+    if support_children:
+        temporal_fields.append(
+            _field("hewDatasetTemporalSupport", support_children, "compound")
+        )
     for name, title, fields in (
         ("geospatial", "Geospatial Metadata", geographic_fields),
         ("hewGeospatial", "HEW Geospatial", spatial_fields),
@@ -905,6 +792,25 @@ def crosswalk_publication(
     source = validate_publication_source(
         _catalog_record_to_publication(record) or record
     )
+    for key in REFERENCE_DETAIL_FIELDS:
+        value = (source.model_extra or {}).get(key)
+        if value is None:
+            continue
+        entries = value if isinstance(value, list) else [value]
+        for entry in entries:
+            if not isinstance(entry, dict):
+                raise PublicationValidationError(
+                    f"{key} must contain reference objects"
+                )
+        if key in {
+            "authors_details",
+            "contacts_details",
+            "contributors_details",
+            "funding_sources_details",
+        } and not isinstance(value, list):
+            raise PublicationValidationError(
+                f"{key} must be a list of reference objects"
+            )
     mapped: list[MappingEntry] = []
     omitted: list[MappingEntry] = []
     unmapped: list[MappingEntry] = []
@@ -993,10 +899,6 @@ def crosswalk_publication(
 
     resource_fields = [
         _field("hewResourceId", source.id),
-        _field("hewSchemaVersion", context.hew_schema_version),
-        _field("hewCatalogVersion", context.catalog_version),
-        _field("hewCrosswalkVersion", context.crosswalk_version),
-        _field("hewMetadataBlockVersion", context.metadata_block_version),
     ]
     _record(mapped, "id", "hewResource.hewResourceId")
     if source.status:
@@ -1018,14 +920,38 @@ def crosswalk_publication(
         if not any(field and field.type_name == "otherId" for field in citation_fields):
             citation_fields.append(_compound_field("otherId", identifiers))
         _record(mapped, "same_as", "citation.otherId")
+    # Identifier-only relations remain in HEW fields. Citation fields receive
+    # explicit names and award numbers only; unresolved IDs are never labels.
     for source_name, compound, child in (
-        ("contacts", "datasetContact", "datasetContactName"),
-        ("contributors", "contributor", "contributorName"),
-        ("funding_sources", "grantNumber", "grantNumberValue"),
+        ("contacts_details", "datasetContact", "datasetContactName"),
+        ("contributors_details", "contributor", "contributorName"),
+        ("funding_sources_details", "grantNumber", "grantNumberValue"),
     ):
-        entries = getattr(source, source_name)
-        if entries:
-            projected_entries = [{child: _field(child, entry)} for entry in entries]
+        entries = (source.model_extra or {}).get(source_name) or []
+        projected_entries = []
+        for entry in entries:
+            if not isinstance(entry, dict):
+                raise PublicationValidationError(
+                    f"{source_name} entries must be objects"
+                )
+            key = "award_number" if source_name == "funding_sources_details" else "name"
+            value = _optional_text(entry.get(key), f"{source_name}.{key}")
+            if not value:
+                continue
+            children = {child: _field(child, value)}
+            if source_name == "contacts_details":
+                email = _optional_text(entry.get("email"), "contacts_details.email")
+                # Dataverse citation contacts require email. Name-only references
+                # remain available in the HEW reference compound.
+                if not email:
+                    continue
+                children["datasetContactEmail"] = _field("datasetContactEmail", email)
+            if source_name == "funding_sources_details" and entry.get("funder_name"):
+                children["grantNumberAgency"] = _field(
+                    "grantNumberAgency", entry["funder_name"]
+                )
+            projected_entries.append(children)
+        if projected_entries:
             existing = next(
                 (
                     field
@@ -1039,6 +965,22 @@ def crosswalk_publication(
             else:
                 citation_fields.append(_compound_field(compound, projected_entries))
             _record(mapped, source_name, f"citation.{compound}")
+    author_details = (source.model_extra or {}).get("authors_details") or []
+    if author_details:
+        entries = [
+            {"authorName": _field("authorName", entry["name"])}
+            for entry in author_details
+            if entry.get("name")
+        ]
+        if entries:
+            existing = next(
+                (f for f in citation_fields if f and f.type_name == "author"), None
+            )
+            if existing:
+                existing.value.extend(entries)
+            else:
+                citation_fields.append(_compound_field("author", entries))
+            _record(mapped, "authors_details.name", "citation.author")
 
     publication_fields = (
         [_field("hewStudyObjective", source.study_objective)]
@@ -1150,16 +1092,137 @@ def crosswalk_publication(
             "AdditionalMetadataAboutDataset.cafeDatasetTerms",
         )
 
-    review_fields = _catalog_review_fields(source)
-    if review_fields:
-        _record(
-            mapped,
-            "review/exposures/health_impacts/geography/data_and_models/special_topics",
-            "hewReview",
+    processing_entries = []
+    methods = (source.model_extra or {}).get("processing_methods") or []
+    if not isinstance(methods, list):
+        raise PublicationValidationError("processing_methods must be a list")
+    for method in methods:
+        if not isinstance(method, dict):
+            raise PublicationValidationError(
+                "processing_methods entries must be objects"
+            )
+        children = {}
+        allowed = {
+            "name",
+            "description",
+            "software",
+            "software_details",
+            "software_version",
+            "provenance_reference",
+            "provenance_reference_details",
+        }
+        if set(method) - allowed:
+            raise PublicationValidationError(
+                "processing_methods accepts descriptive metadata only; store execution settings in external provenance"
+            )
+        for key, target in (
+            ("name", "hewMethodName"),
+            ("description", "hewMethodDescription"),
+            ("software_version", "hewMethodSoftwareVersion"),
+        ):
+            value = _optional_text(method.get(key), f"processing_methods.{key}")
+            if value:
+                children[target] = _field(target, value)
+        for key, prefix in (
+            ("software", "hewMethodSoftware"),
+            ("provenance_reference", "hewMethodProvenance"),
+        ):
+            details = method.get(key + "_details") or {}
+            if not isinstance(details, dict):
+                raise PublicationValidationError(f"{key}_details must be an object")
+            identifier = _optional_text(method.get(key), key)
+            detail_id = _optional_text(
+                details.get("reference_id"), key + "_details.reference_id"
+            )
+            if identifier and detail_id and identifier != detail_id:
+                raise PublicationValidationError(f"conflicting identifiers for {key}")
+            for suffix, value in (
+                ("Identifier", identifier or detail_id),
+                ("Name", details.get("name")),
+                ("Description", details.get("description")),
+            ):
+                value = _optional_text(value, prefix + suffix)
+                if value:
+                    children[prefix + suffix] = _field(prefix + suffix, value)
+        if children:
+            processing_entries.append(children)
+    if processing_entries:
+        coverage_blocks["hewCalculation"] = DataverseMetadataBlock(
+            displayName="HEW Processing Methods",
+            fields=[_compound_field("hewProcessingMethod", processing_entries)],
+        )
+        _record(mapped, "processing_methods", "hewCalculation.hewProcessingMethod")
+
+    reference_entries = []
+
+    def collect_references(value, path=""):
+        if isinstance(value, list):
+            for index, item in enumerate(value):
+                collect_references(item, f"{path}[{index}]")
+        elif isinstance(value, dict):
+            for key, item in value.items():
+                child_path = f"{path}.{key}" if path else key
+                if key in REFERENCE_DETAIL_FIELDS and item:
+                    entries = item if isinstance(item, list) else [item]
+                    for entry in entries:
+                        if not isinstance(entry, dict):
+                            raise PublicationValidationError(
+                                f"{child_path} must contain reference objects"
+                            )
+                        children = {
+                            "hewReferenceRelation": _field(
+                                "hewReferenceRelation", child_path
+                            )
+                        }
+                        for field, target in (
+                            ("reference_id", "hewReferenceIdentifier"),
+                            ("name", "hewReferenceName"),
+                            ("description", "hewReferenceDescription"),
+                            ("award_number", "hewReferenceAwardNumber"),
+                            ("funder_name", "hewReferenceFunderName"),
+                            ("email", "hewReferenceEmail"),
+                        ):
+                            text = _optional_text(
+                                entry.get(field), f"{child_path}.{field}"
+                            )
+                            if text:
+                                children[target] = _field(target, text)
+                        if len(children) > 1:
+                            reference_entries.append(children)
+                            _record(
+                                mapped,
+                                child_path,
+                                "hewEntityReferences.hewEntityReference",
+                            )
+                elif key not in {"annotations", "review", "agent_associations"}:
+                    collect_references(item, child_path)
+
+    collect_references(source.model_dump(mode="json", exclude_none=True))
+    # Preserve unresolved author identifiers without presenting them as names.
+    for author in source.authors or []:
+        identifier = author if isinstance(author, str) else author.id
+        if isinstance(author, str) and not re.match(
+            r"^[A-Za-z][A-Za-z0-9+.-]*:", author
+        ):
+            continue
+        if isinstance(author, AuthorSource) and _author_name(author):
+            continue
+        reference_entries.append(
+            {
+                "hewReferenceRelation": _field("hewReferenceRelation", "authors"),
+                "hewReferenceIdentifier": _field("hewReferenceIdentifier", identifier),
+            }
+        )
+        _record(mapped, "authors.id", "hewEntityReferences.hewEntityReference")
+    if reference_entries:
+        coverage_blocks["hewEntityReferences"] = DataverseMetadataBlock(
+            displayName="HEW Named Entity References",
+            fields=[_compound_field("hewEntityReference", reference_entries)],
         )
 
     report = MappingReport(
         crosswalk_version=context.crosswalk_version,
+        processing_context=context,
         source_id=source.id,
         mapped=mapped,
         omitted=omitted,
@@ -1195,15 +1258,6 @@ def crosswalk_publication(
             "customCAFEDataLocation": DataverseMetadataBlock(
                 displayName="Metadata About Geospatial Files",
                 fields=cafe_location_fields,
-            ),
-            **(
-                {
-                    "hewReview": DataverseMetadataBlock(
-                        displayName="HEW Review Coding", fields=review_fields
-                    )
-                }
-                if review_fields
-                else {}
             ),
         },
         report=report,

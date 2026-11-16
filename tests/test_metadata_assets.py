@@ -130,6 +130,74 @@ class MetadataAssetsTest(unittest.TestCase):
             for field in block["fields"]:
                 validate(field, name)
 
+    def test_dataset_catalog_fields_keep_variable_and_distribution_structure(self):
+        _, fields, _ = definitions()
+
+        for parent, required_children in (
+            (
+                "hewVariableDefinitionEntry",
+                {
+                    "hewVariableId",
+                    "hewVariableName",
+                    "hewVariableDataType",
+                    "hewVariableUnit",
+                    "hewVariableConceptMapping",
+                },
+            ),
+            (
+                "hewVariableDeliveryEntry",
+                {
+                    "hewDeliveryVariableId",
+                    "hewDeliveryDistributionId",
+                    "hewDeliveryNativeName",
+                    "hewDeliveryTemporalResolution",
+                    "hewDeliveryAggregationWindow",
+                    "hewDeliveryTemporalAlignment",
+                    "hewDeliveryDayBoundaryConvention",
+                    "hewDeliveryCalendar",
+                },
+            ),
+            (
+                "hewDistributionEntry",
+                {
+                    "hewDistributionEntryUrl",
+                    "hewDistributionMediaType",
+                    "hewDistributionFormat",
+                },
+            ),
+            (
+                "hewDatasetTemporalSupport",
+                {
+                    "hewTemporalResolution",
+                    "hewTemporalAlignment",
+                    "hewDayBoundaryConvention",
+                    "hewAggregationWindow",
+                    "hewTemporalCalendar",
+                },
+            ),
+        ):
+            self.assertEqual(fields[parent][5], "none")
+            expected_multiple = parent != "hewDatasetTemporalSupport"
+            self.assertEqual(fields[parent][10] == "TRUE", expected_multiple)
+            self.assertEqual(
+                {name for name, row in fields.items() if row[14] == parent}
+                & required_children,
+                required_children,
+            )
+
+        self.assertEqual(
+            fields["hewTemporalResolution"][14], "hewDatasetTemporalSupport"
+        )
+        self.assertEqual(fields["hewTemporalCalendar"][14], "hewDatasetTemporalSupport")
+        self.assertEqual(fields["hewTemporalStart"][14], "hewTemporalExtent")
+        self.assertEqual(fields["hewVariableConceptMapping"][9], "FALSE")
+        self.assertEqual(fields["hewVariableOmopConceptStatus"][9], "TRUE")
+        self.assertEqual(len(definitions()[2]["hewVariableOmopConceptStatus"]), 5)
+        self.assertIn(
+            "model-produced alone does not imply derivation",
+            fields["cafeDerivedFromExistingDataset"][3],
+        )
+
     def test_projects_coverage_and_full_cafe_terms(self):
         projection = crosswalk_publication(
             {
@@ -152,6 +220,13 @@ class MetadataAssetsTest(unittest.TestCase):
                     "start_time": "2024-01-01T00:00:00-05:00",
                     "end_time": "2025-01-01T00:00:00-05:00",
                     "temporal_resolution": "daily",
+                    "calendar": "gregorian",
+                },
+                "temporal_support": {
+                    "calendar": "daymet_365",
+                    "temporal_alignment": "interval",
+                    "day_boundary_convention": "local_midnight",
+                    "aggregation_window": "P1D",
                     "timezone": "America/New_York",
                 },
             },
@@ -168,6 +243,12 @@ class MetadataAssetsTest(unittest.TestCase):
         self.assertEqual(
             extent["hewTemporalStart"]["value"], "2024-01-01T00:00:00-05:00"
         )
+        self.assertNotIn("hewTemporalResolution", extent)
+        support = blocks["hewTemporal"]["fields"][1]["value"]
+        self.assertEqual(support["hewTemporalResolution"]["value"], "daily")
+        self.assertEqual(support["hewTemporalCalendar"]["value"], "daymet_365")
+        self.assertEqual(support["hewDayBoundaryConvention"]["value"], "local_midnight")
+        self.assertEqual(support["hewAggregationWindow"]["value"], "P1D")
 
     def test_rejects_invalid_coordinate_and_time_ranges(self):
         base = {"id": "HEW:test", "title": "Coverage", "resource_type": "literature"}

@@ -66,9 +66,12 @@ class PublicationCrosswalkTest(unittest.TestCase):
             [item["keywordValue"]["value"] for item in keywords["value"]],
             ["Heat", "health"],
         )
-        authors = next(field for field in citation if field["typeName"] == "author")
-        self.assertEqual(len(authors["value"]), 1)
-        self.assertIn("hewCrosswalkVersion", {field["typeName"] for field in resource})
+        self.assertNotIn("author", {field["typeName"] for field in citation})
+        self.assertIn("hewEntityReferences", blocks)
+        self.assertNotIn(
+            "hewCrosswalkVersion", {field["typeName"] for field in resource}
+        )
+        self.assertEqual(projection.report.processing_context, self.context)
         self.assertEqual(projection.report.unmapped, [])
 
     def test_maps_inlined_agent_authors(self):
@@ -119,7 +122,6 @@ class PublicationCrosswalkTest(unittest.TestCase):
                 ("Doe, Jane", "ORCID", "0000-0002-1825-009X"),
                 ("Smith, Alex", "ORCID", "0000-0001-5109-3700"),
                 ("NIEHS", None, None),
-                ("orcid:0000-0000-0000-0001", None, None),
             ],
         )
 
@@ -254,7 +256,7 @@ class PublicationCrosswalkTest(unittest.TestCase):
         self.assertNotIn(
             "annotations", {entry.source for entry in projection.report.unmapped}
         )
-        self.assertIn("hewReview", projection.metadata_blocks)
+        self.assertNotIn("hewReview", projection.metadata_blocks)
 
     def test_projects_mongodb_jsonld_and_preserves_original_document(self):
         fixture_path = (
@@ -296,7 +298,15 @@ class PublicationCrosswalkTest(unittest.TestCase):
         self.assertEqual(fields[0]["value"], mongo_document["data"]["title"])
         self.assertEqual(
             [field["typeName"] for field in fields],
-            ["title", "subject", "otherId", "author", "dsDescription"],
+            ["title", "subject", "otherId", "dsDescription"],
+        )
+
+        references = payload["datasetVersion"]["metadataBlocks"]["hewEntityReferences"][
+            "fields"
+        ][0]["value"]
+        self.assertEqual(
+            references[0]["hewReferenceIdentifier"]["value"],
+            mongo_document["data"]["authors"][0],
         )
 
     def test_projects_hew_catalog_data_model_2_export(self):
@@ -312,9 +322,7 @@ class PublicationCrosswalkTest(unittest.TestCase):
             for name in ("hewResource", "hewDiscovery")
             for field in blocks[name]["fields"]
         }
-        review_fields = {
-            field["typeName"]: field for field in blocks["hewReview"]["fields"]
-        }
+        self.assertNotIn("hewReview", blocks)
 
         self.assertEqual(projection.source_id, "HEWRES:laserai:19145")
         self.assertEqual(
@@ -325,7 +333,10 @@ class PublicationCrosswalkTest(unittest.TestCase):
             )["value"],
             document["data"]["bibliographic"]["title"],
         )
-        self.assertEqual(resource_fields["hewSchemaVersion"]["value"], "2.0.0")
+        self.assertNotIn("hewSchemaVersion", resource_fields)
+        self.assertEqual(
+            projection.report.processing_context.hew_schema_version, "2.0.0"
+        )
         self.assertIn(
             "Green Space/Blue Space", resource_fields["hewExposureConcept"]["value"]
         )
@@ -354,9 +365,7 @@ class PublicationCrosswalkTest(unittest.TestCase):
             for name in ("hewResource", "hewDiscovery")
             for field in blocks[name]["fields"]
         }
-        review_fields = {
-            field["typeName"]: field for field in blocks["hewReview"]["fields"]
-        }
+        self.assertNotIn("hewReview", blocks)
 
         self.assertIn(
             "Extreme Heat/Heat", resource_fields["hewExposureConcept"]["value"]
@@ -370,7 +379,6 @@ class PublicationCrosswalkTest(unittest.TestCase):
             "Pregnant or Breastfeeding Women",
             resource_fields["hewTopicConcept"]["value"],
         )
-        self.assertEqual(review_fields["hewCodingScheme"]["value"], ["LaserAI Export"])
 
     def test_projects_measure_aliases_and_terms_with_concept_annotations(self):
         document = json.loads(
@@ -395,9 +403,7 @@ class PublicationCrosswalkTest(unittest.TestCase):
             for name in ("hewResource", "hewDiscovery")
             for field in blocks[name]["fields"]
         }
-        review_fields = {
-            field["typeName"]: field for field in blocks["hewReview"]["fields"]
-        }
+        self.assertNotIn("hewReview", blocks)
         preserved = projection.to_preservation_document()
         preserved_exposure = preserved["data"]["annotations"][0][
             "exposure_annotations"
@@ -426,7 +432,6 @@ class PublicationCrosswalkTest(unittest.TestCase):
             resource_fields["hewMeasureParentLabel"]["value"],
             ["Weather", "Environment"],
         )
-        self.assertNotIn("hewExposureAnnotation", review_fields)
 
     def test_rejects_jsonld_without_hew_context_or_type(self):
         base_document = {

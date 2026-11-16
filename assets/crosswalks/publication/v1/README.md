@@ -10,9 +10,10 @@ their names and ORCID identifiers; publication dates support YYYY, YYYY-MM
 and YYYY-MM-DD.
 
 The projection emits citation, hewResource, hewDiscovery and the required CAFE
-indicators. It emits hewPublication only for study_objective, hewReview for
-coding provenance/evidence, geographic and temporal blocks for supplied
-coverage, and cafeDatasetTerms for exact vocabulary matches.
+indicators. It emits hewPublication only for study_objective, geographic and
+temporal blocks for supplied coverage, and cafeDatasetTerms for exact vocabulary
+matches. Review coding metadata remains in the source attachment and is not
+projected into Dataverse fields; annotation concepts still support discovery.
 
 Discovery uses plain-text labels, with separate CURIE, alias and exact-mapping
 fields. Known HEWM CURIEs use the pinned HEW_Measures snapshot to supply labels,
@@ -28,3 +29,8 @@ Provision all blocks using the metadata loader described in the repository
 README, then update Solr. Supply catalog_version, metadata_block_version and
 target_collection in CrosswalkContext. The output records schema, catalog,
 crosswalk and metadata-block versions in hewResource.
+
+Operational version context is returned in `projection.report.processing_context`,
+not public Dataverse fields. Detailed grids/support and agent-role associations
+remain in the preserved source; public coverage uses compact resolution and
+support summaries. Save the report separately when retaining processing history.

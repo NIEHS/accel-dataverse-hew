@@ -95,12 +95,9 @@ class AccelDataverseComponentsTest(unittest.TestCase):
         resource_fields = {
             field["typeName"]: field for field in blocks["hewDiscovery"]["fields"]
         }
-        review_fields = {
-            field["typeName"]: field for field in blocks["hewReview"]["fields"]
-        }
+        self.assertNotIn("hewReview", blocks)
         self.assertIn("Drought", resource_fields["hewExposureConcept"]["value"])
         self.assertIn("drought", resource_fields["hewExposureAlias"]["value"])
-        self.assertNotIn("hewExposureAnnotation", review_fields)
 
     @patch(
         "accelerator_dataverse_hew.accel_to_dataverse_dissemination.DataverseConnector"

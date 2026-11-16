@@ -7,7 +7,6 @@ from typing import Any, Literal
 
 from pydantic import AnyUrl, BaseModel, ConfigDict, Field, field_validator
 
-
 DEFAULT_TERMS_OF_USE = (
     "BSD 3-Clause License (SPDX-License-Identifier: BSD-3-Clause). "
     "Redistribution and use in source and binary forms, with or without "
@@ -138,6 +137,7 @@ class MappingEntry(BaseModel):
 
 
 class MappingReport(BaseModel):
+    processing_context: CrosswalkContext | None = None
     crosswalk_id: str = "hew-publication-to-dataverse"
     crosswalk_version: str
     source_id: str
@@ -160,7 +160,7 @@ class DataversePublicationProjection(BaseModel):
                 "metadataBlocks": {
                     name: block.model_dump(by_alias=True, exclude_none=True)
                     for name, block in self.metadata_blocks.items()
-                }
+                },
             }
         }
 
