@@ -20,53 +20,7 @@
       "FALSE",
       "TRUE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:20",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/resource_type"
-    ],
-    [
-      "hewDiscovery",
-      "hewResourceTypeCurie",
-      "",
-      "resource_type",
-      "Schema field",
-      "HEWResource, MentionedResource",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Record Type CURIE",
-      "Catalog resource type. Each resource class pins the value it accepts, so the type and the class cannot disagree.",
-      "literature",
-      "Illustrative (not an observed record)",
-      "HEW Measures 1.0.0 (HEWM:, vocab:); external mappings only when supplied",
-      "ResourceTypeEnum",
-      "text",
-      "TRUE",
-      "FALSE",
-      "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:21",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/resource_type"
-    ],
-    [
-      "hewDiscovery",
-      "hewResourceTypeAlias",
-      "",
-      "resource_type",
-      "Schema field",
-      "HEWResource, MentionedResource",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Record Type Alias",
-      "Catalog resource type. Each resource class pins the value it accepts, so the type and the class cannot disagree.",
-      "literature",
-      "Illustrative (not an observed record)",
-      "HEW enum: ResourceTypeEnum",
-      "ResourceTypeEnum",
-      "text",
-      "TRUE",
-      "FALSE",
-      "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:22",
+      "assets/hew_custom.tsv:17",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/resource_type"
     ],
     [
@@ -89,7 +43,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:23",
+      "assets/hew_custom.tsv:18",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/resource_type"
     ],
     [
@@ -112,7 +66,7 @@
       "TRUE",
       "TRUE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:24",
+      "assets/hew_custom.tsv:19",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/exposure_agents"
     ],
     [
@@ -135,7 +89,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:25",
+      "assets/hew_custom.tsv:20",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/exposure_agents"
     ],
     [
@@ -158,7 +112,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:26",
+      "assets/hew_custom.tsv:21",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/exposure_agents"
     ],
     [
@@ -181,7 +135,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:27",
+      "assets/hew_custom.tsv:22",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/exposure_agents"
     ],
     [
@@ -204,7 +158,7 @@
       "TRUE",
       "TRUE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:28",
+      "assets/hew_custom.tsv:23",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/health_impacts"
     ],
     [
@@ -227,7 +181,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:29",
+      "assets/hew_custom.tsv:24",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/health_impacts"
     ],
     [
@@ -250,7 +204,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:30",
+      "assets/hew_custom.tsv:25",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/health_impacts"
     ],
     [
@@ -273,7 +227,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:31",
+      "assets/hew_custom.tsv:26",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/health_impacts"
     ],
     [
@@ -296,7 +250,7 @@
       "TRUE",
       "TRUE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:32",
+      "assets/hew_custom.tsv:27",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/geographic_locations"
     ],
     [
@@ -319,7 +273,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:33",
+      "assets/hew_custom.tsv:28",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/geographic_locations"
     ],
     [
@@ -342,7 +296,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:34",
+      "assets/hew_custom.tsv:29",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/geographic_locations"
     ],
     [
@@ -365,7 +319,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:35",
+      "assets/hew_custom.tsv:30",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/geographic_locations"
     ],
     [
@@ -388,7 +342,7 @@
       "TRUE",
       "TRUE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:36",
+      "assets/hew_custom.tsv:31",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/special_topics"
     ],
     [
@@ -411,7 +365,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:37",
+      "assets/hew_custom.tsv:32",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/special_topics"
     ],
     [
@@ -434,7 +388,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:38",
+      "assets/hew_custom.tsv:33",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/special_topics"
     ],
     [
@@ -457,12 +411,12 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:39",
+      "assets/hew_custom.tsv:34",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/special_topics"
     ],
     [
       "hewDiscovery",
-      "hewEventConcept",
+      "hewEvent",
       "",
       "event_types",
       "Schema field",
@@ -470,86 +424,17 @@
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
-      "Event Label",
-      "Event or disaster concepts for which the resource is appropriate.",
-      "Drought",
+      "Event or disaster labels relevant to the resource; free text with no controlled vocabulary specified",
+      "Free-text event or disaster labels for which the resource is appropriate. No controlled vocabulary or identifier source is currently specified.",
+      "Example event type",
       "Illustrative (not an observed record)",
       "Free text / identifier; no controlled vocabulary declared",
-      "uriorcurie",
-      "text",
-      "TRUE",
-      "TRUE",
-      "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:40",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/event_types"
-    ],
-    [
-      "hewDiscovery",
-      "hewEventCurie",
-      "",
-      "event_types",
-      "Schema field",
-      "SurveyInstrument",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Event CURIE",
-      "Event or disaster concepts for which the resource is appropriate.",
-      "HEWM:0000181",
-      "Illustrative (not an observed record)",
-      "HEW Measures 1.0.0 (HEWM:, vocab:); external mappings only when supplied",
-      "uriorcurie",
+      "string",
       "text",
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:41",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/event_types"
-    ],
-    [
-      "hewDiscovery",
-      "hewEventAlias",
-      "",
-      "event_types",
-      "Schema field",
-      "SurveyInstrument",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Event Alias",
-      "Event or disaster concepts for which the resource is appropriate.",
-      "Example event alias",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "uriorcurie",
-      "text",
-      "TRUE",
-      "FALSE",
-      "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:42",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/event_types"
-    ],
-    [
-      "hewDiscovery",
-      "hewEventExactMapping",
-      "",
-      "event_types",
-      "Schema field",
-      "SurveyInstrument",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Event Exact Mapping CURIE",
-      "Event or disaster concepts for which the resource is appropriate.",
-      "Example event exact mapping curie",
-      "Illustrative (not an observed record)",
-      "HEW Measures 1.0.0 (HEWM:, vocab:); external mappings only when supplied",
-      "uriorcurie",
-      "text",
-      "TRUE",
-      "FALSE",
-      "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:43",
+      "assets/hew_custom.tsv:35",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/event_types"
     ],
     [
@@ -572,7 +457,7 @@
       "TRUE",
       "TRUE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:44",
+      "assets/hew_custom.tsv:36",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/data_resource_types"
     ],
     [
@@ -595,7 +480,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:45",
+      "assets/hew_custom.tsv:37",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/data_resource_types"
     ],
     [
@@ -618,7 +503,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:46",
+      "assets/hew_custom.tsv:38",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/data_resource_types"
     ],
     [
@@ -641,77 +526,8 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:47",
+      "assets/hew_custom.tsv:39",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/data_resource_types"
-    ],
-    [
-      "hewDiscovery",
-      "hewModelConcept",
-      "",
-      "annotations.data_tool_method_annotations.model_types",
-      "Schema field",
-      "DataToolMethodAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Model Label",
-      "Categories of computational or analytical models used, created, or described by the literature resource.",
-      "artificial_intelligence_machine_learning",
-      "Illustrative (not an observed record)",
-      "HEW enum: ModelTypeEnum",
-      "ModelTypeEnum",
-      "text",
-      "TRUE",
-      "TRUE",
-      "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:48",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/model_types"
-    ],
-    [
-      "hewDiscovery",
-      "hewModelCurie",
-      "",
-      "annotations.data_tool_method_annotations.model_types",
-      "Schema field",
-      "DataToolMethodAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Model CURIE",
-      "Categories of computational or analytical models used, created, or described by the literature resource.",
-      "artificial_intelligence_machine_learning",
-      "Illustrative (not an observed record)",
-      "HEW Measures 1.0.0 (HEWM:, vocab:); external mappings only when supplied",
-      "ModelTypeEnum",
-      "text",
-      "TRUE",
-      "FALSE",
-      "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:49",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/model_types"
-    ],
-    [
-      "hewDiscovery",
-      "hewModelAlias",
-      "",
-      "annotations.data_tool_method_annotations.model_types",
-      "Schema field",
-      "DataToolMethodAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Model Alias",
-      "Categories of computational or analytical models used, created, or described by the literature resource.",
-      "artificial_intelligence_machine_learning",
-      "Illustrative (not an observed record)",
-      "HEW enum: ModelTypeEnum",
-      "ModelTypeEnum",
-      "text",
-      "TRUE",
-      "FALSE",
-      "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:50",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/model_types"
     ],
     [
       "hewDiscovery",
@@ -733,7 +549,7 @@
       "TRUE",
       "FALSE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:51",
+      "assets/hew_custom.tsv:40",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/model_types"
     ],
     [
@@ -756,7 +572,7 @@
       "TRUE",
       "TRUE",
       "Flatten labels separately from identifiers, aliases and exact mappings. Unknown identifiers do not become labels. Discovery hierarchy is lossy.",
-      "assets/hew_custom.tsv:52",
+      "assets/hew_custom.tsv:41",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/geographic_features"
     ],
     [
@@ -779,7 +595,7 @@
       "TRUE",
       "TRUE",
       "Lookup pinned HEW Measures CURIE; collect term, aliases, exact mappings and all taxonomy ancestors except Category.",
-      "assets/hew_custom.tsv:53",
+      "assets/hew_custom.tsv:42",
       "assets/metadata_blocks_guidance.md"
     ],
     [
@@ -802,7 +618,7 @@
       "TRUE",
       "FALSE",
       "Lookup pinned HEW Measures CURIE; collect term, aliases, exact mappings and all taxonomy ancestors except Category.",
-      "assets/hew_custom.tsv:54",
+      "assets/hew_custom.tsv:43",
       "assets/metadata_blocks_guidance.md"
     ],
     [
@@ -825,7 +641,7 @@
       "TRUE",
       "FALSE",
       "Lookup pinned HEW Measures CURIE; collect term, aliases, exact mappings and all taxonomy ancestors except Category.",
-      "assets/hew_custom.tsv:55",
+      "assets/hew_custom.tsv:44",
       "assets/metadata_blocks_guidance.md"
     ],
     [
@@ -848,7 +664,7 @@
       "TRUE",
       "FALSE",
       "Lookup pinned HEW Measures CURIE; collect term, aliases, exact mappings and all taxonomy ancestors except Category.",
-      "assets/hew_custom.tsv:56",
+      "assets/hew_custom.tsv:45",
       "assets/metadata_blocks_guidance.md"
     ],
     [
@@ -871,7 +687,7 @@
       "TRUE",
       "TRUE",
       "Lookup pinned HEW Measures CURIE; collect term, aliases, exact mappings and all taxonomy ancestors except Category.",
-      "assets/hew_custom.tsv:57",
+      "assets/hew_custom.tsv:46",
       "assets/metadata_blocks_guidance.md"
     ],
     [
@@ -894,7 +710,7 @@
       "TRUE",
       "FALSE",
       "Lookup pinned HEW Measures CURIE; collect term, aliases, exact mappings and all taxonomy ancestors except Category.",
-      "assets/hew_custom.tsv:58",
+      "assets/hew_custom.tsv:47",
       "assets/metadata_blocks_guidance.md"
     ],
     [
@@ -903,7 +719,7 @@
       "",
       "id",
       "Schema field",
-      "GridDefinition, EnvironmentalVariableDelivery, SpatiotemporalExposure, CovariateCalculation, ExternalExposureLinkage, Program, Project, AgentAssociation, FundingSource, HEWResource, Distribution, DataDictionary, Variable, Agent, SurveyConstruct, SurveyQuestion, Population, HEWSystematicReviewAnnotation",
+      "GridDefinition, EnvironmentalVariableDelivery, SpatiotemporalExposure, ExternalExposureLinkage, Program, Project, AgentAssociation, FundingSource, HEWResource, Distribution, DataDictionary, Variable, Agent, SurveyConstruct, SurveyQuestion, Population, HEWSystematicReviewAnnotation",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
@@ -917,7 +733,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:59",
+      "assets/hew_custom.tsv:48",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/id"
     ],
     [
@@ -940,7 +756,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:60",
+      "assets/hew_custom.tsv:49",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/status"
     ],
     [
@@ -963,100 +779,8 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:61",
+      "assets/hew_custom.tsv:50",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/related_resources"
-    ],
-    [
-      "hewResource",
-      "hewCatalogVersion",
-      "",
-      "catalog_version",
-      "Derived/export context",
-      "",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "HEW Catalog Version",
-      "",
-      "Example hew catalog version",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "",
-      "text",
-      "FALSE",
-      "FALSE",
-      "Computed or supplied by export context; not a direct HEW slot.",
-      "assets/hew_custom.tsv:62",
-      "assets/metadata_blocks_guidance.md"
-    ],
-    [
-      "hewResource",
-      "hewSchemaVersion",
-      "",
-      "hew_schema_version",
-      "Derived/export context",
-      "",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "HEW Schema Version",
-      "",
-      "Example hew schema version",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "",
-      "text",
-      "FALSE",
-      "FALSE",
-      "Computed or supplied by export context; not a direct HEW slot.",
-      "assets/hew_custom.tsv:63",
-      "assets/metadata_blocks_guidance.md"
-    ],
-    [
-      "hewResource",
-      "hewCrosswalkVersion",
-      "",
-      "crosswalk_version",
-      "Derived/export context",
-      "",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "HEW Crosswalk Version",
-      "",
-      "Example hew crosswalk version",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "",
-      "text",
-      "FALSE",
-      "FALSE",
-      "Computed or supplied by export context; not a direct HEW slot.",
-      "assets/hew_custom.tsv:64",
-      "assets/metadata_blocks_guidance.md"
-    ],
-    [
-      "hewResource",
-      "hewMetadataBlockVersion",
-      "",
-      "metadata_block_version",
-      "Derived/export context",
-      "",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "HEW Metadata Block Version",
-      "",
-      "Example hew metadata block version",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "",
-      "text",
-      "FALSE",
-      "FALSE",
-      "Computed or supplied by export context; not a direct HEW slot.",
-      "assets/hew_custom.tsv:65",
-      "assets/metadata_blocks_guidance.md"
     ],
     [
       "hewGeospatial",
@@ -1064,7 +788,7 @@
       "",
       "spatial_coverage",
       "Schema field",
-      "HEWResource",
+      "DatasetResource",
       "Product.spatial_extent_descriptor",
       "Declared HEW specification",
       "copy",
@@ -1076,9 +800,9 @@
       "string",
       "text",
       "FALSE",
-      "TRUE",
+      "FALSE",
       "",
-      "assets/hew_custom.tsv:66",
+      "assets/hew_custom.tsv:51",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/spatial_coverage"
     ],
     [
@@ -1101,7 +825,7 @@
       "TRUE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:67",
+      "assets/hew_custom.tsv:52",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/geometry_type"
     ],
     [
@@ -1124,7 +848,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:68",
+      "assets/hew_custom.tsv:53",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/wkt"
     ],
     [
@@ -1147,7 +871,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:69",
+      "assets/hew_custom.tsv:54",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/geojson"
     ],
     [
@@ -1170,7 +894,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:70",
+      "assets/hew_custom.tsv:55",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/latitude"
     ],
     [
@@ -1193,7 +917,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:71",
+      "assets/hew_custom.tsv:56",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/longitude"
     ],
     [
@@ -1216,7 +940,7 @@
       "TRUE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:72",
+      "assets/hew_custom.tsv:57",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/named_locations"
     ],
     [
@@ -1239,7 +963,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:73",
+      "assets/hew_custom.tsv:58",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/geographic_identifiers"
     ],
     [
@@ -1262,7 +986,7 @@
       "TRUE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:74",
+      "assets/hew_custom.tsv:59",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/environmental_context"
     ],
     [
@@ -1285,100 +1009,8 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:75",
+      "assets/hew_custom.tsv:60",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/environmental_context"
-    ],
-    [
-      "hewGeospatial",
-      "hewSpatialSupport",
-      "",
-      "spatial_support",
-      "Schema field",
-      "GeospatialResource, EnvironmentalVariableDelivery, EnvironmentalVariable, SpatiotemporalExposure",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Spatial Support JSON",
-      "Spatial unit over which an individual variable value applies; distinct from the complete spatial extent of the parent dataset.",
-      "{\"id\":\"hew:example\"}",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "SpatialSupport",
-      "textbox",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:76",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/spatial_support"
-    ],
-    [
-      "hewGeospatial",
-      "hewQuantitativeSpatialResolution",
-      "",
-      "quantitative_spatial_resolution",
-      "Schema field",
-      "GeospatialResource, SpatialSupport, SpatialExtent",
-      "Product.native_spatial_resolution_m",
-      "Declared HEW specification",
-      "convert_linear_nominal_resolution_to_metres",
-      "Quantitative Spatial Resolution JSON",
-      "Numeric spatial resolution with a unit and optional axis designation.",
-      "{\"id\":\"hew:example\"}",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "QuantitativeSpatialResolution",
-      "textbox",
-      "TRUE",
-      "FALSE",
-      "No implicit angular-to-metre or anisotropic-axis-to-nominal conversion.",
-      "assets/hew_custom.tsv:77",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/quantitative_spatial_resolution"
-    ],
-    [
-      "hewGeospatial",
-      "hewAdministrativeSpatialResolution",
-      "",
-      "administrative_spatial_resolution",
-      "Schema field",
-      "GeospatialResource, SpatialSupport, SpatialExtent",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Administrative Spatial Resolution JSON",
-      "Administrative or statistical geography level used to express spatial resolution.",
-      "{\"id\":\"hew:example\"}",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "AdministrativeSpatialResolution",
-      "textbox",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:78",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/administrative_spatial_resolution"
-    ],
-    [
-      "hewGeospatial",
-      "hewGridDefinition",
-      "",
-      "grid_definition",
-      "Schema field",
-      "GeospatialResource, SpatialSupport",
-      "Product.grid_definition",
-      "Declared HEW specification",
-      "extract_entity_and_reference_id",
-      "Grid Definition JSON",
-      "Embedded reusable grid definition carrying a stable identifier.",
-      "{\"id\":\"hew:example\"}",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared; amadeus:grid_definition",
-      "GridDefinition",
-      "textbox",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:79",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/grid_definition"
     ],
     [
       "hewTemporal",
@@ -1386,7 +1018,7 @@
       "",
       "temporal_coverage",
       "Schema field",
-      "HEWResource",
+      "DatasetResource",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
@@ -1398,9 +1030,9 @@
       "string",
       "text",
       "FALSE",
-      "TRUE",
+      "FALSE",
       "",
-      "assets/hew_custom.tsv:80",
+      "assets/hew_custom.tsv:61",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/temporal_coverage"
     ],
     [
@@ -1423,7 +1055,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:81",
+      "assets/hew_custom.tsv:62",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/temporal_support"
     ],
     [
@@ -1446,7 +1078,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:82",
+      "assets/hew_custom.tsv:63",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/temporal_resolution"
     ],
     [
@@ -1469,7 +1101,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:83",
+      "assets/hew_custom.tsv:64",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/calendar"
     ],
     [
@@ -1492,7 +1124,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:84",
+      "assets/hew_custom.tsv:65",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/temporal_alignment"
     ],
     [
@@ -1515,7 +1147,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:85",
+      "assets/hew_custom.tsv:66",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/day_boundary_convention"
     ],
     [
@@ -1538,7 +1170,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:86",
+      "assets/hew_custom.tsv:67",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/aggregation_window"
     ],
     [
@@ -1561,7 +1193,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:87",
+      "assets/hew_custom.tsv:68",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/timezone"
     ],
     [
@@ -1570,7 +1202,7 @@
       "",
       "temporal_extent",
       "Schema field",
-      "SpatiotemporalExposure, HEWResource, Distribution",
+      "SpatiotemporalExposure, DatasetResource, Distribution",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
@@ -1584,7 +1216,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:88",
+      "assets/hew_custom.tsv:69",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/temporal_extent"
     ],
     [
@@ -1607,7 +1239,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:89",
+      "assets/hew_custom.tsv:70",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/start_time"
     ],
     [
@@ -1630,7 +1262,7 @@
       "FALSE",
       "FALSE",
       "Target date-boundary inclusivity must be configured; never truncate silently.",
-      "assets/hew_custom.tsv:90",
+      "assets/hew_custom.tsv:71",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/end_time"
     ],
     [
@@ -1653,7 +1285,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:91",
+      "assets/hew_custom.tsv:72",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/timezone"
     ],
     [
@@ -1676,31 +1308,8 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:92",
+      "assets/hew_custom.tsv:73",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/coverage_status"
-    ],
-    [
-      "hewTemporal",
-      "hewTemporalSupport",
-      "",
-      "temporal_support",
-      "Schema field",
-      "GeospatialResource, EnvironmentalVariableDelivery, EnvironmentalVariable, SpatiotemporalExposure",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Complete temporal support JSON for details not exposed as individual fields",
-      "Temporal resolution, aggregation window, and alignment for individual values.",
-      "{\"id\":\"hew:example\"}",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "TemporalSupport",
-      "textbox",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:93",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/temporal_support"
     ],
     [
       "hewTemporal",
@@ -1722,7 +1331,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:94",
+      "assets/hew_custom.tsv:74",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/update_cadence_iso"
     ],
     [
@@ -1745,215 +1354,8 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:95",
+      "assets/hew_custom.tsv:75",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/typical_latency_iso"
-    ],
-    [
-      "hewReview",
-      "hewCodingScheme",
-      "",
-      "annotations.coding_scheme",
-      "Schema field",
-      "HEWSystematicReviewAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Name of the review coding scheme",
-      "Name or identifier of the coding guide or scheme used to create the annotation.",
-      "Example coding scheme",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "string",
-      "text",
-      "TRUE",
-      "TRUE",
-      "",
-      "assets/hew_custom.tsv:96",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/coding_scheme"
-    ],
-    [
-      "hewReview",
-      "hewCodingSchemeVersion",
-      "",
-      "annotations.coding_scheme_version",
-      "Schema field",
-      "HEWSystematicReviewAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Version of the review coding scheme",
-      "Version of the coding guide or scheme used for the annotation.",
-      "Example coding scheme version",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "string",
-      "text",
-      "TRUE",
-      "TRUE",
-      "",
-      "assets/hew_custom.tsv:97",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/coding_scheme_version"
-    ],
-    [
-      "hewReview",
-      "hewAnnotationDate",
-      "",
-      "annotations.annotation_date",
-      "Schema field",
-      "HEWSystematicReviewAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Date on which the annotation was created",
-      "Date on which the coding annotation was created.",
-      "Example annotation date",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "date",
-      "date",
-      "TRUE",
-      "TRUE",
-      "",
-      "assets/hew_custom.tsv:98",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/annotation_date"
-    ],
-    [
-      "hewReview",
-      "hewCoderIdentifier",
-      "",
-      "annotations.coded_by",
-      "Schema field",
-      "HEWSystematicReviewAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Identifier for a human or software coder",
-      "Agents (people or software) that coded the annotation, referenced by identifier.",
-      "Example coder identifier",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "Agent",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:99",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/coded_by"
-    ],
-    [
-      "hewReview",
-      "hewReviewerIdentifier",
-      "",
-      "annotations.reviewed_by",
-      "Schema field",
-      "HEWSystematicReviewAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Identifier for a human or group that reviewed the annotation",
-      "Agents (people or groups) that reviewed the annotation, referenced by identifier.",
-      "Example reviewer identifier",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "Agent",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:100",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/reviewed_by"
-    ],
-    [
-      "hewReview",
-      "hewEvidenceText",
-      "",
-      "annotations.evidence_text",
-      "Schema field",
-      "SpatiotemporalExposure, ConceptAnnotation, DataToolMethodAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Text supporting the annotation",
-      "Text supporting the annotation, coding decision, or exposure description.",
-      "Example evidence text",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "string",
-      "textbox",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:101",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/evidence_text"
-    ],
-    [
-      "hewReview",
-      "hewAnnotationNotes",
-      "",
-      "annotations.notes",
-      "Schema field",
-      "HEWSystematicReviewAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Curator notes about the annotation",
-      "Additional explanatory or curatorial notes about the entity.",
-      "Example annotation notes",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "string",
-      "textbox",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:102",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/notes"
-    ],
-    [
-      "hewReview",
-      "hewConfidence",
-      "",
-      "annotations.confidence",
-      "Schema field",
-      "HEWSystematicReviewAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Confidence assigned to the annotation",
-      "Numeric confidence reported for the coding annotation; the scale must be documented by the producing workflow.",
-      "Example annotation confidence",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "float",
-      "float",
-      "TRUE",
-      "TRUE",
-      "",
-      "assets/hew_custom.tsv:103",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/confidence"
-    ],
-    [
-      "hewReview",
-      "hewReferenceType",
-      "",
-      "annotations.reference_type",
-      "Schema field",
-      "HEWSystematicReviewAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Type of publication reference used for the review coding",
-      "Reference type as coded by the reviewer, with the annotation's provenance. The resource's own publication_type is the catalog value.",
-      "research_article",
-      "Illustrative (not an observed record)",
-      "CAFE local controlled vocabulary (8 values); see Controlled values",
-      "ReferenceTypeEnum",
-      "text",
-      "TRUE",
-      "TRUE",
-      "",
-      "assets/hew_custom.tsv:104",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/reference_type"
     ],
     [
       "hewPublication",
@@ -1975,7 +1377,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:105",
+      "assets/hew_custom.tsv:76",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_review_coding.yaml#slots/study_objective"
     ],
     [
@@ -1998,169 +1400,8 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:106",
+      "assets/hew_custom.tsv:77",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/url"
-    ],
-    [
-      "hewDataResource",
-      "hewMeasuredVariable",
-      "",
-      "measured_variables",
-      "Schema field",
-      "GeospatialResource",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Measured variable name or HEW/external concept identifier",
-      "Legacy free-text names of measured variables; use environmental_variables for structured variable metadata.",
-      "Example measured variable",
-      "Illustrative (not an observed record)",
-      "HEW Measures 1.0.0 (HEWM:, vocab:); external mappings only when supplied",
-      "string",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:107",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/measured_variables"
-    ],
-    [
-      "hewDataResource",
-      "hewEnvironmentalVariable",
-      "",
-      "environmental_variables",
-      "Schema field",
-      "GeospatialResource",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Environmental variable identifier or name",
-      "Structured environmental variables using the HEW EnVar integration profile. This complements the legacy measured_variables string list.",
-      "Example environmental variable",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "EnvironmentalVariable",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:108",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/environmental_variables"
-    ],
-    [
-      "hewDataResource",
-      "hewMeasuredProperty",
-      "",
-      "measured_property",
-      "Schema field",
-      "EnvironmentalVariable, SpatiotemporalExposure",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Ontology identifier for the measured environmental property",
-      "Ontology identifier for the environmental property, phenomenon, substance, or exposure-related quantity represented by the variable. ENVO, ECTO, CHEBI, or other appropriate ontology terms may be used.",
-      "Example measured property",
-      "Illustrative (not an observed record)",
-      "HEW Measures 1.0.0 (HEWM:, vocab:); external mappings only when supplied",
-      "uriorcurie",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:109",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/measured_property"
-    ],
-    [
-      "hewDataResource",
-      "hewMeasurementMethod",
-      "",
-      "measurement_method",
-      "Schema field",
-      "EnvironmentalVariable",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Identifier or description of how the variable was measured or derived",
-      "Identifier for the measurement, observation, assay, retrieval, or derivation method when a suitable controlled term exists.",
-      "Example measurement method",
-      "Illustrative (not an observed record)",
-      "HEW Measures 1.0.0 (HEWM:, vocab:); external mappings only when supplied",
-      "uriorcurie",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:110",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/measurement_method"
-    ],
-    [
-      "hewDataResource",
-      "hewConceptMapping",
-      "",
-      "concept_mappings",
-      "Schema field",
-      "EnvironmentalVariable, Variable, SurveyConstruct",
-      "CanonicalVariable.concept_mappings",
-      "Candidate; semantic review required",
-      "Review entity grain and semantics before copying",
-      "External ontology mapping for a variable",
-      "Ontology or vocabulary terms that the variable or construct maps to, such as ENVO, ECTO, CHEBI, LOINC, or SNOMED CT.",
-      "Drought",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "uriorcurie",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:111",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/concept_mappings"
-    ],
-    [
-      "hewDataResource",
-      "hewOmopConceptId",
-      "",
-      "omop_concept_binding.omop_concept_id",
-      "Schema field",
-      "OMOPConceptBinding",
-      "OmopConceptBinding.omop_concept_id",
-      "Candidate; semantic review required",
-      "Review entity grain and semantics before copying",
-      "OMOP concept identifier when available",
-      "Numeric identifier of the mapped OMOP vocabulary concept.",
-      "Drought",
-      "Illustrative (not an observed record)",
-      "OMOP / OHDSI concept binding; identifiers and status must be preserved",
-      "integer",
-      "int",
-      "FALSE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:112",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/omop_concept_id"
-    ],
-    [
-      "hewDataResource",
-      "hewOmopConceptStatus",
-      "",
-      "omop_concept_binding.concept_status",
-      "Schema field",
-      "OMOPConceptBinding",
-      "OmopConceptBinding.concept_status",
-      "Candidate; semantic review required",
-      "Review entity grain and semantics before copying",
-      "Status of the OMOP concept binding",
-      "Status of the OMOP concept mapping, including explicit representation of a vocabulary gap.",
-      "Standard",
-      "Illustrative (not an observed record)",
-      "CAFE local controlled vocabulary (5 values); see Controlled values",
-      "ConceptStatusEnum",
-      "text",
-      "FALSE",
-      "TRUE",
-      "",
-      "assets/hew_custom.tsv:113",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/concept_status"
     ],
     [
       "hewDataResource",
@@ -2182,7 +1423,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:114",
+      "assets/hew_custom.tsv:78",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/url"
     ],
     [
@@ -2205,7 +1446,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:115",
+      "assets/hew_custom.tsv:79",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/processing_level"
     ],
     [
@@ -2228,7 +1469,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:116",
+      "assets/hew_custom.tsv:80",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/external_exposure_linkage"
     ],
     [
@@ -2251,7 +1492,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:117",
+      "assets/hew_custom.tsv:81",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/variables"
     ],
     [
@@ -2260,7 +1501,7 @@
       "hewVariableDefinitionEntry",
       "variables.id",
       "Schema field",
-      "GridDefinition, EnvironmentalVariableDelivery, SpatiotemporalExposure, CovariateCalculation, ExternalExposureLinkage, Program, Project, AgentAssociation, FundingSource, HEWResource, Distribution, DataDictionary, Variable, Agent, SurveyConstruct, SurveyQuestion, Population, HEWSystematicReviewAnnotation",
+      "GridDefinition, EnvironmentalVariableDelivery, SpatiotemporalExposure, ExternalExposureLinkage, Program, Project, AgentAssociation, FundingSource, HEWResource, Distribution, DataDictionary, Variable, Agent, SurveyConstruct, SurveyQuestion, Population, HEWSystematicReviewAnnotation",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
@@ -2274,7 +1515,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:118",
+      "assets/hew_custom.tsv:82",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/id"
     ],
     [
@@ -2283,7 +1524,7 @@
       "hewVariableDefinitionEntry",
       "variables.name",
       "Schema field",
-      "GridDefinition, CovariateCalculation, Variable, GeographicLocation, Agent, EntityReference, SurveyConstruct, Population, MentionedResource",
+      "GridDefinition, Variable, GeographicLocation, Agent, EntityReference, ProcessingMethod, SurveyConstruct, Population, MentionedResource",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
@@ -2297,7 +1538,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:119",
+      "assets/hew_custom.tsv:83",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/name"
     ],
     [
@@ -2320,7 +1561,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:120",
+      "assets/hew_custom.tsv:84",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/title"
     ],
     [
@@ -2329,7 +1570,7 @@
       "hewVariableDefinitionEntry",
       "variables.description",
       "Schema field",
-      "SpatiotemporalExposure, CovariateCalculation, Program, Project, FundingSource, HEWResource, Distribution, DataDictionary, Variable, Agent, EntityReference, SurveyConstruct, Population",
+      "SpatiotemporalExposure, Program, Project, FundingSource, HEWResource, Distribution, DataDictionary, Variable, Agent, EntityReference, ProcessingMethod, SurveyConstruct, Population",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
@@ -2343,7 +1584,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:121",
+      "assets/hew_custom.tsv:85",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/description"
     ],
     [
@@ -2366,7 +1607,7 @@
       "TRUE",
       "FALSE",
       "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:122",
+      "assets/hew_custom.tsv:86",
       "assets/metadata_blocks_guidance.md"
     ],
     [
@@ -2389,7 +1630,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:123",
+      "assets/hew_custom.tsv:87",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/data_type"
     ],
     [
@@ -2412,7 +1653,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:124",
+      "assets/hew_custom.tsv:88",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/unit"
     ],
     [
@@ -2435,7 +1676,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:125",
+      "assets/hew_custom.tsv:89",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/measured_property"
     ],
     [
@@ -2458,7 +1699,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:126",
+      "assets/hew_custom.tsv:90",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/measurement_method"
     ],
     [
@@ -2481,7 +1722,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:127",
+      "assets/hew_custom.tsv:91",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/concept_mappings"
     ],
     [
@@ -2504,7 +1745,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:128",
+      "assets/hew_custom.tsv:92",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/omop_concept_id"
     ],
     [
@@ -2527,7 +1768,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:129",
+      "assets/hew_custom.tsv:93",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/concept_status"
     ],
     [
@@ -2550,7 +1791,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:130",
+      "assets/hew_custom.tsv:94",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/variable_deliveries"
     ],
     [
@@ -2559,7 +1800,7 @@
       "hewVariableDeliveryEntry",
       "variable_deliveries.id",
       "Schema field",
-      "GridDefinition, EnvironmentalVariableDelivery, SpatiotemporalExposure, CovariateCalculation, ExternalExposureLinkage, Program, Project, AgentAssociation, FundingSource, HEWResource, Distribution, DataDictionary, Variable, Agent, SurveyConstruct, SurveyQuestion, Population, HEWSystematicReviewAnnotation",
+      "GridDefinition, EnvironmentalVariableDelivery, SpatiotemporalExposure, ExternalExposureLinkage, Program, Project, AgentAssociation, FundingSource, HEWResource, Distribution, DataDictionary, Variable, Agent, SurveyConstruct, SurveyQuestion, Population, HEWSystematicReviewAnnotation",
       "ProductVariable.id",
       "Declared HEW specification",
       "copy",
@@ -2573,7 +1814,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:131",
+      "assets/hew_custom.tsv:95",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/id"
     ],
     [
@@ -2596,7 +1837,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:132",
+      "assets/hew_custom.tsv:96",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/canonical_variable"
     ],
     [
@@ -2619,7 +1860,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:133",
+      "assets/hew_custom.tsv:97",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/native_name"
     ],
     [
@@ -2642,7 +1883,7 @@
       "TRUE",
       "FALSE",
       "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:134",
+      "assets/hew_custom.tsv:98",
       "assets/metadata_blocks_guidance.md"
     ],
     [
@@ -2665,76 +1906,7 @@
       "TRUE",
       "FALSE",
       "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:135",
-      "assets/metadata_blocks_guidance.md"
-    ],
-    [
-      "hewDataResource",
-      "hewDeliveryScaleFactor",
-      "hewVariableDeliveryEntry",
-      "scale_factor",
-      "Provisioned extension; HEW slot absent",
-      "",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Scale factor applied to stored values",
-      "",
-      "Example scale factor",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "",
-      "float",
-      "FALSE",
-      "FALSE",
-      "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:136",
-      "assets/metadata_blocks_guidance.md"
-    ],
-    [
-      "hewDataResource",
-      "hewDeliveryOffset",
-      "hewVariableDeliveryEntry",
-      "offset",
-      "Provisioned extension; HEW slot absent",
-      "",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Offset applied to stored values",
-      "",
-      "Example value offset",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "",
-      "float",
-      "FALSE",
-      "FALSE",
-      "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:137",
-      "assets/metadata_blocks_guidance.md"
-    ],
-    [
-      "hewDataResource",
-      "hewDeliveryMissingValueSentinel",
-      "hewVariableDeliveryEntry",
-      "missing_value_sentinel",
-      "Provisioned extension; HEW slot absent",
-      "",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Stored value or code used to represent missing values",
-      "",
-      "Example missing value sentinel",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "",
-      "text",
-      "TRUE",
-      "FALSE",
-      "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:138",
+      "assets/hew_custom.tsv:99",
       "assets/metadata_blocks_guidance.md"
     ],
     [
@@ -2743,7 +1915,7 @@
       "hewVariableDeliveryEntry",
       "variable_deliveries.aggregation_method",
       "Schema field",
-      "EnvironmentalVariableDelivery, EnvironmentalVariable, SpatiotemporalExposure, CovariateCalculation",
+      "EnvironmentalVariableDelivery, EnvironmentalVariable, SpatiotemporalExposure",
       "ProductVariable.aggregation_method",
       "Declared HEW specification",
       "copy",
@@ -2757,31 +1929,8 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:139",
+      "assets/hew_custom.tsv:100",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/aggregation_method"
-    ],
-    [
-      "hewDataResource",
-      "hewDeliveryCfCellMethods",
-      "hewVariableDeliveryEntry",
-      "variable_deliveries.cf_cell_methods",
-      "Schema field",
-      "EnvironmentalVariableDelivery",
-      "ProductVariable.cf_cell_methods",
-      "Declared HEW specification",
-      "copy",
-      "Climate and Forecast cell_methods string when applicable",
-      "Climate and Forecast conventions cell_methods text describing how values represent or summarize cells.",
-      "Example cf cell methods",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared; amadeus:cf_cell_methods",
-      "string",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:140",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/cf_cell_methods"
     ],
     [
       "hewDataResource",
@@ -2803,7 +1952,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:141",
+      "assets/hew_custom.tsv:101",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/support_type"
     ],
     [
@@ -2826,7 +1975,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:142",
+      "assets/hew_custom.tsv:102",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/spatial_resolution"
     ],
     [
@@ -2849,31 +1998,8 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:143",
+      "assets/hew_custom.tsv:103",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/coordinate_reference_system_uri"
-    ],
-    [
-      "hewDataResource",
-      "hewDeliveryGridDefinitionId",
-      "hewVariableDeliveryEntry",
-      "variable_deliveries.spatial_support.grid_definition",
-      "Schema field",
-      "GeospatialResource, SpatialSupport",
-      "GridCellValue, Product.grid_definition",
-      "Candidate; semantic review required",
-      "Review entity grain and semantics before copying",
-      "Identifier for a detailed grid definition in hewGridDefinition",
-      "Embedded reusable grid definition carrying a stable identifier.",
-      "Example grid definition identifier",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared; amadeus:grid_definition",
-      "GridDefinition",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:144",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/grid_definition"
     ],
     [
       "hewDataResource",
@@ -2895,7 +2021,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:145",
+      "assets/hew_custom.tsv:104",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/temporal_resolution"
     ],
     [
@@ -2918,7 +2044,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:146",
+      "assets/hew_custom.tsv:105",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/aggregation_window"
     ],
     [
@@ -2941,7 +2067,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:147",
+      "assets/hew_custom.tsv:106",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/temporal_alignment"
     ],
     [
@@ -2964,7 +2090,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:148",
+      "assets/hew_custom.tsv:107",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/day_boundary_convention"
     ],
     [
@@ -2987,7 +2113,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:149",
+      "assets/hew_custom.tsv:108",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/calendar"
     ],
     [
@@ -3010,7 +2136,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:150",
+      "assets/hew_custom.tsv:109",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/timezone"
     ],
     [
@@ -3033,7 +2159,7 @@
       "TRUE",
       "FALSE",
       "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:151",
+      "assets/hew_custom.tsv:110",
       "assets/metadata_blocks_guidance.md"
     ],
     [
@@ -3056,7 +2182,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:152",
+      "assets/hew_custom.tsv:111",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/distributions"
     ],
     [
@@ -3065,7 +2191,7 @@
       "hewDistributionEntry",
       "distributions.id",
       "Schema field",
-      "GridDefinition, EnvironmentalVariableDelivery, SpatiotemporalExposure, CovariateCalculation, ExternalExposureLinkage, Program, Project, AgentAssociation, FundingSource, HEWResource, Distribution, DataDictionary, Variable, Agent, SurveyConstruct, SurveyQuestion, Population, HEWSystematicReviewAnnotation",
+      "GridDefinition, EnvironmentalVariableDelivery, SpatiotemporalExposure, ExternalExposureLinkage, Program, Project, AgentAssociation, FundingSource, HEWResource, Distribution, DataDictionary, Variable, Agent, SurveyConstruct, SurveyQuestion, Population, HEWSystematicReviewAnnotation",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
@@ -3079,7 +2205,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:153",
+      "assets/hew_custom.tsv:112",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/id"
     ],
     [
@@ -3102,7 +2228,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:154",
+      "assets/hew_custom.tsv:113",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/title"
     ],
     [
@@ -3125,7 +2251,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:155",
+      "assets/hew_custom.tsv:114",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/url"
     ],
     [
@@ -3148,7 +2274,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:156",
+      "assets/hew_custom.tsv:115",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/media_type"
     ],
     [
@@ -3171,7 +2297,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:157",
+      "assets/hew_custom.tsv:116",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/format"
     ],
     [
@@ -3194,7 +2320,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:158",
+      "assets/hew_custom.tsv:117",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/variables"
     ],
     [
@@ -3215,9 +2341,9 @@
       "string",
       "text",
       "FALSE",
-      "TRUE",
+      "FALSE",
       "",
-      "assets/hew_custom.tsv:159",
+      "assets/hew_custom.tsv:118",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/version"
     ],
     [
@@ -3240,7 +2366,7 @@
       "TRUE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:160",
+      "assets/hew_custom.tsv:119",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/survey_constructs"
     ],
     [
@@ -3263,7 +2389,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:161",
+      "assets/hew_custom.tsv:120",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/survey_questions"
     ],
     [
@@ -3284,9 +2410,9 @@
       "Population",
       "text",
       "FALSE",
-      "TRUE",
+      "FALSE",
       "",
-      "assets/hew_custom.tsv:162",
+      "assets/hew_custom.tsv:121",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/target_population"
     ],
     [
@@ -3309,7 +2435,7 @@
       "TRUE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:163",
+      "assets/hew_custom.tsv:122",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/population_tags"
     ],
     [
@@ -3332,7 +2458,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:164",
+      "assets/hew_custom.tsv:123",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/administered_by"
     ],
     [
@@ -3355,7 +2481,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:165",
+      "assets/hew_custom.tsv:124",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/administration_mode"
     ],
     [
@@ -3376,9 +2502,9 @@
       "string",
       "text",
       "FALSE",
-      "TRUE",
+      "FALSE",
       "",
-      "assets/hew_custom.tsv:166",
+      "assets/hew_custom.tsv:125",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/administration_time"
     ],
     [
@@ -3399,9 +2525,9 @@
       "EaseOfUseEnum",
       "text",
       "FALSE",
-      "TRUE",
+      "FALSE",
       "",
-      "assets/hew_custom.tsv:167",
+      "assets/hew_custom.tsv:126",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/ease_of_use"
     ],
     [
@@ -3424,7 +2550,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:168",
+      "assets/hew_custom.tsv:127",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/electronic_data_capture"
     ],
     [
@@ -3445,9 +2571,9 @@
       "float",
       "float",
       "FALSE",
-      "TRUE",
+      "FALSE",
       "",
-      "assets/hew_custom.tsv:169",
+      "assets/hew_custom.tsv:128",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/readability_level"
     ],
     [
@@ -3468,9 +2594,9 @@
       "string",
       "text",
       "FALSE",
-      "TRUE",
+      "FALSE",
       "",
-      "assets/hew_custom.tsv:170",
+      "assets/hew_custom.tsv:129",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/question_count"
     ],
     [
@@ -3493,7 +2619,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:171",
+      "assets/hew_custom.tsv:130",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/cde_integration"
     ],
     [
@@ -3514,9 +2640,9 @@
       "uriorcurie",
       "text",
       "TRUE",
-      "TRUE",
+      "FALSE",
       "",
-      "assets/hew_custom.tsv:172",
+      "assets/hew_custom.tsv:131",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/adapted_from"
     ],
     [
@@ -3537,194 +2663,10 @@
       "uriorcurie",
       "text",
       "TRUE",
-      "TRUE",
+      "FALSE",
       "",
-      "assets/hew_custom.tsv:173",
+      "assets/hew_custom.tsv:132",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/research_program"
-    ],
-    [
-      "hewProvenance",
-      "hewAgentIdentifier",
-      "",
-      "agent_associations.agent",
-      "Schema field",
-      "AgentAssociation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Identifier for a person, organization, or software agent",
-      "Identifier of the person, organization, or software agent holding the role in this association.",
-      "Example agent identifier",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared; prov:agent",
-      "Agent",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:174",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/agent"
-    ],
-    [
-      "hewProvenance",
-      "hewAssociatedEntity",
-      "",
-      "agent_associations.associated_with",
-      "Schema field",
-      "AgentAssociation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Identifier for the entity associated with the agent",
-      "CURIE for the program, project, resource, annotation, activity, or funding source.",
-      "Example associated entity",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "uriorcurie",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:175",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/associated_with"
-    ],
-    [
-      "hewProvenance",
-      "hewAgentRole",
-      "",
-      "agent_associations.role",
-      "Schema field",
-      "AgentAssociation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Role played by the agent in relation to the associated entity",
-      "Function performed by the agent with respect to the association's target entity.",
-      "Author",
-      "Illustrative (not an observed record)",
-      "CAFE local controlled vocabulary (7 values); see Controlled values",
-      "AgentRoleEnum",
-      "text",
-      "FALSE",
-      "TRUE",
-      "",
-      "assets/hew_custom.tsv:176",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/role"
-    ],
-    [
-      "hewProvenance",
-      "hewAssociationStartDate",
-      "",
-      "agent_associations.start_date",
-      "Schema field",
-      "Program, Project, AgentAssociation, FundingSource",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Start date of the role or association",
-      "Date on which the program, project, or agent role begins.",
-      "Example association start date",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared; schema:startDate",
-      "date",
-      "date",
-      "FALSE",
-      "TRUE",
-      "",
-      "assets/hew_custom.tsv:177",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/start_date"
-    ],
-    [
-      "hewProvenance",
-      "hewAssociationEndDate",
-      "",
-      "agent_associations.end_date",
-      "Schema field",
-      "Program, Project, AgentAssociation, FundingSource",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "End date of the role or association",
-      "Date on which the program, project, or agent role ends.",
-      "Example association end date",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared; schema:endDate",
-      "date",
-      "date",
-      "FALSE",
-      "TRUE",
-      "",
-      "assets/hew_custom.tsv:178",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/end_date"
-    ],
-    [
-      "hewProvenance",
-      "hewAffiliationContext",
-      "",
-      "agent_associations.affiliation_context",
-      "Provisioned extension; HEW slot absent",
-      "",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Affiliation or organizational context for the association",
-      "",
-      "Example affiliation context",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "",
-      "text",
-      "FALSE",
-      "FALSE",
-      "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:179",
-      "assets/metadata_blocks_guidance.md"
-    ],
-    [
-      "hewProvenance",
-      "hewContributionDescription",
-      "",
-      "agent_associations.contribution_description",
-      "Schema field",
-      "AgentAssociation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Description of the agent contribution",
-      "Free-text explanation of the agent's contribution in this association.",
-      "Example contribution description",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "string",
-      "textbox",
-      "FALSE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:180",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/contribution_description"
-    ],
-    [
-      "hewProvenance",
-      "hewProvenanceSource",
-      "",
-      "agent_associations.source",
-      "Schema field",
-      "AgentAssociation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "URI or CURIE of the source supporting the association; use a named entity reference for a plain citation or description",
-      "Identifier of the source supporting or documenting the agent association.",
-      "Example provenance source",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "uriorcurie",
-      "text",
-      "TRUE",
-      "TRUE",
-      "",
-      "assets/hew_custom.tsv:181",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/source"
     ],
     [
       "hewSoftware",
@@ -3746,7 +2688,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:182",
+      "assets/hew_custom.tsv:133",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_resources.yaml#slots/programming_language"
     ],
     [
@@ -3769,7 +2711,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:183",
+      "assets/hew_custom.tsv:134",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_resources.yaml#slots/software_type"
     ],
     [
@@ -3792,7 +2734,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:184",
+      "assets/hew_custom.tsv:135",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_resources.yaml#slots/maintainers"
     ],
     [
@@ -3815,7 +2757,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:185",
+      "assets/hew_custom.tsv:136",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_resources.yaml#slots/model_type"
     ],
     [
@@ -3838,7 +2780,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:186",
+      "assets/hew_custom.tsv:137",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/input_variables"
     ],
     [
@@ -3847,7 +2789,7 @@
       "",
       "output_variables",
       "Schema field",
-      "CovariateCalculation, ModelResource, ToolResource",
+      "ModelResource, ToolResource",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
@@ -3861,7 +2803,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:187",
+      "assets/hew_custom.tsv:138",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/output_variables"
     ],
     [
@@ -3884,7 +2826,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:188",
+      "assets/hew_custom.tsv:139",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_resources.yaml#slots/tool_type"
     ],
     [
@@ -3907,7 +2849,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:189",
+      "assets/hew_custom.tsv:140",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_resources.yaml#slots/maintainers"
     ],
     [
@@ -3930,7 +2872,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:190",
+      "assets/hew_custom.tsv:141",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/input_variables"
     ],
     [
@@ -3939,7 +2881,7 @@
       "",
       "output_variables",
       "Schema field",
-      "CovariateCalculation, ModelResource, ToolResource",
+      "ModelResource, ToolResource",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
@@ -3953,7 +2895,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:191",
+      "assets/hew_custom.tsv:142",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/output_variables"
     ],
     [
@@ -3976,7 +2918,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:192",
+      "assets/hew_custom.tsv:143",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_resources.yaml#slots/collection_members"
     ],
     [
@@ -3999,7 +2941,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:193",
+      "assets/hew_custom.tsv:144",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_resources.yaml#slots/collection_scope"
     ],
     [
@@ -4022,7 +2964,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:194",
+      "assets/hew_custom.tsv:145",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_resources.yaml#slots/curator"
     ],
     [
@@ -4045,7 +2987,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:195",
+      "assets/hew_custom.tsv:146",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_resources.yaml#slots/source_project"
     ],
     [
@@ -4068,7 +3010,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:196",
+      "assets/hew_custom.tsv:147",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/version"
     ],
     [
@@ -4091,7 +3033,7 @@
       "FALSE",
       "TRUE",
       "",
-      "assets/hew_custom.tsv:197",
+      "assets/hew_custom.tsv:148",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/status"
     ],
     [
@@ -4114,7 +3056,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:198",
+      "assets/hew_custom.tsv:149",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/part_of_programs"
     ],
     [
@@ -4137,7 +3079,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:199",
+      "assets/hew_custom.tsv:150",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/sponsoring_organizations"
     ],
     [
@@ -4160,7 +3102,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:200",
+      "assets/hew_custom.tsv:151",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/uses_resources"
     ],
     [
@@ -4183,7 +3125,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:201",
+      "assets/hew_custom.tsv:152",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/produces_resources"
     ],
     [
@@ -4206,7 +3148,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:202",
+      "assets/hew_custom.tsv:153",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_projects.yaml#slots/funding_mechanism"
     ],
     [
@@ -4229,7 +3171,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:203",
+      "assets/hew_custom.tsv:154",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/exposure_variable"
     ],
     [
@@ -4252,7 +3194,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:204",
+      "assets/hew_custom.tsv:155",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/source_dataset"
     ],
     [
@@ -4275,7 +3217,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:205",
+      "assets/hew_custom.tsv:156",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/source_variables"
     ],
     [
@@ -4298,7 +3240,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:206",
+      "assets/hew_custom.tsv:157",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/value_specification"
     ],
     [
@@ -4321,7 +3263,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:207",
+      "assets/hew_custom.tsv:158",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/population_or_cohort"
     ],
     [
@@ -4344,7 +3286,7 @@
       "FALSE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:208",
+      "assets/hew_custom.tsv:159",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/uncertainty"
     ],
     [
@@ -4367,261 +3309,8 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:209",
+      "assets/hew_custom.tsv:160",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/quality_flags"
-    ],
-    [
-      "hewCalculation",
-      "hewCalculationMethod",
-      "",
-      "method_type",
-      "Schema field",
-      "CovariateCalculation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Method Type",
-      "Category of method used to calculate or assign the covariate.",
-      "buffer_extraction",
-      "Illustrative (not an observed record)",
-      "HEW enum: CovariateCalculationMethodEnum",
-      "CovariateCalculationMethodEnum",
-      "text",
-      "FALSE",
-      "TRUE",
-      "",
-      "assets/hew_custom.tsv:210",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/method_type"
-    ],
-    [
-      "hewCalculation",
-      "hewCalculationSoftware",
-      "",
-      "software",
-      "Schema field",
-      "SpatiotemporalExposure, CovariateCalculation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Software Identifier",
-      "Software resource or software agent used to generate the exposure.",
-      "Example software identifier",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "uriorcurie",
-      "text",
-      "FALSE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:211",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/software"
-    ],
-    [
-      "hewCalculation",
-      "hewCalculationSoftwareVersion",
-      "",
-      "software_version",
-      "Schema field",
-      "SpatiotemporalExposure, CovariateCalculation, SoftwareAgent",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Software Version",
-      "Version of the software used or described.",
-      "Example software version",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared; schema:softwareVersion",
-      "string",
-      "text",
-      "FALSE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:212",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/software_version"
-    ],
-    [
-      "hewCalculation",
-      "hewCalculationFunction",
-      "",
-      "function_name",
-      "Schema field",
-      "CovariateCalculation",
-      "ToolRun.function_name",
-      "Candidate; semantic review required",
-      "Review entity grain and semantics before copying",
-      "Function Name",
-      "Name of the function or workflow step used to derive the covariate.",
-      "Example function name",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "string",
-      "text",
-      "FALSE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:213",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/function_name"
-    ],
-    [
-      "hewCalculation",
-      "hewCalculationParameter",
-      "",
-      "parameters",
-      "Schema field",
-      "CovariateCalculation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Parameter JSON",
-      "Named parameter values supplied to the calculation or workflow.",
-      "{\"id\":\"hew:example\"}",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "ParameterValue",
-      "textbox",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:214",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/parameters"
-    ],
-    [
-      "hewCalculation",
-      "hewCalculationInput",
-      "",
-      "input_resources",
-      "Schema field",
-      "CovariateCalculation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Input Resource Identifier",
-      "Identifiers of datasets or other resources consumed by the calculation.",
-      "Example input resource identifier",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "uriorcurie",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:215",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/input_resources"
-    ],
-    [
-      "hewCalculation",
-      "hewCalculationOutput",
-      "",
-      "output_variables",
-      "Schema field",
-      "CovariateCalculation, ModelResource, ToolResource",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Output Variable Identifier",
-      "Names or descriptions of variables produced by the model, tool, or calculation.",
-      "Example output variable identifier",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "string",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:216",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/output_variables"
-    ],
-    [
-      "hewCalculation",
-      "hewSpatialJoinMethod",
-      "",
-      "spatial_join_method",
-      "Schema field",
-      "CovariateCalculation, ExternalExposureLinkage",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Spatial Join Method",
-      "Spatial matching rule used to link input data to target locations or areas.",
-      "within",
-      "Illustrative (not an observed record)",
-      "HEW enum: SpatialJoinMethodEnum",
-      "SpatialJoinMethodEnum",
-      "text",
-      "FALSE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:217",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/spatial_join_method"
-    ],
-    [
-      "hewCalculation",
-      "hewTemporalJoinMethod",
-      "",
-      "temporal_join_method",
-      "Schema field",
-      "CovariateCalculation, ExternalExposureLinkage",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Temporal Join Method",
-      "Temporal matching rule used to align input data with target dates or intervals.",
-      "exact_date",
-      "Illustrative (not an observed record)",
-      "HEW enum: TemporalJoinMethodEnum",
-      "TemporalJoinMethodEnum",
-      "text",
-      "FALSE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:218",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/temporal_join_method"
-    ],
-    [
-      "hewCalculation",
-      "hewExtractionMethod",
-      "",
-      "extraction_method",
-      "Schema field",
-      "CovariateCalculation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Extraction Method",
-      "Method used to extract or summarize source values for the target geography.",
-      "point_sample",
-      "Illustrative (not an observed record)",
-      "HEW enum: ExtractionMethodEnum",
-      "ExtractionMethodEnum",
-      "text",
-      "FALSE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:219",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/extraction_method"
-    ],
-    [
-      "hewCalculation",
-      "hewCalculationTemporalWindow",
-      "",
-      "temporal_window",
-      "Schema field",
-      "CovariateCalculation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Temporal Window",
-      "ISO 8601 duration or human-readable temporal window.",
-      "Example temporal window",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "string",
-      "text",
-      "FALSE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:220",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/temporal_window"
     ],
     [
       "hewDataResource",
@@ -4643,7 +3332,7 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:221",
+      "assets/hew_custom.tsv:161",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/survey_instruments"
     ],
     [
@@ -4666,114 +3355,22 @@
       "TRUE",
       "FALSE",
       "",
-      "assets/hew_custom.tsv:222",
+      "assets/hew_custom.tsv:162",
       "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_survey.yaml#slots/population"
     ],
     [
-      "hewDataResource",
-      "hewVariableDefinition",
+      "hewCalculation",
+      "hewProcessingMethod",
       "",
-      "variables",
-      "Schema field",
-      "DataDictionary",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Variable Definition JSON",
-      "Variable definitions included in the data dictionary.",
-      "{\"id\":\"hew:example\"}",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "Variable",
-      "textbox",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:223",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/variables"
-    ],
-    [
-      "hewDataResource",
-      "hewVariableDelivery",
-      "",
-      "variable_deliveries",
-      "Schema field",
-      "GeospatialResource",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Variable Delivery JSON",
-      "Source-specific variable representations, including native names and any support overrides.",
-      "{\"id\":\"hew:example\"}",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "EnvironmentalVariableDelivery",
-      "textbox",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:224",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_ext_geospatial.yaml#slots/variable_deliveries"
-    ],
-    [
-      "hewDataResource",
-      "hewDistribution",
-      "",
-      "distributions",
-      "Schema field",
-      "HEWResource",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Distribution JSON",
-      "Available files, services, or other accessible representations of the resource.",
-      "{\"id\":\"hew:example\"}",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared; dcat:distribution",
-      "Distribution",
-      "textbox",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:225",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/distributions"
-    ],
-    [
-      "hewReview",
-      "hewAnnotationIdentifier",
-      "",
-      "annotations.id",
-      "Schema field",
-      "GridDefinition, EnvironmentalVariableDelivery, SpatiotemporalExposure, CovariateCalculation, ExternalExposureLinkage, Program, Project, AgentAssociation, FundingSource, HEWResource, Distribution, DataDictionary, Variable, Agent, SurveyConstruct, SurveyQuestion, Population, HEWSystematicReviewAnnotation",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Identifier of the source review annotation",
-      "Stable URI or CURIE identifying this entity.",
-      "hew:example-resource",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "uriorcurie",
-      "text",
-      "TRUE",
-      "FALSE",
-      "",
-      "assets/hew_custom.tsv:226",
-      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/id"
-    ],
-    [
-      "hewEntityReferences",
-      "hewEntityReference",
-      "",
-      "entity_reference",
+      "processing_method",
       "Provisioned extension; HEW slot absent",
       "",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
-      "A relation with its optional entity identifier, name, or description.",
+      "A brief description of how the resource was produced, with software and a link to detailed provenance.",
       "",
-      "Example named entity reference",
+      "Example processing method",
       "Illustrative (not an observed record)",
       "Free text / identifier; no controlled vocabulary declared",
       "",
@@ -4781,22 +3378,22 @@
       "TRUE",
       "FALSE",
       "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:227",
+      "assets/hew_custom.tsv:163",
       "assets/metadata_blocks_guidance.md"
     ],
     [
-      "hewEntityReferences",
-      "hewReferenceRelation",
-      "hewEntityReference",
-      "reference_relation",
+      "hewCalculation",
+      "hewMethodName",
+      "hewProcessingMethod",
+      "method_name",
       "Provisioned extension; HEW slot absent",
       "",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
-      "Relationship of the named entity to the resource or provenance record.",
+      "Plain name of the processing or derivation method.",
       "",
-      "Example relation",
+      "Example method name",
       "Illustrative (not an observed record)",
       "Free text / identifier; no controlled vocabulary declared",
       "",
@@ -4804,68 +3401,22 @@
       "FALSE",
       "FALSE",
       "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:228",
+      "assets/hew_custom.tsv:164",
       "assets/metadata_blocks_guidance.md"
     ],
     [
-      "hewEntityReferences",
-      "hewReferenceIdentifier",
-      "hewEntityReference",
-      "reference_identifier",
+      "hewCalculation",
+      "hewMethodDescription",
+      "hewProcessingMethod",
+      "method_description",
       "Provisioned extension; HEW slot absent",
       "",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
-      "Optional URI or CURIE; names and citations belong in separate text fields.",
+      "Summary of how the resource was produced.",
       "",
-      "Example entity identifier",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "",
-      "text",
-      "FALSE",
-      "FALSE",
-      "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:229",
-      "assets/metadata_blocks_guidance.md"
-    ],
-    [
-      "hewEntityReferences",
-      "hewReferenceName",
-      "hewEntityReference",
-      "reference_name",
-      "Provisioned extension; HEW slot absent",
-      "",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Plain entity name; no identifier is required.",
-      "",
-      "Example entity name",
-      "Illustrative (not an observed record)",
-      "Free text / identifier; no controlled vocabulary declared",
-      "",
-      "text",
-      "FALSE",
-      "FALSE",
-      "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:230",
-      "assets/metadata_blocks_guidance.md"
-    ],
-    [
-      "hewEntityReferences",
-      "hewReferenceDescription",
-      "hewEntityReference",
-      "reference_description",
-      "Provisioned extension; HEW slot absent",
-      "",
-      "No declared Amadeus mapping",
-      "No declared mapping",
-      "",
-      "Free-text description or citation for the referenced entity.",
-      "",
-      "Example entity description",
+      "Example method description",
       "Illustrative (not an observed record)",
       "Free text / identifier; no controlled vocabulary declared",
       "",
@@ -4873,22 +3424,22 @@
       "FALSE",
       "FALSE",
       "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:231",
+      "assets/hew_custom.tsv:165",
       "assets/metadata_blocks_guidance.md"
     ],
     [
-      "hewEntityReferences",
-      "hewReferenceAwardNumber",
-      "hewEntityReference",
-      "reference_award_number",
+      "hewCalculation",
+      "hewMethodSoftwareIdentifier",
+      "hewProcessingMethod",
+      "method_software_identifier",
       "Provisioned extension; HEW slot absent",
       "",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
-      "Funding award number; distinct from the entity identifier.",
+      "Optional URI or CURIE of the software.",
       "",
-      "Example award number",
+      "Example software identifier",
       "Illustrative (not an observed record)",
       "Free text / identifier; no controlled vocabulary declared",
       "",
@@ -4896,22 +3447,22 @@
       "FALSE",
       "FALSE",
       "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:232",
+      "assets/hew_custom.tsv:166",
       "assets/metadata_blocks_guidance.md"
     ],
     [
-      "hewEntityReferences",
-      "hewReferenceFunderName",
-      "hewEntityReference",
-      "reference_funder_name",
+      "hewCalculation",
+      "hewMethodSoftwareName",
+      "hewProcessingMethod",
+      "method_software_name",
       "Provisioned extension; HEW slot absent",
       "",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
-      "Plain name of the funding organization.",
+      "Plain name of the software.",
       "",
-      "Example funder name",
+      "Example software name",
       "Illustrative (not an observed record)",
       "Free text / identifier; no controlled vocabulary declared",
       "",
@@ -4919,22 +3470,45 @@
       "FALSE",
       "FALSE",
       "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:233",
+      "assets/hew_custom.tsv:167",
       "assets/metadata_blocks_guidance.md"
     ],
     [
-      "hewEntityReferences",
-      "hewReferenceEmail",
-      "hewEntityReference",
-      "reference_email",
+      "hewCalculation",
+      "hewMethodSoftwareDescription",
+      "hewProcessingMethod",
+      "method_software_description",
       "Provisioned extension; HEW slot absent",
       "",
       "No declared Amadeus mapping",
       "No declared mapping",
       "",
-      "Optional email address for the referenced entity.",
+      "Description of the software when a name or identifier is unavailable.",
       "",
-      "Example contact email",
+      "Example software description",
+      "Illustrative (not an observed record)",
+      "Free text / identifier; no controlled vocabulary declared",
+      "",
+      "textbox",
+      "FALSE",
+      "FALSE",
+      "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
+      "assets/hew_custom.tsv:168",
+      "assets/metadata_blocks_guidance.md"
+    ],
+    [
+      "hewCalculation",
+      "hewMethodSoftwareVersion",
+      "hewProcessingMethod",
+      "method_software_version",
+      "Provisioned extension; HEW slot absent",
+      "",
+      "No declared Amadeus mapping",
+      "No declared mapping",
+      "",
+      "Version of the software used.",
+      "",
+      "Example software version",
       "Illustrative (not an observed record)",
       "Free text / identifier; no controlled vocabulary declared",
       "",
@@ -4942,7 +3516,122 @@
       "FALSE",
       "FALSE",
       "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
-      "assets/hew_custom.tsv:234",
+      "assets/hew_custom.tsv:169",
+      "assets/metadata_blocks_guidance.md"
+    ],
+    [
+      "hewCalculation",
+      "hewMethodProvenanceIdentifier",
+      "hewProcessingMethod",
+      "method_provenance_identifier",
+      "Provisioned extension; HEW slot absent",
+      "",
+      "No declared Amadeus mapping",
+      "No declared mapping",
+      "",
+      "Optional URI or CURIE linking to detailed external provenance.",
+      "",
+      "Example provenance reference",
+      "Illustrative (not an observed record)",
+      "Free text / identifier; no controlled vocabulary declared",
+      "",
+      "text",
+      "FALSE",
+      "FALSE",
+      "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
+      "assets/hew_custom.tsv:170",
+      "assets/metadata_blocks_guidance.md"
+    ],
+    [
+      "hewCalculation",
+      "hewMethodProvenanceName",
+      "hewProcessingMethod",
+      "method_provenance_name",
+      "Provisioned extension; HEW slot absent",
+      "",
+      "No declared Amadeus mapping",
+      "No declared mapping",
+      "",
+      "Plain name of the external provenance record.",
+      "",
+      "Example provenance name",
+      "Illustrative (not an observed record)",
+      "Free text / identifier; no controlled vocabulary declared",
+      "",
+      "text",
+      "FALSE",
+      "FALSE",
+      "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
+      "assets/hew_custom.tsv:171",
+      "assets/metadata_blocks_guidance.md"
+    ],
+    [
+      "hewCalculation",
+      "hewMethodProvenanceDescription",
+      "hewProcessingMethod",
+      "method_provenance_description",
+      "Provisioned extension; HEW slot absent",
+      "",
+      "No declared Amadeus mapping",
+      "No declared mapping",
+      "",
+      "Description or citation for the external provenance record.",
+      "",
+      "Example provenance description",
+      "Illustrative (not an observed record)",
+      "Free text / identifier; no controlled vocabulary declared",
+      "",
+      "textbox",
+      "FALSE",
+      "FALSE",
+      "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
+      "assets/hew_custom.tsv:172",
+      "assets/metadata_blocks_guidance.md"
+    ],
+    [
+      "hewGeospatial",
+      "hewSpatialResolution",
+      "",
+      "spatial_resolution",
+      "Schema field",
+      "GeospatialResource, SpatialSupport, SpatialExtent",
+      "Product.native_spatial_resolution_descriptor",
+      "Declared HEW specification",
+      "copy",
+      "Human-readable resolution summary; detailed grids and support remain in source metadata.",
+      "Human-readable native resolution, such as 1 km or census tract.",
+      "Example spatial resolution",
+      "Illustrative (not an observed record)",
+      "Free text / identifier; no controlled vocabulary declared; amadeus:native_spatial_resolution_descriptor",
+      "string",
+      "text",
+      "TRUE",
+      "FALSE",
+      "",
+      "assets/hew_custom.tsv:173",
+      "HEW_Catalog_Data_Model/hew-model/schema/modules/hew_core.yaml#slots/spatial_resolution"
+    ],
+    [
+      "hewGeospatial",
+      "hewSpatialSupportType",
+      "",
+      "spatial_support_type",
+      "Provisioned extension; HEW slot absent",
+      "",
+      "No declared Amadeus mapping",
+      "No declared mapping",
+      "",
+      "Category of spatial unit represented by a dataset value, such as point or raster grid cell.",
+      "",
+      "Example spatial support type",
+      "Illustrative (not an observed record)",
+      "Free text / identifier; no controlled vocabulary declared",
+      "",
+      "text",
+      "TRUE",
+      "FALSE",
+      "No matching slot in the local HEW 2.0.0 schema. Preserve source JSON; needs model alignment.",
+      "assets/hew_custom.tsv:174",
       "assets/metadata_blocks_guidance.md"
     ],
     [
@@ -5707,778 +4396,466 @@
   ],
   "cv": [
     [
-      "hewReferenceType",
-      "research_article",
-      "hew_reference_research_article",
-      "assets/hew_custom.tsv:236"
-    ],
-    [
-      "hewReferenceType",
-      "review_article",
-      "hew_reference_review_article",
-      "assets/hew_custom.tsv:237"
-    ],
-    [
-      "hewReferenceType",
-      "commentary_opinion",
-      "hew_reference_commentary_opinion",
-      "assets/hew_custom.tsv:238"
-    ],
-    [
-      "hewReferenceType",
-      "assessment_book_report",
-      "hew_reference_assessment_book_report",
-      "assets/hew_custom.tsv:239"
-    ],
-    [
       "hewResourceType",
       "Literature resource",
       "hew_resource_literature",
-      "assets/hew_custom.tsv:240"
+      "assets/hew_custom.tsv:176"
     ],
     [
       "hewResourceType",
       "Dataset resource",
       "hew_resource_dataset",
-      "assets/hew_custom.tsv:241"
+      "assets/hew_custom.tsv:177"
     ],
     [
       "hewResourceType",
       "Cohort resource",
       "hew_resource_cohort",
-      "assets/hew_custom.tsv:242"
+      "assets/hew_custom.tsv:178"
     ],
     [
       "hewResourceType",
       "Survey instrument",
       "hew_resource_survey",
-      "assets/hew_custom.tsv:243"
+      "assets/hew_custom.tsv:179"
     ],
     [
       "hewResourceType",
       "Software/code library",
       "hew_resource_software_code_library",
-      "assets/hew_custom.tsv:244"
+      "assets/hew_custom.tsv:180"
     ],
     [
       "hewResourceType",
       "Model resource",
       "hew_resource_model",
-      "assets/hew_custom.tsv:245"
+      "assets/hew_custom.tsv:181"
     ],
     [
       "hewResourceType",
       "Geospatial dataset",
       "hew_resource_geospatial_dataset",
-      "assets/hew_custom.tsv:246"
+      "assets/hew_custom.tsv:182"
     ],
     [
       "hewResourceType",
       "Exposome dataset",
       "hew_resource_exposome_dataset",
-      "assets/hew_custom.tsv:247"
+      "assets/hew_custom.tsv:183"
     ],
     [
       "hewResourceType",
       "Source cohort publication",
       "hew_resource_source_cohort_publication",
-      "assets/hew_custom.tsv:248"
+      "assets/hew_custom.tsv:184"
     ],
     [
       "hewResourceType",
       "Tool resource",
       "hew_resource_tool",
-      "assets/hew_custom.tsv:249"
+      "assets/hew_custom.tsv:185"
     ],
     [
       "hewResourceType",
       "Tutorial",
       "hew_resource_tutorial",
-      "assets/hew_custom.tsv:250"
+      "assets/hew_custom.tsv:186"
     ],
     [
       "hewResourceType",
       "Notebook",
       "hew_resource_notebook",
-      "assets/hew_custom.tsv:251"
+      "assets/hew_custom.tsv:187"
     ],
     [
       "hewResourceType",
       "Data dictionary",
       "hew_resource_data_dictionary",
-      "assets/hew_custom.tsv:252"
+      "assets/hew_custom.tsv:188"
     ],
     [
       "hewResourceType",
       "Program",
       "hew_resource_program",
-      "assets/hew_custom.tsv:253"
+      "assets/hew_custom.tsv:189"
     ],
     [
       "hewResourceType",
       "Project",
       "hew_resource_project",
-      "assets/hew_custom.tsv:254"
+      "assets/hew_custom.tsv:190"
     ],
     [
       "hewResourceType",
       "Funding source",
       "hew_resource_funding_source",
-      "assets/hew_custom.tsv:255"
+      "assets/hew_custom.tsv:191"
     ],
     [
       "hewResourceType",
       "Other resource",
       "hew_resource_other",
-      "assets/hew_custom.tsv:256"
-    ],
-    [
-      "hewPublicationType",
-      "research_article",
-      "hew_publication_research_article",
-      "assets/hew_custom.tsv:257"
-    ],
-    [
-      "hewPublicationType",
-      "review_article",
-      "hew_publication_review_article",
-      "assets/hew_custom.tsv:258"
-    ],
-    [
-      "hewPublicationType",
-      "commentary_opinion",
-      "hew_publication_commentary_opinion",
-      "assets/hew_custom.tsv:259"
-    ],
-    [
-      "hewPublicationType",
-      "assessment_book_report",
-      "hew_publication_assessment_book_report",
-      "assets/hew_custom.tsv:260"
+      "assets/hew_custom.tsv:192"
     ],
     [
       "hewGeographicFeature",
       "General geographic feature",
       "hew_geographic_general",
-      "assets/hew_custom.tsv:261"
+      "assets/hew_custom.tsv:193"
     ],
     [
       "hewGeographicFeature",
       "Built environment",
       "hew_geographic_built_environment",
-      "assets/hew_custom.tsv:262"
+      "assets/hew_custom.tsv:194"
     ],
     [
       "hewGeographicFeature",
       "Desert",
       "hew_geographic_desert",
-      "assets/hew_custom.tsv:263"
+      "assets/hew_custom.tsv:195"
     ],
     [
       "hewGeographicFeature",
       "Forest",
       "hew_geographic_forest",
-      "assets/hew_custom.tsv:264"
+      "assets/hew_custom.tsv:196"
     ],
     [
       "hewGeographicFeature",
       "Freshwater",
       "hew_geographic_freshwater",
-      "assets/hew_custom.tsv:265"
+      "assets/hew_custom.tsv:197"
     ],
     [
       "hewGeographicFeature",
       "Grassland",
       "hew_geographic_grassland",
-      "assets/hew_custom.tsv:266"
+      "assets/hew_custom.tsv:198"
     ],
     [
       "hewGeographicFeature",
       "Island",
       "hew_geographic_island",
-      "assets/hew_custom.tsv:267"
+      "assets/hew_custom.tsv:199"
     ],
     [
       "hewGeographicFeature",
       "Mountain",
       "hew_geographic_mountain",
-      "assets/hew_custom.tsv:268"
+      "assets/hew_custom.tsv:200"
     ],
     [
       "hewGeographicFeature",
       "Ocean/coastal",
       "hew_geographic_ocean_coastal",
-      "assets/hew_custom.tsv:269"
+      "assets/hew_custom.tsv:201"
     ],
     [
       "hewGeographicFeature",
       "Polar",
       "hew_geographic_polar",
-      "assets/hew_custom.tsv:270"
+      "assets/hew_custom.tsv:202"
     ],
     [
       "hewGeographicFeature",
       "Rainforest",
       "hew_geographic_rainforest",
-      "assets/hew_custom.tsv:271"
+      "assets/hew_custom.tsv:203"
     ],
     [
       "hewGeographicFeature",
       "Rural",
       "hew_geographic_rural",
-      "assets/hew_custom.tsv:272"
+      "assets/hew_custom.tsv:204"
     ],
     [
       "hewGeographicFeature",
       "Temperate",
       "hew_geographic_temperate",
-      "assets/hew_custom.tsv:273"
+      "assets/hew_custom.tsv:205"
     ],
     [
       "hewGeographicFeature",
       "Tropical",
       "hew_geographic_tropical",
-      "assets/hew_custom.tsv:274"
+      "assets/hew_custom.tsv:206"
     ],
     [
       "hewGeographicFeature",
       "Urban",
       "hew_geographic_urban",
-      "assets/hew_custom.tsv:275"
+      "assets/hew_custom.tsv:207"
     ],
     [
       "hewGeographicFeature",
       "Valley",
       "hew_geographic_valley",
-      "assets/hew_custom.tsv:276"
+      "assets/hew_custom.tsv:208"
     ],
     [
       "hewGeographicFeature",
       "Wetland",
       "hew_geographic_wetland",
-      "assets/hew_custom.tsv:277"
+      "assets/hew_custom.tsv:209"
     ],
     [
       "hewGeographicFeature",
       "Other",
       "hew_geographic_other",
-      "assets/hew_custom.tsv:278"
-    ],
-    [
-      "hewReferenceType",
-      "research_article",
-      "hew_reference_research_article",
-      "assets/hew_custom.tsv:279"
-    ],
-    [
-      "hewReferenceType",
-      "review_article",
-      "hew_reference_review_article",
-      "assets/hew_custom.tsv:280"
-    ],
-    [
-      "hewReferenceType",
-      "commentary_opinion",
-      "hew_reference_commentary_opinion",
-      "assets/hew_custom.tsv:281"
-    ],
-    [
-      "hewReferenceType",
-      "assessment_book_report",
-      "hew_reference_assessment_book_report",
-      "assets/hew_custom.tsv:282"
-    ],
-    [
-      "hewRecommendForRemoval",
-      "Yes",
-      "hew_review_yes",
-      "assets/hew_custom.tsv:283"
-    ],
-    [
-      "hewRecommendForRemoval",
-      "No",
-      "hew_review_no",
-      "assets/hew_custom.tsv:284"
-    ],
-    [
-      "hewPostpone",
-      "Yes",
-      "hew_postpone_yes",
-      "assets/hew_custom.tsv:285"
-    ],
-    [
-      "hewPostpone",
-      "No",
-      "hew_postpone_no",
-      "assets/hew_custom.tsv:286"
+      "assets/hew_custom.tsv:210"
     ],
     [
       "hewResourceStatus",
       "Active",
       "hew_status_active",
-      "assets/hew_custom.tsv:287"
+      "assets/hew_custom.tsv:211"
     ],
     [
       "hewResourceStatus",
       "Draft",
       "hew_status_draft",
-      "assets/hew_custom.tsv:288"
+      "assets/hew_custom.tsv:212"
     ],
     [
       "hewResourceStatus",
       "Archived",
       "hew_status_archived",
-      "assets/hew_custom.tsv:289"
-    ],
-    [
-      "hewAccessRights",
-      "Public",
-      "hew_access_public",
-      "assets/hew_custom.tsv:290"
-    ],
-    [
-      "hewAccessRights",
-      "Registered access",
-      "hew_access_registered",
-      "assets/hew_custom.tsv:291"
-    ],
-    [
-      "hewAccessRights",
-      "Controlled access",
-      "hew_access_controlled",
-      "assets/hew_custom.tsv:292"
-    ],
-    [
-      "hewAccessRights",
-      "Embargoed",
-      "hew_access_embargoed",
-      "assets/hew_custom.tsv:293"
-    ],
-    [
-      "hewAccessRights",
-      "Restricted",
-      "hew_access_restricted",
-      "assets/hew_custom.tsv:294"
-    ],
-    [
-      "hewAccessRights",
-      "Unknown",
-      "hew_access_unknown",
-      "assets/hew_custom.tsv:295"
-    ],
-    [
-      "hewCodingMethod",
-      "Manual",
-      "hew_coding_manual",
-      "assets/hew_custom.tsv:296"
-    ],
-    [
-      "hewCodingMethod",
-      "AI-assisted human-curated",
-      "hew_coding_ai_assisted_human_curated",
-      "assets/hew_custom.tsv:297"
-    ],
-    [
-      "hewCodingMethod",
-      "Automated",
-      "hew_coding_automated",
-      "assets/hew_custom.tsv:298"
-    ],
-    [
-      "hewInformationSource",
-      "Complete resource",
-      "hew_info_complete_resource",
-      "assets/hew_custom.tsv:299"
-    ],
-    [
-      "hewInformationSource",
-      "Abstract only",
-      "hew_info_abstract_only",
-      "assets/hew_custom.tsv:300"
-    ],
-    [
-      "hewInformationSource",
-      "Metadata only",
-      "hew_info_metadata_only",
-      "assets/hew_custom.tsv:301"
-    ],
-    [
-      "hewAggregationMethod",
-      "Instantaneous",
-      "hew_aggregation_instantaneous",
-      "assets/hew_custom.tsv:302"
-    ],
-    [
-      "hewAggregationMethod",
-      "Mean",
-      "hew_aggregation_mean",
-      "assets/hew_custom.tsv:303"
-    ],
-    [
-      "hewAggregationMethod",
-      "Maximum",
-      "hew_aggregation_maximum",
-      "assets/hew_custom.tsv:304"
-    ],
-    [
-      "hewAggregationMethod",
-      "Minimum",
-      "hew_aggregation_minimum",
-      "assets/hew_custom.tsv:305"
-    ],
-    [
-      "hewAggregationMethod",
-      "Cumulative",
-      "hew_aggregation_cumulative",
-      "assets/hew_custom.tsv:306"
-    ],
-    [
-      "hewAggregationMethod",
-      "Median",
-      "hew_aggregation_median",
-      "assets/hew_custom.tsv:307"
-    ],
-    [
-      "hewAggregationMethod",
-      "Sum",
-      "hew_aggregation_sum",
-      "assets/hew_custom.tsv:308"
-    ],
-    [
-      "hewAggregationMethod",
-      "Count",
-      "hew_aggregation_count",
-      "assets/hew_custom.tsv:309"
-    ],
-    [
-      "hewAggregationMethod",
-      "Percentile",
-      "hew_aggregation_percentile",
-      "assets/hew_custom.tsv:310"
-    ],
-    [
-      "hewAggregationMethod",
-      "Other",
-      "hew_aggregation_other",
-      "assets/hew_custom.tsv:311"
-    ],
-    [
-      "hewNeedsHumanReview",
-      "Yes",
-      "hew_review_yes",
-      "assets/hew_custom.tsv:312"
-    ],
-    [
-      "hewNeedsHumanReview",
-      "No",
-      "hew_review_no",
-      "assets/hew_custom.tsv:313"
-    ],
-    [
-      "hewOmopConceptStatus",
-      "Standard",
-      "hew_omop_standard",
-      "assets/hew_custom.tsv:314"
-    ],
-    [
-      "hewOmopConceptStatus",
-      "Non-standard",
-      "hew_omop_nonstandard",
-      "assets/hew_custom.tsv:315"
-    ],
-    [
-      "hewOmopConceptStatus",
-      "Candidate",
-      "hew_omop_candidate",
-      "assets/hew_custom.tsv:316"
-    ],
-    [
-      "hewOmopConceptStatus",
-      "Vocabulary gap",
-      "hew_omop_vocabulary_gap",
-      "assets/hew_custom.tsv:317"
-    ],
-    [
-      "hewOmopConceptStatus",
-      "Not evaluated",
-      "hew_omop_not_evaluated",
-      "assets/hew_custom.tsv:318"
+      "assets/hew_custom.tsv:213"
     ],
     [
       "hewVariableOmopConceptStatus",
       "Standard",
       "hew_variable_omop_standard",
-      "assets/hew_custom.tsv:319"
+      "assets/hew_custom.tsv:214"
     ],
     [
       "hewVariableOmopConceptStatus",
       "Non-standard",
       "hew_variable_omop_nonstandard",
-      "assets/hew_custom.tsv:320"
+      "assets/hew_custom.tsv:215"
     ],
     [
       "hewVariableOmopConceptStatus",
       "Candidate",
       "hew_variable_omop_candidate",
-      "assets/hew_custom.tsv:321"
+      "assets/hew_custom.tsv:216"
     ],
     [
       "hewVariableOmopConceptStatus",
       "Vocabulary gap",
       "hew_variable_omop_vocabulary_gap",
-      "assets/hew_custom.tsv:322"
+      "assets/hew_custom.tsv:217"
     ],
     [
       "hewVariableOmopConceptStatus",
       "Not evaluated",
       "hew_variable_omop_not_evaluated",
-      "assets/hew_custom.tsv:323"
-    ],
-    [
-      "hewAgentRole",
-      "Author",
-      "hew_role_author",
-      "assets/hew_custom.tsv:324"
-    ],
-    [
-      "hewAgentRole",
-      "Contributor",
-      "hew_role_contributor",
-      "assets/hew_custom.tsv:325"
-    ],
-    [
-      "hewAgentRole",
-      "Curator",
-      "hew_role_curator",
-      "assets/hew_custom.tsv:326"
-    ],
-    [
-      "hewAgentRole",
-      "Reviewer",
-      "hew_role_reviewer",
-      "assets/hew_custom.tsv:327"
-    ],
-    [
-      "hewAgentRole",
-      "Principal investigator",
-      "hew_role_principal_investigator",
-      "assets/hew_custom.tsv:328"
-    ],
-    [
-      "hewAgentRole",
-      "Maintainer",
-      "hew_role_maintainer",
-      "assets/hew_custom.tsv:329"
-    ],
-    [
-      "hewAgentRole",
-      "Funder",
-      "hew_role_funder",
-      "assets/hew_custom.tsv:330"
+      "assets/hew_custom.tsv:218"
     ],
     [
       "hewSurveyAdministeredBy",
       "Medical professional",
       "medical_professional",
-      "assets/hew_custom.tsv:331"
+      "assets/hew_custom.tsv:219"
     ],
     [
       "hewSurveyAdministeredBy",
       "Parent or teacher",
       "parent_or_teacher",
-      "assets/hew_custom.tsv:332"
+      "assets/hew_custom.tsv:220"
     ],
     [
       "hewSurveyAdministeredBy",
       "Researcher or professional interviewer",
       "researcher_or_professional_interviewer",
-      "assets/hew_custom.tsv:333"
+      "assets/hew_custom.tsv:221"
     ],
     [
       "hewSurveyAdministeredBy",
       "Self",
       "self_administered",
-      "assets/hew_custom.tsv:334"
+      "assets/hew_custom.tsv:222"
     ],
     [
       "hewSurveyAdministeredBy",
       "Trained non-expert",
       "trained_non_expert",
-      "assets/hew_custom.tsv:335"
+      "assets/hew_custom.tsv:223"
     ],
     [
       "hewSurveyAdministeredBy",
       "Untrained non-expert",
       "untrained_non_expert",
-      "assets/hew_custom.tsv:336"
+      "assets/hew_custom.tsv:224"
     ],
     [
       "hewSurveyAdministeredBy",
       "Not applicable",
       "not_applicable",
-      "assets/hew_custom.tsv:337"
+      "assets/hew_custom.tsv:225"
     ],
     [
       "hewSurveyAdministeredBy",
       "Other",
       "other",
-      "assets/hew_custom.tsv:338"
+      "assets/hew_custom.tsv:226"
     ],
     [
       "hewSurveyAdministrationMode",
       "Web",
       "web",
-      "assets/hew_custom.tsv:339"
+      "assets/hew_custom.tsv:227"
     ],
     [
       "hewSurveyAdministrationMode",
       "Telephone",
       "telephone",
-      "assets/hew_custom.tsv:340"
+      "assets/hew_custom.tsv:228"
     ],
     [
       "hewSurveyAdministrationMode",
       "In-person interview",
       "in_person_interview",
-      "assets/hew_custom.tsv:341"
+      "assets/hew_custom.tsv:229"
     ],
     [
       "hewSurveyAdministrationMode",
       "Paper",
       "paper",
-      "assets/hew_custom.tsv:342"
+      "assets/hew_custom.tsv:230"
     ],
     [
       "hewSurveyAdministrationMode",
       "Mail",
       "mail",
-      "assets/hew_custom.tsv:343"
+      "assets/hew_custom.tsv:231"
     ],
     [
       "hewSurveyAdministrationMode",
       "Mixed mode",
       "mixed_mode",
-      "assets/hew_custom.tsv:344"
+      "assets/hew_custom.tsv:232"
     ],
     [
       "hewSurveyAdministrationMode",
       "Other",
       "other",
-      "assets/hew_custom.tsv:345"
+      "assets/hew_custom.tsv:233"
     ],
     [
       "hewSurveyEaseOfUse",
       "Easy",
       "easy",
-      "assets/hew_custom.tsv:346"
+      "assets/hew_custom.tsv:234"
     ],
     [
       "hewSurveyEaseOfUse",
       "Moderate",
       "moderate",
-      "assets/hew_custom.tsv:347"
+      "assets/hew_custom.tsv:235"
     ],
     [
       "hewSurveyEaseOfUse",
       "Difficult",
       "difficult",
-      "assets/hew_custom.tsv:348"
+      "assets/hew_custom.tsv:236"
     ],
     [
       "hewSurveyElectronicDataCapture",
       "Epi Info",
       "epi_info",
-      "assets/hew_custom.tsv:349"
+      "assets/hew_custom.tsv:237"
     ],
     [
       "hewSurveyElectronicDataCapture",
       "GitHub",
       "github",
-      "assets/hew_custom.tsv:350"
+      "assets/hew_custom.tsv:238"
     ],
     [
       "hewSurveyElectronicDataCapture",
       "Qualtrics",
       "qualtrics",
-      "assets/hew_custom.tsv:351"
+      "assets/hew_custom.tsv:239"
     ],
     [
       "hewSurveyElectronicDataCapture",
       "REDCap",
       "redcap",
-      "assets/hew_custom.tsv:352"
+      "assets/hew_custom.tsv:240"
     ],
     [
       "hewSurveyElectronicDataCapture",
       "Not applicable",
       "not_applicable",
-      "assets/hew_custom.tsv:353"
+      "assets/hew_custom.tsv:241"
     ],
     [
       "hewSurveyElectronicDataCapture",
       "Other",
       "other",
-      "assets/hew_custom.tsv:354"
+      "assets/hew_custom.tsv:242"
     ],
     [
       "hewProcessingLevel",
       "Raw",
       "hew_processing_raw",
-      "assets/hew_custom.tsv:355"
+      "assets/hew_custom.tsv:243"
     ],
     [
       "hewProcessingLevel",
       "Cleaned",
       "hew_processing_cleaned",
-      "assets/hew_custom.tsv:356"
+      "assets/hew_custom.tsv:244"
     ],
     [
       "hewProcessingLevel",
       "Harmonized",
       "hew_processing_harmonized",
-      "assets/hew_custom.tsv:357"
+      "assets/hew_custom.tsv:245"
     ],
     [
       "hewProcessingLevel",
       "Derived",
       "hew_processing_derived",
-      "assets/hew_custom.tsv:358"
+      "assets/hew_custom.tsv:246"
     ],
     [
       "hewProcessingLevel",
       "Modeled",
       "hew_processing_modeled",
-      "assets/hew_custom.tsv:359"
+      "assets/hew_custom.tsv:247"
     ],
     [
       "hewProcessingLevel",
       "Summarized",
       "hew_processing_summarized",
-      "assets/hew_custom.tsv:360"
+      "assets/hew_custom.tsv:248"
     ],
     [
       "hewProcessingLevel",
       "Exposure assigned",
       "hew_processing_exposure_assigned",
-      "assets/hew_custom.tsv:361"
+      "assets/hew_custom.tsv:249"
     ],
     [
       "hewProcessingLevel",
       "Analysis ready",
       "hew_processing_analysis_ready",
-      "assets/hew_custom.tsv:362"
+      "assets/hew_custom.tsv:250"
     ],
     [
       "hewProcessingLevel",
       "Publication ready",
       "hew_processing_publication_ready",
-      "assets/hew_custom.tsv:363"
+      "assets/hew_custom.tsv:251"
     ],
     [
       "hewProcessingLevel",
       "Other",
       "hew_processing_other",
-      "assets/hew_custom.tsv:364"
+      "assets/hew_custom.tsv:252"
     ],
     [
       "cafeDatasetTerms",
@@ -8793,84 +7170,6 @@
       ""
     ],
     [
-      "CovariateCalculationMethodEnum",
-      "buffer_extraction",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "point_extraction",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "zonal_statistics",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "raster_summary",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "spatial_overlay",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "interpolation",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "model_prediction",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "reanalysis_extraction",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "monitor_assignment",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "nearest_monitor",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "distance_weighted_assignment",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "administrative_area_summary",
-      "",
-      ""
-    ],
-    [
-      "CovariateCalculationMethodEnum",
-      "other",
-      "",
-      ""
-    ],
-    [
       "SpatialJoinMethodEnum",
       "within",
       "",
@@ -8986,78 +7285,6 @@
     ],
     [
       "TemporalJoinMethodEnum",
-      "other",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
-      "point_sample",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
-      "bilinear_interpolation",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
-      "nearest_cell",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
-      "zonal_mean",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
-      "zonal_sum",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
-      "zonal_minimum",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
-      "zonal_maximum",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
-      "zonal_percentile",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
-      "majority_class",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
-      "area_weighted",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
-      "distance_weighted",
-      "",
-      ""
-    ],
-    [
-      "ExtractionMethodEnum",
       "other",
       "",
       ""

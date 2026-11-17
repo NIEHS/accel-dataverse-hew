@@ -12,7 +12,7 @@ source:
     resource_type: literature
 dataverse:
   required_blocks: [citation, hewResource, hewDiscovery, customCAFEDataSources, customCAFEDataLocation]
-  optional_blocks: [hewPublication, geospatial, hewGeospatial, hewTemporal, AdditionalMetadataAboutDataset, hewEntityReferences, hewCalculation]
+  optional_blocks: [hewPublication, geospatial, hewGeospatial, hewTemporal, AdditionalMetadataAboutDataset, hewCalculation]
   preservation_attachment:
     format: jsonld
     required: true
@@ -25,9 +25,6 @@ mappings:
   - source: processing_methods
     target: hewCalculation.hewProcessingMethod
     transform: descriptive_method_software_version_and_external_provenance_only
-  - source: "*_details (excluding review coding, annotations, and agent associations)"
-    target: hewEntityReferences.hewEntityReference
-    transform: keep_relation_identifier_name_description_and_funding_values_separate
   - source: id
     target: hewResource.hewResourceId
   - source: status

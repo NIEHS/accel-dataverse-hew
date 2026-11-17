@@ -67,7 +67,7 @@ class PublicationCrosswalkTest(unittest.TestCase):
             ["Heat", "health"],
         )
         self.assertNotIn("author", {field["typeName"] for field in citation})
-        self.assertIn("hewEntityReferences", blocks)
+        self.assertNotIn("hewEntityReferences", blocks)
         self.assertNotIn(
             "hewCrosswalkVersion", {field["typeName"] for field in resource}
         )
@@ -301,12 +301,8 @@ class PublicationCrosswalkTest(unittest.TestCase):
             ["title", "subject", "otherId", "dsDescription"],
         )
 
-        references = payload["datasetVersion"]["metadataBlocks"]["hewEntityReferences"][
-            "fields"
-        ][0]["value"]
-        self.assertEqual(
-            references[0]["hewReferenceIdentifier"]["value"],
-            mongo_document["data"]["authors"][0],
+        self.assertNotIn(
+            "hewEntityReferences", payload["datasetVersion"]["metadataBlocks"]
         )
 
     def test_projects_hew_catalog_data_model_2_export(self):

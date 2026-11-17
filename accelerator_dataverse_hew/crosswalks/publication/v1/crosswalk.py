@@ -941,8 +941,7 @@ def crosswalk_publication(
             children = {child: _field(child, value)}
             if source_name == "contacts_details":
                 email = _optional_text(entry.get("email"), "contacts_details.email")
-                # Dataverse citation contacts require email. Name-only references
-                # remain available in the HEW reference compound.
+                # Dataverse citation contacts require both a name and email.
                 if not email:
                     continue
                 children["datasetContactEmail"] = _field("datasetContactEmail", email)
@@ -1152,73 +1151,6 @@ def crosswalk_publication(
             fields=[_compound_field("hewProcessingMethod", processing_entries)],
         )
         _record(mapped, "processing_methods", "hewCalculation.hewProcessingMethod")
-
-    reference_entries = []
-
-    def collect_references(value, path=""):
-        if isinstance(value, list):
-            for index, item in enumerate(value):
-                collect_references(item, f"{path}[{index}]")
-        elif isinstance(value, dict):
-            for key, item in value.items():
-                child_path = f"{path}.{key}" if path else key
-                if key in REFERENCE_DETAIL_FIELDS and item:
-                    entries = item if isinstance(item, list) else [item]
-                    for entry in entries:
-                        if not isinstance(entry, dict):
-                            raise PublicationValidationError(
-                                f"{child_path} must contain reference objects"
-                            )
-                        children = {
-                            "hewReferenceRelation": _field(
-                                "hewReferenceRelation", child_path
-                            )
-                        }
-                        for field, target in (
-                            ("reference_id", "hewReferenceIdentifier"),
-                            ("name", "hewReferenceName"),
-                            ("description", "hewReferenceDescription"),
-                            ("award_number", "hewReferenceAwardNumber"),
-                            ("funder_name", "hewReferenceFunderName"),
-                            ("email", "hewReferenceEmail"),
-                        ):
-                            text = _optional_text(
-                                entry.get(field), f"{child_path}.{field}"
-                            )
-                            if text:
-                                children[target] = _field(target, text)
-                        if len(children) > 1:
-                            reference_entries.append(children)
-                            _record(
-                                mapped,
-                                child_path,
-                                "hewEntityReferences.hewEntityReference",
-                            )
-                elif key not in {"annotations", "review", "agent_associations"}:
-                    collect_references(item, child_path)
-
-    collect_references(source.model_dump(mode="json", exclude_none=True))
-    # Preserve unresolved author identifiers without presenting them as names.
-    for author in source.authors or []:
-        identifier = author if isinstance(author, str) else author.id
-        if isinstance(author, str) and not re.match(
-            r"^[A-Za-z][A-Za-z0-9+.-]*:", author
-        ):
-            continue
-        if isinstance(author, AuthorSource) and _author_name(author):
-            continue
-        reference_entries.append(
-            {
-                "hewReferenceRelation": _field("hewReferenceRelation", "authors"),
-                "hewReferenceIdentifier": _field("hewReferenceIdentifier", identifier),
-            }
-        )
-        _record(mapped, "authors.id", "hewEntityReferences.hewEntityReference")
-    if reference_entries:
-        coverage_blocks["hewEntityReferences"] = DataverseMetadataBlock(
-            displayName="HEW Named Entity References",
-            fields=[_compound_field("hewEntityReference", reference_entries)],
-        )
 
     report = MappingReport(
         crosswalk_version=context.crosswalk_version,

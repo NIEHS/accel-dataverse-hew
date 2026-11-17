@@ -19,7 +19,7 @@ function sheet(name,headers,rows,widths){
  return s;
 }
 const guide=[
- ['Scope','242 provisioned fields across 16 HEW and 4 CAFE metadata blocks. All compound parents and children are included. Native citation/geospatial blocks are outside this field inventory.'],
+ ['Scope','191 provisioned fields across 16 HEW and 4 CAFE metadata blocks. All compound parents and children are included. Native citation/geospatial blocks are outside this field inventory.'],
  ['Reading direction','Metadata block and field → HEW path → Amadeus entity and slot. Paths are relative to a catalog resource unless prefixed by an annotation or related source.'],
  ['Declared HEW specification','Mapping explicitly present in mappings/amadeus/linkml_to_amadeus.yaml. This specification is not an executable adapter.'],
  ['Candidate; semantic review required','Shared slot or semantic candidate in the local schemas. Not a declared mapping or proof of compatibility. Confirm entity grain, units, enum values and cardinality.'],

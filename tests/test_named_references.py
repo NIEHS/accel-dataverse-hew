@@ -6,7 +6,7 @@ from accelerator_dataverse_hew.crosswalks.publication.v1 import (
 )
 
 
-class NamedReferenceProjectionTest(unittest.TestCase):
+class ReferenceDetailsProjectionTest(unittest.TestCase):
     def project(self, **fields):
         return crosswalk_publication(
             {
@@ -28,6 +28,7 @@ class NamedReferenceProjectionTest(unittest.TestCase):
             contributors=["PERSON:alex"],
             funding_sources=["HEWFUND:award"],
         )
+        self.assertNotIn("hewEntityReferences", blocks)
         citation = {field["typeName"]: field for field in blocks["citation"]["fields"]}
         self.assertNotIn("contributor", citation)
         self.assertNotIn("grantNumber", citation)
@@ -75,19 +76,7 @@ class NamedReferenceProjectionTest(unittest.TestCase):
             citation["grantNumber"]["value"][0]["grantNumberAgency"]["value"],
             "Example Foundation",
         )
-        references = blocks["hewEntityReferences"]["fields"][0]["value"]
-        alex = next(
-            entry
-            for entry in references
-            if entry.get("hewReferenceIdentifier", {}).get("value") == "PERSON:alex"
-        )
-        self.assertEqual(alex["hewReferenceName"]["value"], "Alex Example")
-        self.assertFalse(
-            any(
-                "annotations" in entry["hewReferenceRelation"]["value"]
-                for entry in references
-            )
-        )
+        self.assertNotIn("hewEntityReferences", blocks)
 
     def test_description_only_funding_does_not_become_award_number(self):
         blocks = self.project(
@@ -98,15 +87,14 @@ class NamedReferenceProjectionTest(unittest.TestCase):
         self.assertNotIn(
             "grantNumber", {f["typeName"] for f in blocks["citation"]["fields"]}
         )
-        self.assertIn("hewEntityReferences", blocks)
+        self.assertNotIn("hewEntityReferences", blocks)
 
     def test_name_only_contact_is_preserved_without_invalid_citation_contact(self):
         blocks = self.project(contacts_details=[{"name": "Jane Example"}])
         self.assertNotIn(
             "datasetContact", {f["typeName"] for f in blocks["citation"]["fields"]}
         )
-        reference = blocks["hewEntityReferences"]["fields"][0]["value"][0]
-        self.assertEqual(reference["hewReferenceName"]["value"], "Jane Example")
+        self.assertNotIn("hewEntityReferences", blocks)
 
     def test_unresolved_author_id_is_preserved_without_a_name(self):
         blocks = self.project(
@@ -115,5 +103,4 @@ class NamedReferenceProjectionTest(unittest.TestCase):
         self.assertNotIn(
             "author", {f["typeName"] for f in blocks["citation"]["fields"]}
         )
-        reference = blocks["hewEntityReferences"]["fields"][0]["value"][0]
-        self.assertEqual(reference["hewReferenceIdentifier"]["value"], "PERSON:unknown")
+        self.assertNotIn("hewEntityReferences", blocks)

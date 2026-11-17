@@ -13,7 +13,6 @@
 	hewProject		HEW Programs Projects and Funding
 	hewExposureEstimate		HEW Exposure Estimate
 	hewCalculation		HEW Processing Methods
-	hewEntityReferences		HEW Named Entity References
 #datasetField	name	title	description	watermark	fieldType	displayOrder	displayFormat	advancedSearchField	allowControlledVocabulary	allowmultiples	facetable	displayoncreate	required	parent	metadatablock_id	termURI
 	hewResourceType	Record Type	Record Type		text	0		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewDiscovery
 	hewResourceTypeExactMapping	Record Type Exact Mapping CURIE	Record Type Exact Mapping CURIE		text	3		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
@@ -38,9 +37,6 @@
 	hewDataToolCurie	Data or Tool CURIE	Data or Tool CURIE		text	25		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewDataToolAlias	Data or Tool Alias	Data or Tool Alias		text	26		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewDataToolExactMapping	Data or Tool Exact Mapping CURIE	Data or Tool Exact Mapping CURIE		text	27		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
-	hewModelConcept	Model Label	Model Label		text	28		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
-	hewModelCurie	Model CURIE	Model CURIE		text	29		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
-	hewModelAlias	Model Alias	Model Alias		text	30		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewModelExactMapping	Model Exact Mapping CURIE	Model Exact Mapping CURIE		text	31		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewGeographicFeature	Geographic Feature	Geographic Feature		text	32		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
 	hewMeasureLabel	Measure	Matched HEW_Measures term or transitive taxonomy ancestor; omit the abstract Category root		text	33		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
@@ -164,14 +160,6 @@
 	hewExposureQualityFlag	Quality Flag	Quality Flag		text	6		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewExposureEstimate
 	hewSurveyInstrument	Survey Instrument Identifier	Survey Instrument Identifier		text	12		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDataResource
 	hewDatasetPopulation	Dataset Population	Dataset Population		text	13		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDataResource
-	hewEntityReference	Named Entity Reference	A relation with its optional entity identifier, name, or description.		none	0	;	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewEntityReferences
-	hewReferenceRelation	Relation	Relationship of the named entity to the resource or provenance record.		text	1	#VALUE	TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewEntityReference	hewEntityReferences
-	hewReferenceIdentifier	Entity Identifier	Optional URI or CURIE; names and citations belong in separate text fields.	CURIE or URI	text	2	#VALUE	TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewEntityReference	hewEntityReferences
-	hewReferenceName	Entity Name	Plain entity name; no identifier is required.		text	3	#VALUE	TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewEntityReference	hewEntityReferences
-	hewReferenceDescription	Entity Description	Free-text description or citation for the referenced entity.		textbox	4	#VALUE	TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewEntityReference	hewEntityReferences
-	hewReferenceAwardNumber	Award Number	Funding award number; distinct from the entity identifier.		text	5	#VALUE	TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewEntityReference	hewEntityReferences
-	hewReferenceFunderName	Funder Name	Plain name of the funding organization.		text	6	#VALUE	TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewEntityReference	hewEntityReferences
-	hewReferenceEmail	Contact Email	Optional email address for the referenced entity.		text	7	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	hewEntityReference	hewEntityReferences
 	hewProcessingMethod	Processing Method	A brief description of how the resource was produced, with software and a link to detailed provenance.		none	0	;	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewCalculation
 	hewMethodName	Method Name	Plain name of the processing or derivation method.		text	1	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	hewProcessingMethod	hewCalculation
 	hewMethodDescription	Method Description	Summary of how the resource was produced.		textbox	2	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	hewProcessingMethod	hewCalculation

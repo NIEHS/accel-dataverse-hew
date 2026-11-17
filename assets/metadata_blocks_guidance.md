@@ -61,7 +61,7 @@ All resource types share these facets:
 | Topic/theme | hewTopicConcept | hewTopicCurie, hewTopicAlias, hewTopicExactMapping |
 | Event type | hewEvent (free-text) | — |
 | Data/tool | hewDataToolConcept | hewDataToolCurie, hewDataToolAlias, hewDataToolExactMapping |
-| Model | hewModelConcept | hewModelCurie, hewModelAlias, hewModelExactMapping |
+| Model | — | hewModelExactMapping |
 
 hewGeographicFeature is an additional plain-text facet. CURIEs, aliases, and
 exact mapping fields are searchable but never facetable. Only populate mapping
@@ -196,31 +196,14 @@ Install with the metadata-block loader documented in the repository README.
 Update Solr fields and reload/reindex after provisioning before verifying
 facets. The loader preserves unrelated collection block configuration.
 
-### Named entity references
+### Entity details
 
-HEW identifier fields retain URI/CURIE semantics. The optional
-`hewEntityReferences` block stores repeatable `hewEntityReference` entries with a
-relation, optional identifier, plain name, and description or citation. A name or
-description can be supplied without an identifier. Each compound entry keeps the
-identifier and text for one reference together. Funding entries also have separate
-award-number and funder-name fields.
-
-The model uses `<relation>_details` objects, such as `contacts_details`,
-`source_dataset_details`, or `agent_associations[].source_details`. The publication
-crosswalk preserves supplied detail entries in the reference block. It projects
-explicit contributor names and contacts with an email into citation fields and explicit funding
-award numbers into grant-number fields. Unresolved identifiers remain in HEW
-identifier fields; they are not copied into names or award numbers.
-
-Detailed agent-role associations, their dates, contributions, and supporting
-sources remain in the source attachment. Public attribution uses citation
-metadata and supported named entity references rather than a role-association
-block. Named references nested inside agent associations are not projected.
-Reload the metadata blocks and update the Solr schema before disseminating records
-using the new block, following the repository provisioning procedure.
-
-Name-only contacts remain in the HEW reference block because Dataverse citation
-contacts require an email. Reference entries may supply an optional `email`.
+The publication crosswalk maps explicit author, contributor, contact, and funding
+details to supported citation fields. Contacts require both a name and email;
+funding awards require an explicit award number. Identifiers are never presented
+as names or award numbers. Other entity-detail objects and unresolved author
+identifiers remain in the unchanged HEW source attachment rather than being
+projected into a generic entity-reference block.
 
 ### Extraction requests are outside catalog metadata
 
