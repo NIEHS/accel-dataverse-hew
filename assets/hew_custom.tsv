@@ -78,9 +78,9 @@
 	hewDistributionUrl	Distribution URL	URL for a downloadable, API, service, or object distribution	https://...	url	9	"<a href=""#VALUE"" target=""_blank"">#VALUE</a>"	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDataResource
 	hewProcessingLevel	Dataset Processing Level	Processing or derivation level of a dataset		text	10		TRUE	TRUE	FALSE	TRUE	TRUE	FALSE		hewDataResource
 	hewExternalExposureLinkage	External Exposure Linkage	OMOP or Gaia external-exposure linkage metadata		textbox	11		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDataResource
-	hewVariableDefinitionEntry	Variable or Field Definition	One repeatable semantic definition for a variable, column, field, measure, or data element		none	17		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDataResource	""
-	hewVariableId	Variable Identifier	Stable identifier used to link this definition to one or more deliveries		text	0		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewVariableDefinitionEntry	hewDataResource	""
-	hewVariableName	Variable Name	Canonical or source-independent variable name		text	1		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDefinitionEntry	hewDataResource	""
+	hewVariableDefinitionEntry	Canonical Variable Definition	One repeatable canonical definition of a variable or data element contained in the dataset		none	17		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDataResource	""
+	hewVariableId	Canonical Variable Identifier	Stable identifier for this canonical variable		text	0		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewVariableDefinitionEntry	hewDataResource	""
+	hewVariableName	Canonical Variable Name	Source-independent name of the canonical variable		text	1		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDefinitionEntry	hewDataResource	""
 	hewVariableLabel	Variable Label	Human-readable label for the variable or field		text	2		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDefinitionEntry	hewDataResource	""
 	hewVariableDescription	Variable Description	Meaning and interpretation of the variable or field		textbox	3		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDefinitionEntry	hewDataResource	""
 	hewVariableRole	Variable Role	Role in the data layout, such as identifier, measure, dimension, or coordinate		text	4		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDefinitionEntry	hewDataResource	""
@@ -91,30 +91,12 @@
 	hewVariableConceptMapping	Concept Mapping	External ontology CURIE or URI mapping for the variable		text	9		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDefinitionEntry	hewDataResource	""
 	hewVariableOmopConceptId	OMOP Concept ID	OMOP concept identifier when available		int	10		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewVariableDefinitionEntry	hewDataResource	""
 	hewVariableOmopConceptStatus	OMOP Concept Status	Status of the OMOP concept binding		text	11		TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	hewVariableDefinitionEntry	hewDataResource	""
-	hewVariableDeliveryEntry	Variable Delivery	One repeatable representation of a defined variable in a dataset distribution or layout		none	18		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDataResource	""
-	hewDeliveryId	Delivery Identifier	Stable identifier for this source-specific variable delivery		text	0		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryVariableId	Variable Identifier	Identifier of the variable definition represented by this delivery		text	1		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryNativeName	Source Variable Name	Column, field, band, or array variable name in the distribution		text	2		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryDataType	Delivery Data Type	Data type used in this representation, when it differs from the variable definition		text	3		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryUnit	Delivery Unit	Unit used in this representation, when it differs from the variable definition		text	4		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryAggregationMethod	Aggregation Method	Statistical aggregation represented by values in this delivery		text	8		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliverySpatialSupportType	Spatial Support Type	Spatial unit to which each delivered value applies		text	10		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliverySpatialResolution	Spatial Resolution	Spatial resolution of delivered values, with units		text	11		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryCoordinateReferenceSystem	Coordinate Reference System	CRS identifier for this delivery's spatial support		text	12		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryTemporalResolution	Temporal Resolution	Temporal resolution of the delivered values		text	14		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryAggregationWindow	Aggregation Window	ISO 8601 duration over which delivered values are aggregated		text	15		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryTemporalAlignment	Temporal Alignment	Convention locating each delivered value's interval or instant relative to its timestamp		text	16		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryDayBoundaryConvention	Day Boundary Convention	Convention defining daily interval boundaries for the delivered values		text	17		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryCalendar	Calendar	Calendar used to interpret the delivered values, including non-Gregorian calendars		text	18		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryTemporalTimezone	Temporal Support Timezone	Timezone used to interpret delivered value intervals		text	19		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
-	hewDeliveryDistributionId	Distribution Identifier	Identifier of the distribution containing this variable delivery		text	20		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewVariableDeliveryEntry	hewDataResource	""
 	hewDistributionEntry	Distribution	One repeatable data access or file representation of the dataset		none	19		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDataResource	""
 	hewDistributionId	Distribution Identifier	Stable identifier for this distribution		text	0		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewDistributionEntry	hewDataResource	""
 	hewDistributionTitle	Distribution Title	Human-readable title for this distribution		text	1		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewDistributionEntry	hewDataResource	""
 	hewDistributionEntryUrl	Distribution URL	URL for this specific downloadable file, API, service, or object	https://...	url	2	"<a href=""#VALUE"" target=""_blank"">#VALUE</a>"	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE	hewDistributionEntry	hewDataResource	""
 	hewDistributionMediaType	Media Type	Internet media type (MIME type) of the distributed representation		text	3		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewDistributionEntry	hewDataResource	""
 	hewDistributionFormat	Format	Human-readable or registered format name/version of the distribution		text	4		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewDistributionEntry	hewDataResource	""
-	hewDistributionVariableId	Variable Identifier	Identifier(s) for variables available in this distribution		text	5		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE	hewDistributionEntry	hewDataResource	""
 	hewSurveyVersion	Survey Version	Version of the survey instrument		text	0		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewSurvey
 	hewSurveyConstruct	Survey Construct	Construct, domain, or scale measured by the survey		text	1	#VALUE	TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewSurvey
 	hewSurveyQuestion	Survey Question	Question, item, or prompt in the survey instrument		textbox	2		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewSurvey

@@ -121,29 +121,21 @@ and typical latency are separate dataset properties. The publication crosswalk
 validates explicit offsets and interval ordering and moves legacy resolution or
 calendar values out of temporal extents into the support compound.
 
-### Dataset variables, deliveries, and distributions
+### Dataset variables and distributions
 
-For `hewDataResource`, use repeatable `hewVariableDefinitionEntry` records for
-the meaning of each dataset variable/field and `hewVariableDeliveryEntry`
-records for how that variable is represented in a specific product or data
-layout. This pattern is not limited to environmental variables or file formats:
-it can describe a CSV/Parquet column, a NetCDF array or band, a coordinate,
-dimension, identifier, or measure. Use a stable `hewVariableId` on the
-definition and copy that identifier into `hewDeliveryVariableId` to preserve the
-relationship. Record the canonical meaning, datatype, unit, role, measured
-property, method, and concept mappings on the definition; record native name,
-delivery datatype/unit, aggregation, and delivery-specific support on the delivery.
-Decoding details such as scale factors, offsets, missing-value sentinels, and CF
-cell-method syntax belong in the linked data dictionary or preserved source. Keep concepts paired with their variable definitions rather than flattening
-multiple variables into unrelated resource-level lists.
+For a geospatial `hewDataResource`, use repeatable
+`hewVariableDefinitionEntry` records for canonical variables only. A canonical
+variable describes the scientific quantity contained in the dataset independent
+of a particular file layout, native name, encoding, or distribution. Keep its
+stable `hewVariableId`, source-independent name, meaning, datatype, unit,
+measured property, method, and concept mappings together.
 
-Dataset temporal support supplies defaults. An explicit delivery's temporal
-support describes that delivery's values and takes precedence as a whole; do
-not merge individual default properties into it silently. This is how distinct
-calendars, daily boundaries, alignments, and aggregation windows stay attached
-to the correct variable. Keep detailed native grids and their identifiers in the source or linked
-technical metadata; the Dataverse projection exposes compact resolution and
-support summaries rather than a grid model.
+Do not provision or populate delivery-level variable fields in the Dataverse
+catalog. Native names, delivery units and datatypes, scale factors, offsets,
+missing-value sentinels, CF cell methods, variable-specific support, and
+distribution membership belong in a separate distribution manifest or linked
+technical attachment. This prevents file-specific implementation details from
+being mistaken for catalog-level dataset contents.
 
 Use repeatable `hewDistributionEntry` records to keep each access URL together
 with its title, `hewDistributionMediaType` (such as `application/x-netcdf` or
@@ -152,8 +144,9 @@ or Apache Parquet). These are different properties: MIME type identifies the
 media type, while format can retain the format name/version. Link distributions
 to the variable identifiers they contain when known. Variable definitions, deliveries, distributions, and dataset temporal support
 use their structured compounds rather than duplicate JSON fields. Detailed spatial support and grid definitions remain in the source or linked
-technical metadata. Preserve complete source JSON-LD and link the full data
-dictionary for details beyond the structured catalog projection.
+technical metadata. Preserve complete source JSON-LD and link the distribution
+manifest or full data dictionary for details beyond the structured catalog
+projection.
 
 Keep run-level provenance and generated-value details in EnVar and link them to
 the HEW dataset/product using stable identifiers; do not copy run records onto
@@ -165,7 +158,7 @@ every catalog dataset or variable.
 |---|---|
 | hewResource | Catalog resource ID, status, and related resources; processing versions remain in the crosswalk report |
 | hewPublication | LiteratureResource study objective; bibliographic fields reuse citation |
-| hewDataResource | DatasetResource/CohortResource/SurveyDataset data dictionary, repeatable variable definitions and deliveries, distributions, processing and OMOP linkage |
+| hewDataResource | DatasetResource/CohortResource/SurveyDataset data dictionary, canonical variable definitions, distributions, processing and OMOP linkage |
 | hewSurvey | SurveyInstrument constructs/questions, population, administration, EDC, readability, CDE integration and instrument relationships |
 | hewSoftware | SoftwareResource language, software type and maintainers; repository/documentation reuse CAFE |
 | hewModelResource | ModelResource type and input/output variables |
@@ -243,11 +236,12 @@ migration to retire previously installed review fields.
 ### Retired low-value fields
 
 The discovery-focused cleanup removes the stale affiliation-context field;
-duplicate variable-definition, delivery, distribution, and temporal-support JSON;
-delivery decoding details (scale factor, offset, missing-value sentinel, CF
-cell-method syntax); and legacy standalone variable/property/method/concept/OMOP
-fields. Use the repeatable variable-definition, variable-delivery, distribution,
-and dataset-temporal-support compounds instead. Their structured names, units,
+duplicate variable-definition, distribution, and temporal-support JSON; and
+legacy standalone variable/property/method/concept/OMOP fields. Use the
+repeatable canonical variable-definition, distribution, and
+dataset-temporal-support compounds instead. Delivery decoding details (scale
+factor, offset, missing-value sentinel, CF cell-method syntax) remain in the
+distribution manifest or source attachment. Their structured names, units,
 concept mappings, support, and access links remain available. Orphan vocabulary
 rows without a corresponding field definition have also been removed.
 

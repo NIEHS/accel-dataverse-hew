@@ -157,7 +157,7 @@ class MetadataAssetsTest(unittest.TestCase):
             for field in block["fields"]:
                 validate(field, name)
 
-    def test_dataset_catalog_fields_keep_variable_and_distribution_structure(self):
+    def test_dataset_catalog_fields_keep_canonical_variable_and_distribution_structure(self):
         _, fields, _ = definitions()
 
         for parent, required_children in (
@@ -169,19 +169,6 @@ class MetadataAssetsTest(unittest.TestCase):
                     "hewVariableDataType",
                     "hewVariableUnit",
                     "hewVariableConceptMapping",
-                },
-            ),
-            (
-                "hewVariableDeliveryEntry",
-                {
-                    "hewDeliveryVariableId",
-                    "hewDeliveryDistributionId",
-                    "hewDeliveryNativeName",
-                    "hewDeliveryTemporalResolution",
-                    "hewDeliveryAggregationWindow",
-                    "hewDeliveryTemporalAlignment",
-                    "hewDeliveryDayBoundaryConvention",
-                    "hewDeliveryCalendar",
                 },
             ),
             (

@@ -34,3 +34,9 @@ Operational version context is returned in `projection.report.processing_context
 not public Dataverse fields. Detailed grids/support and agent-role associations
 remain in the preserved source; public coverage uses compact resolution and
 support summaries. Save the report separately when retaining processing history.
+
+For geospatial dataset projections, `hewVariableDefinitionEntry` contains only
+canonical variable definitions. The publication crosswalk must not project
+native variable names, delivery encodings, delivery-specific support, or
+file-level variable membership into HEW catalog metadata. Preserve those facts
+in a distribution manifest or linked technical attachment instead.
