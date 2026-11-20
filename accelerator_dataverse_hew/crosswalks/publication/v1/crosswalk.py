@@ -168,7 +168,6 @@ KNOWN_SOURCE_FIELDS = {
     "same_as",
     "themes",
     "spatial_coverage",
-    "temporal_coverage",
     "access_rights",
     "license",
     "study_objective",
@@ -199,6 +198,7 @@ KNOWN_SOURCE_FIELDS = {
 
 KNOWN_SOURCE_FIELDS.update(REFERENCE_DETAIL_FIELDS)
 KNOWN_SOURCE_FIELDS.add("processing_methods")
+KNOWN_SOURCE_FIELDS.add("distributions")
 
 
 def _text(value: Any, field_name: str) -> str:
@@ -516,10 +516,10 @@ def _catalog_record_to_publication(record: Mapping[str, Any]) -> dict[str, Any] 
         "study_objective",
         "spatial_coverage",
         "spatial_extent",
-        "temporal_coverage",
         "temporal_extent",
         "temporal_support",
         "themes",
+        "distributions",
     ):
         if record.get(name) is not None:
             publication[name] = record[name]
@@ -535,6 +535,149 @@ def _record(
     detail: str | None = None,
 ):
     report.append(MappingEntry(source=source, target=target, detail=detail))
+
+
+def _distribution_blocks(
+    source: PublicationSource,
+) -> tuple[dict[str, DataverseMetadataBlock], list[MappingEntry]]:
+    extra = source.model_extra or {}
+    distributions = extra.get("distributions")
+    if distributions is None:
+        data_and_models = extra.get("data_and_models") or {}
+        if isinstance(data_and_models, Mapping):
+            distributions = data_and_models.get("distributions")
+
+    if distributions is None:
+        distributions = []
+    elif isinstance(distributions, Mapping):
+        distributions = [distributions]
+    if not isinstance(distributions, list):
+        raise PublicationValidationError("distributions must be a list or object")
+
+    normalized = []
+    records = []
+    for index, distribution in enumerate(distributions):
+        if not isinstance(distribution, Mapping):
+            raise PublicationValidationError(
+                f"distributions[{index}] must be an object"
+            )
+
+        url = _optional_text(
+            distribution.get("url")
+            or distribution.get("access_url")
+            or distribution.get("download_url"),
+            f"distributions[{index}].url",
+        )
+        if url:
+            url = _normalize_url(url, f"distributions[{index}].url")
+
+        identifier = _optional_text(
+            distribution.get("id")
+            or distribution.get("identifier")
+            or distribution.get("@id"),
+            f"distributions[{index}].id",
+        )
+        title = _optional_text(
+            distribution.get("title")
+            or distribution.get("name")
+            or distribution.get("label"),
+            f"distributions[{index}].title",
+        )
+        media_type = _optional_text(
+            distribution.get("media_type")
+            or distribution.get("mediaType")
+            or distribution.get("mime_type"),
+            f"distributions[{index}].media_type",
+        )
+        format_name = _optional_text(
+            distribution.get("format")
+            or distribution.get("format_name")
+            or distribution.get("file_format"),
+            f"distributions[{index}].format",
+        )
+        protocol = _optional_text(
+            distribution.get("protocol"),
+            f"distributions[{index}].protocol",
+        )
+        if url:
+            parsed = urlsplit(url)
+            protocol = protocol or parsed.scheme.upper()
+
+        normalized.append(
+            {
+                "id": identifier,
+                "title": title,
+                "url": url,
+                "media_type": media_type,
+                "format": format_name,
+                "protocol": protocol,
+            }
+        )
+        records.append(
+            MappingEntry(
+                source=f"distributions[{index}]",
+                target="hewDataResource.hewDistributionEntry",
+            )
+        )
+
+    normalized = [item for item in normalized if any(item.values())]
+    if not normalized:
+        return {}, []
+
+    data_resource_fields = []
+    geospatial_fields = []
+    for item in normalized:
+        if item["url"]:
+            data_resource_fields.append(
+                _field("hewDistributionUrl", item["url"])
+            )
+
+        entry_children = {}
+        for key, target in (
+            ("id", "hewDistributionId"),
+            ("title", "hewDistributionTitle"),
+            ("url", "hewDistributionEntryUrl"),
+            ("media_type", "hewDistributionMediaType"),
+            ("format", "hewDistributionFormat"),
+        ):
+            if item[key]:
+                entry_children[target] = _field(target, item[key])
+        if entry_children:
+            data_resource_fields.append(
+                _compound_field("hewDistributionEntry", [entry_children])
+            )
+
+        if item["url"]:
+            geospatial_children = {
+                "geographicDistributionLink": _field(
+                    "geographicDistributionLink", item["url"]
+                )
+            }
+            label = item["title"] or item["format"] or item["id"] or item["media_type"]
+            if label:
+                geospatial_children["geographicDistributionLinkLabel"] = _field(
+                    "geographicDistributionLinkLabel", label
+                )
+            if item["protocol"]:
+                geospatial_children["geographicProtocol"] = _field(
+                    "geographicProtocol", item["protocol"]
+                )
+            geospatial_fields.append(
+                _compound_field("geographicDistribution", [geospatial_children])
+            )
+
+    blocks = {
+        "hewDataResource": DataverseMetadataBlock(
+            displayName="HEW Dataset and Variables",
+            fields=data_resource_fields,
+        )
+    }
+    if geospatial_fields:
+        blocks["geospatial"] = DataverseMetadataBlock(
+            displayName="Geospatial Metadata",
+            fields=geospatial_fields,
+        )
+    return blocks, records
 
 
 def _coverage_blocks(source: PublicationSource) -> dict[str, DataverseMetadataBlock]:
@@ -557,8 +700,6 @@ def _coverage_blocks(source: PublicationSource) -> dict[str, DataverseMetadataBl
     cafe_location_fields = []
     if source.spatial_coverage:
         spatial_fields.append(_field("hewSpatialCoverage", source.spatial_coverage))
-    if source.temporal_coverage:
-        temporal_fields.append(_field("hewTemporalCoverage", source.temporal_coverage))
     bounds = spatial.get("bounding_box")
     if bounds:
         if not isinstance(bounds, Mapping):
@@ -708,7 +849,6 @@ def _coverage_blocks(source: PublicationSource) -> dict[str, DataverseMetadataBl
         ("start_time", "hewTemporalStart"),
         ("end_time", "hewTemporalEnd"),
         ("timezone", "hewTemporalTimezone"),
-        ("coverage_status", "hewTemporalCoverageStatus"),
     ):
         if temporal.get(key) is not None:
             value = temporal[key]
@@ -1057,10 +1197,14 @@ def crosswalk_publication(
             "spatial_extent.coordinate_reference_system_uri",
             "customCAFEDataLocation.cafeSpatialReferenceSystem",
         )
+    distribution_blocks, distribution_records = _distribution_blocks(source)
+    coverage_blocks.update(distribution_blocks)
+    for record in distribution_records:
+        _record(mapped, record.source, record.target)
     for name in coverage_blocks:
         _record(
             mapped,
-            "spatial_extent/temporal_extent/spatial_coverage/temporal_coverage",
+            "spatial_extent/temporal_extent/spatial_coverage",
             name,
         )
     if matched_terms:

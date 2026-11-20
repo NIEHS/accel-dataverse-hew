@@ -19,6 +19,61 @@ class PublicationCrosswalkTest(unittest.TestCase):
             target_collection="hew-publications",
         )
 
+    def test_populates_hew_and_cafe_distribution_fields(self):
+        record = {
+            "id": "HEWRES:test-distributions",
+            "title": "Distribution test",
+            "resource_type": "literature",
+            "distributions": [
+                {
+                    "id": "dist-netcdf",
+                    "title": "NetCDF download",
+                    "url": "HTTPS://EXAMPLE.ORG/files/data.nc",
+                    "media_type": "application/x-netcdf",
+                    "format": "NetCDF-4",
+                }
+            ],
+        }
+
+        blocks = crosswalk_publication(record, self.context).to_dataverse_payload()[
+            "datasetVersion"
+        ]["metadataBlocks"]
+
+        data_fields = {
+            field["typeName"]: field for field in blocks["hewDataResource"]["fields"]
+        }
+        self.assertEqual(
+            data_fields["hewDistributionUrl"]["value"],
+            "https://example.org/files/data.nc",
+        )
+        entry = data_fields["hewDistributionEntry"]["value"][0]
+        self.assertEqual(entry["hewDistributionId"]["value"], "dist-netcdf")
+        self.assertEqual(entry["hewDistributionTitle"]["value"], "NetCDF download")
+        self.assertEqual(
+            entry["hewDistributionEntryUrl"]["value"],
+            "https://example.org/files/data.nc",
+        )
+        self.assertEqual(
+            entry["hewDistributionMediaType"]["value"], "application/x-netcdf"
+        )
+        self.assertEqual(entry["hewDistributionFormat"]["value"], "NetCDF-4")
+
+        geographic = {
+            field["typeName"]: field for field in blocks["geospatial"]["fields"]
+        }["geographicDistribution"]["value"][0]
+        self.assertEqual(
+            geographic["geographicDistributionLink"]["value"],
+            "https://example.org/files/data.nc",
+        )
+        self.assertEqual(
+            geographic["geographicDistributionLinkLabel"]["value"],
+            "NetCDF download",
+        )
+        self.assertEqual(
+            geographic["geographicProtocol"]["value"],
+            "HTTPS",
+        )
+
     def test_maps_citation_and_identifiers_with_normalization(self):
         record = {
             "id": "HEWRES:test-1",

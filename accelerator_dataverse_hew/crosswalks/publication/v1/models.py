@@ -58,7 +58,6 @@ class PublicationSource(BaseModel):
     same_as: list[str] | None = None
     themes: list[str] | None = None
     spatial_coverage: str | None = None
-    temporal_coverage: str | None = None
     access_rights: str | None = None
     license: str | None = None
     study_objective: str | None = None

@@ -772,9 +772,6 @@
         },
         "@id": "temporal_alignment"
       },
-      "temporal_coverage": {
-        "@id": "dcterms:temporal"
-      },
       "temporal_resolution": {
         "@id": "temporal_resolution"
       },

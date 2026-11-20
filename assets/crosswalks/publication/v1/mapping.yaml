@@ -72,7 +72,7 @@ mappings:
   - source: [spatial_coverage, spatial_extent]
     target: [geospatial, hewGeospatial]
     transform: geographic_coverage_validated_bounds_geometry_and_compact_resolution_support_summaries
-  - source: [temporal_coverage, temporal_extent]
+  - source: temporal_extent
     target: hewTemporal
     transform: separate_coverage_intervals_from_value_temporal_support
   - source: temporal_support

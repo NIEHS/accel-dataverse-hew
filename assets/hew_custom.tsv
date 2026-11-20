@@ -46,7 +46,6 @@
 	hewGeometryWkt	Geometry WKT	Geometry WKT		textbox	2		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewGeospatial
 	hewGeometryGeoJson	Geometry GeoJSON	Geometry GeoJSON		textbox	3		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewGeospatial
 	hewEnvironmentalContext	Environmental Context Label	Environmental Context Label		text	8		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewGeospatial
-	hewTemporalCoverage	Temporal Coverage	Temporal Coverage		text	0		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewTemporal
 	hewDatasetTemporalSupport	Dataset Temporal Support	Dataset defaults for the time intervals represented by values, separate from coverage dates		none	1		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		hewTemporal	""
 	hewTemporalResolution	Temporal Resolution	Temporal resolution of the dataset's default value support		text	2		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	hewDatasetTemporalSupport	hewTemporal	""
 	hewTemporalCalendar	Calendar	Calendar used to interpret the dataset's default value support, including non-Gregorian calendars		text	3		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewDatasetTemporalSupport	hewTemporal	""
@@ -58,7 +57,6 @@
 	hewTemporalStart	Start Time	Inclusive start of the dataset's temporal coverage		text	9		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewTemporalExtent	hewTemporal	""
 	hewTemporalEnd	End Time	Exclusive end of the dataset's temporal coverage		text	10		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewTemporalExtent	hewTemporal	""
 	hewTemporalTimezone	Timezone	Timezone or UTC offset associated with coverage timestamps		text	11		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewTemporalExtent	hewTemporal	""
-	hewTemporalCoverageStatus	Coverage Status	Status of the temporal coverage interval		text	12		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	hewTemporalExtent	hewTemporal	""
 	hewStudyObjective	Study Objective	Objective of the study represented by the resource		textbox	0		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		hewPublication
 	hewDataDictionaryUrl	Data Dictionary URL	URL for the data dictionary associated with the resource	https://...	url	0	"<a href=""#VALUE"" target=""_blank"">#VALUE</a>"	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		hewDataResource
 	hewDistributionUrl	Distribution URL	URL for a downloadable, API, service, or object distribution	https://...	url	9	"<a href=""#VALUE"" target=""_blank"">#VALUE</a>"	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDataResource

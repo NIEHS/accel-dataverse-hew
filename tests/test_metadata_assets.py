@@ -251,6 +251,7 @@ class MetadataAssetsTest(unittest.TestCase):
                     "end_time": "2025-01-01T00:00:00-05:00",
                     "temporal_resolution": "daily",
                     "calendar": "gregorian",
+                    "timezone": "America/New_York",
                 },
                 "temporal_support": {
                     "calendar": "daymet_365",
@@ -278,12 +279,16 @@ class MetadataAssetsTest(unittest.TestCase):
         self.assertEqual(
             extent["hewTemporalStart"]["value"], "2024-01-01T00:00:00-05:00"
         )
+        self.assertEqual(extent["hewTemporalTimezone"]["value"], "America/New_York")
         self.assertNotIn("hewTemporalResolution", extent)
         support = blocks["hewTemporal"]["fields"][1]["value"]
         self.assertEqual(support["hewTemporalResolution"]["value"], "daily")
         self.assertEqual(support["hewTemporalCalendar"]["value"], "daymet_365")
         self.assertEqual(support["hewDayBoundaryConvention"]["value"], "local_midnight")
         self.assertEqual(support["hewAggregationWindow"]["value"], "P1D")
+        self.assertEqual(
+            support["hewDatasetTemporalTimezone"]["value"], "America/New_York"
+        )
 
     def test_rejects_invalid_coordinate_and_time_ranges(self):
         base = {"id": "HEW:test", "title": "Coverage", "resource_type": "literature"}
