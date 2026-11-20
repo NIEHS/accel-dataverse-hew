@@ -70,10 +70,16 @@ class MetadataAssetsTest(unittest.TestCase):
             self.assertEqual(
                 output["hewMeasureParentLabel"], ["Weather", "Environment"]
             )
-            self.assertEqual(
-                output["hewMeasureParentCurie"], ["vocab:Weather", "vocab:Environment"]
-            )
-            self.assertEqual(output["hewMeasureCurie"], ["HEWM:0000181"])
+            for field in (
+                "hewExposureCurie",
+                "hewHealthImpactCurie",
+                "hewGeographyCurie",
+                "hewTopicCurie",
+                "hewDataToolCurie",
+                "hewMeasureCurie",
+                "hewMeasureParentCurie",
+            ):
+                self.assertNotIn(field, output)
             self.assertFalse(unresolved)
         nested = next(
             (identifier, term)
@@ -87,6 +93,16 @@ class MetadataAssetsTest(unittest.TestCase):
         _, fields, _ = definitions()
         self.assertNotIn("hewResourceTypeCurie", fields)
         self.assertNotIn("hewResourceTypeAlias", fields)
+        for field in (
+            "hewExposureCurie",
+            "hewHealthImpactCurie",
+            "hewGeographyCurie",
+            "hewTopicCurie",
+            "hewDataToolCurie",
+            "hewMeasureCurie",
+            "hewMeasureParentCurie",
+        ):
+            self.assertNotIn(field, fields)
 
     def test_event_types_are_provisioned_as_free_text(self):
         _, fields, _ = definitions()
@@ -253,6 +269,11 @@ class MetadataAssetsTest(unittest.TestCase):
         )
         self.assertIn("geospatial", blocks)
         self.assertIn("hewGeospatial", blocks)
+        geospatial_fields = {
+            field["typeName"] for field in blocks["hewGeospatial"]["fields"]
+        }
+        self.assertNotIn("hewCentroidLatitude", geospatial_fields)
+        self.assertNotIn("hewCentroidLongitude", geospatial_fields)
         extent = blocks["hewTemporal"]["fields"][0]["value"][0]
         self.assertEqual(
             extent["hewTemporalStart"]["value"], "2024-01-01T00:00:00-05:00"

@@ -163,7 +163,6 @@ def discovery_values(source):
         term = vocabulary.get(identifier)
         if not term:
             return
-        add("hewMeasureCurie", identifier)
         add("hewMeasureLabel", term["title"])
         add("hewMeasureAlias", term.get("aliases"))
         add(
@@ -173,7 +172,6 @@ def discovery_values(source):
         add("hewMeasureExactMapping", list(mappings))
         for parent in term["parents"]:
             add("hewMeasureParentLabel", parent["label"])
-            add("hewMeasureParentCurie", parent["curie"])
 
     def concept(stem, item):
         if isinstance(item, str):
@@ -208,10 +206,7 @@ def discovery_values(source):
         if preferred and not is_identifier(preferred):
             add(stem + "Concept", label(preferred))
         elif identifier:
-            add(stem + "Curie", identifier)
             unresolved.append(identifier)
-        if identifier:
-            add(stem + "Curie", identifier)
         add(
             stem + "Alias",
             [
@@ -235,7 +230,6 @@ def discovery_values(source):
         if isinstance(value, str) and curie(value).startswith("HEWM:"):
             identifier = curie(value)
             if identifier not in vocabulary:
-                add("hewMeasureCurie", identifier)
                 unresolved.append(identifier)
             else:
                 measure(identifier)

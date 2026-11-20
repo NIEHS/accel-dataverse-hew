@@ -610,21 +610,9 @@ def _coverage_blocks(source: PublicationSource) -> dict[str, DataverseMetadataBl
                 ],
             )
         )
-    if names:
-        spatial_fields.append(_field("hewNamedLocation", names))
-    location_ids = [
-        item.get("location_id")
-        for item in locations
-        if isinstance(item, Mapping) and item.get("location_id")
-    ]
-    if location_ids:
-        spatial_fields.append(_field("hewLocationIdentifier", location_ids))
     geometry = spatial.get("geometry") or {}
     centroid = spatial.get("centroid") or {}
-    for key, target, limit in (
-        ("latitude", "hewCentroidLatitude", 90),
-        ("longitude", "hewCentroidLongitude", 180),
-    ):
+    for key, limit in (("latitude", 90), ("longitude", 180)):
         if centroid.get(key) is not None:
             try:
                 coordinate = float(centroid[key])
@@ -634,17 +622,12 @@ def _coverage_blocks(source: PublicationSource) -> dict[str, DataverseMetadataBl
                 ) from error
             if not math.isfinite(coordinate) or not -limit <= coordinate <= limit:
                 raise PublicationValidationError(f"centroid {key} is out of range")
-            spatial_fields.append(_field(target, coordinate))
     context = spatial.get("environmental_context") or []
     if context:
         context_values, _ = discovery_values({"themes": context})
         if context_values.get("hewTopicConcept"):
             spatial_fields.append(
                 _field("hewEnvironmentalContext", context_values["hewTopicConcept"])
-            )
-        if context_values.get("hewTopicCurie"):
-            spatial_fields.append(
-                _field("hewEnvironmentalContextCurie", context_values["hewTopicCurie"])
             )
     crs = spatial.get("coordinate_reference_system_uri") or geometry.get(
         "coordinate_reference_system_uri"

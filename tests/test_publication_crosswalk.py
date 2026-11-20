@@ -411,7 +411,7 @@ class PublicationCrosswalkTest(unittest.TestCase):
         self.assertNotIn(
             "Alternate drought label", resource_fields["hewExposureConcept"]["value"]
         )
-        self.assertEqual(resource_fields["hewExposureCurie"]["value"], ["HEWM:0000181"])
+        self.assertNotIn("hewExposureCurie", resource_fields)
         self.assertEqual(
             resource_fields["hewExposureAlias"]["value"],
             [

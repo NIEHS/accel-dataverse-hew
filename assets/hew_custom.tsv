@@ -17,34 +17,27 @@
 	hewResourceType	Record Type	Record Type		text	0		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewDiscovery
 	hewResourceTypeExactMapping	Record Type Exact Mapping CURIE	Record Type Exact Mapping CURIE		text	3		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewExposureConcept	Exposure Label	Exposure Label		text	4		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
-	hewExposureCurie	Exposure CURIE	Exposure CURIE		text	5		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewExposureAlias	Exposure Alias	Exposure Alias		text	6		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewExposureExactMapping	Exposure Exact Mapping CURIE	Exposure Exact Mapping CURIE		text	7		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewHealthImpactConcept	Health Impact Label	Health Impact Label		text	8		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
-	hewHealthImpactCurie	Health Impact CURIE	Health Impact CURIE		text	9		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewHealthImpactAlias	Health Impact Alias	Health Impact Alias		text	10		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewHealthImpactExactMapping	Health Impact Exact Mapping CURIE	Health Impact Exact Mapping CURIE		text	11		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewGeographyConcept	Geography Label	Geography Label		text	12		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
-	hewGeographyCurie	Geography CURIE	Geography CURIE		text	13		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewGeographyAlias	Geography Alias	Geography Alias		text	14		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewGeographyExactMapping	Geography Exact Mapping CURIE	Geography Exact Mapping CURIE		text	15		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewTopicConcept	Topic Label	Topic Label		text	16		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
-	hewTopicCurie	Topic CURIE	Topic CURIE		text	17		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewTopicAlias	Topic Alias	Topic Alias		text	18		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewTopicExactMapping	Topic Exact Mapping CURIE	Topic Exact Mapping CURIE		text	19		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewEvent	Event Type	Event or disaster labels relevant to the resource; free text with no controlled vocabulary specified		text	20		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewDataToolConcept	Data or Tool Label	Data or Tool Label		text	24		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
-	hewDataToolCurie	Data or Tool CURIE	Data or Tool CURIE		text	25		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewDataToolAlias	Data or Tool Alias	Data or Tool Alias		text	26		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewDataToolExactMapping	Data or Tool Exact Mapping CURIE	Data or Tool Exact Mapping CURIE		text	27		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewModelExactMapping	Model Exact Mapping CURIE	Model Exact Mapping CURIE		text	31		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewGeographicFeature	Geographic Feature	Geographic Feature		text	32		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
 	hewMeasureLabel	Measure	Matched HEW_Measures term or transitive taxonomy ancestor; omit the abstract Category root		text	33		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
-	hewMeasureCurie	Measure CURIE	Matched HEW_Measures term or transitive taxonomy ancestor; omit the abstract Category root		text	34		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewMeasureAlias	Measure Alias	Matched HEW_Measures term or transitive taxonomy ancestor; omit the abstract Category root		text	35		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewMeasureExactMapping	Measure Exact Mapping CURIE	Matched HEW_Measures term or transitive taxonomy ancestor; omit the abstract Category root		text	36		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewMeasureParentLabel	Measure Parent	Matched HEW_Measures term or transitive taxonomy ancestor; omit the abstract Category root		text	37		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewDiscovery
-	hewMeasureParentCurie	Measure Parent CURIE	Matched HEW_Measures term or transitive taxonomy ancestor; omit the abstract Category root		text	38		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDiscovery
 	hewResourceId	HEW Resource Identifier	HEW Resource Identifier		text	0		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewResource
 	hewResourceStatus	HEW Resource Status	HEW Resource Status		text	1		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE		hewResource
 	hewRelatedResource	Related HEW Resource	Related HEW Resource		text	2		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewResource
@@ -52,12 +45,7 @@
 	hewGeometryType	Geometry Type	Geometry Type		text	1		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewGeospatial
 	hewGeometryWkt	Geometry WKT	Geometry WKT		textbox	2		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewGeospatial
 	hewGeometryGeoJson	Geometry GeoJSON	Geometry GeoJSON		textbox	3		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewGeospatial
-	hewCentroidLatitude	Centroid Latitude	Centroid Latitude		float	4		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewGeospatial
-	hewCentroidLongitude	Centroid Longitude	Centroid Longitude		float	5		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewGeospatial
-	hewNamedLocation	Named Location	Named Location		text	6		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewGeospatial
-	hewLocationIdentifier	Location Identifier	Location Identifier		text	7		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewGeospatial
 	hewEnvironmentalContext	Environmental Context Label	Environmental Context Label		text	8		TRUE	FALSE	TRUE	TRUE	TRUE	FALSE		hewGeospatial
-	hewEnvironmentalContextCurie	Environmental Context CURIE	Environmental Context CURIE		text	9		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		hewGeospatial
 	hewTemporalCoverage	Temporal Coverage	Temporal Coverage		text	0		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewTemporal
 	hewDatasetTemporalSupport	Dataset Temporal Support	Dataset defaults for the time intervals represented by values, separate from coverage dates		none	1		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		hewTemporal	""
 	hewTemporalResolution	Temporal Resolution	Temporal resolution of the dataset's default value support		text	2		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	hewDatasetTemporalSupport	hewTemporal	""
@@ -71,8 +59,6 @@
 	hewTemporalEnd	End Time	Exclusive end of the dataset's temporal coverage		text	10		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewTemporalExtent	hewTemporal	""
 	hewTemporalTimezone	Timezone	Timezone or UTC offset associated with coverage timestamps		text	11		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	hewTemporalExtent	hewTemporal	""
 	hewTemporalCoverageStatus	Coverage Status	Status of the temporal coverage interval		text	12		TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	hewTemporalExtent	hewTemporal	""
-	hewUpdateCadence	Update Cadence ISO 8601	Update cadence, distinct from temporal resolution and aggregation window		text	14		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewTemporal	""
-	hewTypicalLatency	Typical Latency ISO 8601	Typical delay between observation and availability		text	15		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		hewTemporal	""
 	hewStudyObjective	Study Objective	Objective of the study represented by the resource		textbox	0		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		hewPublication
 	hewDataDictionaryUrl	Data Dictionary URL	URL for the data dictionary associated with the resource	https://...	url	0	"<a href=""#VALUE"" target=""_blank"">#VALUE</a>"	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		hewDataResource
 	hewDistributionUrl	Distribution URL	URL for a downloadable, API, service, or object distribution	https://...	url	9	"<a href=""#VALUE"" target=""_blank"">#VALUE</a>"	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		hewDataResource
